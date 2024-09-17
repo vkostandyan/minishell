@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   helpers.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 20:38:59 by vkostand          #+#    #+#             */
-/*   Updated: 2024/09/17 19:54:42 by vkostand         ###   ########.fr       */
+/*   Created: 2024/09/17 19:51:02 by vkostand          #+#    #+#             */
+/*   Updated: 2024/09/17 20:07:17 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef HELPERS_H
+# define HELPERS_H
 
-int main(int argc, char **argv, char **env)
-{
-    t_data data;
-    
-    init_data(&data, env);
-    start_shell(&data);
-    system("leaks minishell");
-    (void)argc;
-    (void)argv;
-    return (0);
-}
+
+char	**ft_arrdup(char **env);
+void    init_data(t_data *data, char **env);
+void	*free_array(char **str);
+
+#endif

@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 20:38:59 by vkostand          #+#    #+#             */
-/*   Updated: 2024/09/17 19:54:42 by vkostand         ###   ########.fr       */
+/*   Created: 2024/02/07 16:58:30 by vkostand          #+#    #+#             */
+/*   Updated: 2024/02/10 13:45:14 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int main(int argc, char **argv, char **env)
+t_list	*ft_lstnew(void *content)
 {
-    t_data data;
-    
-    init_data(&data, env);
-    start_shell(&data);
-    system("leaks minishell");
-    (void)argc;
-    (void)argv;
-    return (0);
+	t_list	*new;
+
+	new = (t_list *)malloc(sizeof(t_list));
+	if (!new)
+		return (NULL);
+	new->content = content;
+	new->next = NULL;
+	return (new);
 }

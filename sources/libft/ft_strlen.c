@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 20:38:59 by vkostand          #+#    #+#             */
-/*   Updated: 2024/09/17 19:54:42 by vkostand         ###   ########.fr       */
+/*   Created: 2024/01/23 15:52:38 by vkostand          #+#    #+#             */
+/*   Updated: 2024/01/24 16:23:07 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int main(int argc, char **argv, char **env)
+size_t	ft_strlen(const char *s)
 {
-    t_data data;
-    
-    init_data(&data, env);
-    start_shell(&data);
-    system("leaks minishell");
-    (void)argc;
-    (void)argv;
-    return (0);
+	int	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }
