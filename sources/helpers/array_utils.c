@@ -1,41 +1,59 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_arrdup.c                                        :+:      :+:    :+:   */
+/*   array_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/17 19:49:11 by vkostand          #+#    #+#             */
-/*   Updated: 2024/09/20 12:49:25 by vkostand         ###   ########.fr       */
+/*   Created: 2024/09/17 20:07:05 by vkostand          #+#    #+#             */
+/*   Updated: 2024/09/20 12:49:30 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**ft_arrdup(char **env)
+void print_array(char **str)
 {
-	int		i;
-	char	**res;
+	int i;
+	
+	i = 0;
+    while (str[i])
+    {
+        printf("%s\n", str[i]);
+        i++;
+    }
+}
 
-	if (!env)
-		return (NULL);
+void	*free_array(char **str)
+{
+	int	i;
+
 	i = 0;
-	while (env[i])
-		i++;
-	res = (char **)malloc(sizeof(char *) * (i + 1));
-	if (!res)
+	if (!str)
 		return (NULL);
-	i = 0;
-	while (env[i])
+	while (str[i])
 	{
-		res[i] = ft_strdup(env[i]);
-		if (!res[i])
-		{
-			free_array(res);
-			return (NULL);
-		}
+		free(str[i]);
+		str[i] = NULL;
 		i++;
 	}
-	res[i] = NULL;
-	return (res);
+	free(str[i]);
+	str[i] = NULL;
+	free(str);
+	str = NULL;
+	return (NULL);
+}
+
+int count_array_len(char **str)
+{
+	int i;
+
+	i = 0;
+	if(!str)
+		return (i);
+	while(str[i])
+		i++;
+	printf("len -> %d\n", i);
+	
+	return (i);
 }

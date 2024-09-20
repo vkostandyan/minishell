@@ -11,7 +11,8 @@ HEADER =	minishell.h \
 VALIDATION = 
 
 HELPERS =	ft_arrdup.c \
-			free_array.c \
+			array_utils.c \
+			init_export.c \
 			initialization.c
 
 TOKENIZATION =	tokenization.c
@@ -19,7 +20,9 @@ TOKENIZATION =	tokenization.c
 LIBFT = ft_lstadd_back.c \
 		ft_lstnew.c \
 		ft_strdup.c \
-		ft_strlen.c
+		ft_strlen.c \
+		ft_strjoin.c \
+		ft_strncmp.c
 
 SRCS_DIR = ./sources/
 HEADER_DIR = ./headers/

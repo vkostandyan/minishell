@@ -1,33 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_array.c                                       :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/17 20:07:05 by vkostand          #+#    #+#             */
-/*   Updated: 2024/09/17 20:07:09 by vkostand         ###   ########.fr       */
+/*   Created: 2024/02/02 20:54:07 by vkostand          #+#    #+#             */
+/*   Updated: 2024/09/19 16:36:46 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	*free_array(char **str)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	int	i;
+	char	*s;
+	int		i;
+	int		j;
 
-	i = 0;
-	if (!str)
+	if (!s1 || !s2)
 		return (NULL);
-	while (str[i])
+	s = (char *)malloc(sizeof(char const)
+			* (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (s == NULL)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (s1[i] != '\0')
 	{
-		free(str[i]);
-		str[i] = NULL;
+		s[i] = s1[i];
 		i++;
 	}
-	free(str[i]);
-	str[i] = NULL;
-	free(str);
-	str = NULL;
-	return (NULL);
+	while (s2[j] != '\0')
+	{
+		s[i + j] = s2[j];
+		j++;
+	}
+	s[i + j] = '\0';
+	free((void *)s2);
+	return (s);
 }
