@@ -13,11 +13,16 @@ VALIDATION =
 HELPERS =	ft_arrdup.c \
 			array_utils.c \
 			init_export.c \
-			initialization.c
+			initialization.c \
+			clean_data.c \
+			merge.c
 
 TOKENIZATION =	tokenization.c
 
+BUILIN = environment.c
+
 LIBFT = ft_lstadd_back.c \
+		ft_strcmp.c \
 		ft_lstnew.c \
 		ft_strdup.c \
 		ft_strlen.c \
@@ -30,6 +35,7 @@ LIBFT_DIR = ./sources/libft/
 VALIDATION_DIR = ./sources/validation/
 TOKENIZATION_DIR = ./sources/tokenization/
 HELPERS_DIR = ./sources/helpers/
+BUILIN_DIR = ./sources/builtin/
 
 
 SRCS := $(addprefix $(SRCS_DIR), $(SRCS))
@@ -38,11 +44,13 @@ LIBFT := $(addprefix $(LIBFT_DIR), $(LIBFT))
 VALIDATION := $(addprefix $(VALIDATION_DIR), $(VALIDATION))
 TOKENIZATION := $(addprefix $(TOKENIZATION_DIR), $(TOKENIZATION))
 HELPERS := $(addprefix $(HELPERS_DIR), $(HELPERS))
+BUILIN := $(addprefix $(BUILIN_DIR), $(BUILIN))
 
 SRCS += $(LIBFT)
 SRCS += $(VALIDATION)
 SRCS += $(TOKENIZATION)
 SRCS += $(HELPERS)
+SRCS += $(BUILIN)
 
 OBJS = ${SRCS:.c=.o} #> ./sources/validation/a
 

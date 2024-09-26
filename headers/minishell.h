@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:25:48 by vkostand          #+#    #+#             */
-/*   Updated: 2024/09/19 16:24:54 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/09/24 19:45:17 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,25 @@
 
 #include "tokenization.h"
 
+typedef struct s_env_export t_env_export;
+
 typedef struct s_data
 {
-    char **export;
-    char **env;
+    // char **export;
+    // char **env;
+    struct t_env_export *env;
+    struct t_env_export *export;
+    
     t_token *tokens;
     char *input;
 }               t_data;
+
+struct t_env_export
+{
+    char *key;
+    char *value;
+    struct t_env_export *next;  
+};
 
 #include "libft.h"
 #include "helpers.h"

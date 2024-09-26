@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 17:35:42 by vkostand          #+#    #+#             */
-/*   Updated: 2024/02/10 14:09:55 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/09/21 16:41:58 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void				*ft_memcpy(void *dst, const void *src, size_t n);
 int					ft_tolower(int i);
 int					ft_toupper(int i);
 void				*ft_memmove(void *dst, const void *src, size_t len);
+int	ft_strcmp(char *s1, char *s2);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 char				*ft_strchr(const char *s, int c);
 int					ft_atoi(const char *str);
