@@ -15,11 +15,15 @@ HELPERS =	ft_arrdup.c \
 			init_export.c \
 			initialization.c \
 			clean_data.c \
+			helpers.c \
 			merge.c
 
 TOKENIZATION =	tokenization.c
 
-BUILIN = environment.c
+BUILIN =	env.c \
+			export.c \
+			pwd.c \
+			echo.c
 
 LIBFT = ft_lstadd_back.c \
 		ft_strcmp.c \
@@ -27,7 +31,9 @@ LIBFT = ft_lstadd_back.c \
 		ft_strdup.c \
 		ft_strlen.c \
 		ft_strjoin.c \
-		ft_strncmp.c
+		ft_strncmp.c \
+		ft_atoi.c \
+		ft_itoa.c 
 
 SRCS_DIR = ./sources/
 HEADER_DIR = ./headers/

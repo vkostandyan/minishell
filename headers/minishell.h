@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:25:48 by vkostand          #+#    #+#             */
-/*   Updated: 2024/09/24 19:45:17 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/10/03 17:20:27 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ struct t_env_export
 
 #include "libft.h"
 #include "helpers.h"
+#include "builtin.h"
+
 
 
 

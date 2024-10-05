@@ -1,23 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialization.c                                   :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/16 17:57:05 by vkostand          #+#    #+#             */
-/*   Updated: 2024/10/03 19:29:15 by vkostand         ###   ########.fr       */
+/*   Created: 2024/10/03 20:38:25 by vkostand          #+#    #+#             */
+/*   Updated: 2024/10/05 17:27:10 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void init_data(t_data *data, char **env)
+int has_option(char *str)
 {
-    data->env = init_env(env);
-    data->export = init_env(env);
-    clarify_shlvl(data->env);
-    clarify_shlvl(data->export);
-    data->export = add_oldpwd(data);
-    data->export = merge(data->export, ft_strcmp);
+    int i;
+
+    i = 0;
+    if(str[i] != '-')
+        return (0);
+    i++;
+    while (str[i])
+    {
+        if (str[i] == '-')
+			return (0);
+		else if (str[i] != 'n')
+			return (0);
+        i++;
+    }
+    return(1);
 }
+
+int echo()
+{
+    printf("option -> %d\n", has_option("-n -n"));
+    return (0);
+}
+
+// int echo(char **args)
+// {
+    
+// }
