@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:51:02 by vkostand          #+#    #+#             */
-/*   Updated: 2024/10/03 17:20:45 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/10/07 19:01:14 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # define MALLOC_ERR 3
 # define CWD_ERR 4
-# define PATH_MAX 1024
 
 char				**ft_arrdup(char **env);
 void				init_data(t_data *data, char **env);
@@ -25,9 +24,13 @@ void				print_array(char **str);
 int					count_array_len(char **str);
 void				sort_array(char **str);
 void				print_list(struct t_env_export *env);
+void	minishell_error(char *cmd, char *arg, char *msg);
 
 //---- Clean data -----
 void				clean_data(t_data *data);
 void				exit_shell(t_data *data, int exit_signal);
+void free_env_node(struct t_env_export *node);
+void				free_env_export(struct t_env_export *env_export);
+
 
 #endif

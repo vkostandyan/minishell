@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 15:25:46 by vkostand          #+#    #+#             */
-/*   Updated: 2024/09/24 19:52:47 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:34:29 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,20 @@ void clean_data(t_data *data)
     free_env_export(data->env);
     free_env_export(data->export);
     // free_env(data);
+}
+
+void free_env_node(struct t_env_export *node)
+{
+    if(node->key)
+    {
+        free(node->key);
+        node->key = NULL;
+    }
+    if(node->value)
+    {
+        free(node->value);
+        node->value = NULL;
+    }
+    free(node);
+    node = NULL;
 }

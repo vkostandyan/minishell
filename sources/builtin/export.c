@@ -6,13 +6,11 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 20:32:07 by vkostand          #+#    #+#             */
-/*   Updated: 2024/10/03 19:19:29 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/10/07 19:01:30 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
 
 struct t_env_export *add_oldpwd(t_data *data)
 {

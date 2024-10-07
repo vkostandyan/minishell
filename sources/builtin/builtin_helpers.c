@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   builtin_helpers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/02 12:32:52 by vkostand          #+#    #+#             */
-/*   Updated: 2024/10/07 18:42:56 by vkostand         ###   ########.fr       */
+/*   Created: 2024/10/07 18:20:11 by vkostand          #+#    #+#             */
+/*   Updated: 2024/10/07 18:24:15 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int pwd(t_data *data)
+int check_variable_name(char *name)
 {
-    char pwd[PATH_MAX];
-
-    if (!data)
-	{
-		minishell_error("pwd", "NULL", "Data error\n");
-		return (EXIT_FAILURE);
-	}
-	if (!getcwd(pwd, PATH_MAX))
-	{
-		minishell_error("pwd", "NULL", "Directory error\n");
-		return (EXIT_FAILURE);
-	}
-    write(STDOUT_FILENO, pwd, ft_strlen(pwd));
-	write(STDOUT_FILENO, "\n", 1);
+    if(!name)
+        return (EXIT_SUCCESS);
+    if(name[0] && !ft_isalpha(name[0]) && name[0] != '_')
+        return (EXIT_FAILURE);
+    int i;
+    i = 1;
+    while(name[i])
+    {
+        if(name[i] != '_' && !ft_isalnum(name[i]))
+            return (EXIT_FAILURE);
+        i++;
+    }
     return (EXIT_SUCCESS);
 }

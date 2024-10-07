@@ -1,32 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/02 12:32:52 by vkostand          #+#    #+#             */
-/*   Updated: 2024/10/07 18:42:56 by vkostand         ###   ########.fr       */
+/*   Created: 2024/01/23 15:35:08 by vkostand          #+#    #+#             */
+/*   Updated: 2024/01/23 17:29:35 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int pwd(t_data *data)
+int	ft_isalnum(int i)
 {
-    char pwd[PATH_MAX];
-
-    if (!data)
-	{
-		minishell_error("pwd", "NULL", "Data error\n");
-		return (EXIT_FAILURE);
-	}
-	if (!getcwd(pwd, PATH_MAX))
-	{
-		minishell_error("pwd", "NULL", "Directory error\n");
-		return (EXIT_FAILURE);
-	}
-    write(STDOUT_FILENO, pwd, ft_strlen(pwd));
-	write(STDOUT_FILENO, "\n", 1);
-    return (EXIT_SUCCESS);
+	if ((i >= '0' && i <= '9') || (i >= 'a' && i <= 'z')
+		|| (i >= 'A' && i <= 'Z'))
+		return (1);
+	return (0);
 }

@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/02 12:32:52 by vkostand          #+#    #+#             */
-/*   Updated: 2024/10/07 18:42:56 by vkostand         ###   ########.fr       */
+/*   Created: 2024/02/02 18:42:16 by vkostand          #+#    #+#             */
+/*   Updated: 2024/02/02 18:57:58 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int pwd(t_data *data)
+void	ft_putstr_fd(char *s, int fd)
 {
-    char pwd[PATH_MAX];
-
-    if (!data)
-	{
-		minishell_error("pwd", "NULL", "Data error\n");
-		return (EXIT_FAILURE);
-	}
-	if (!getcwd(pwd, PATH_MAX))
-	{
-		minishell_error("pwd", "NULL", "Directory error\n");
-		return (EXIT_FAILURE);
-	}
-    write(STDOUT_FILENO, pwd, ft_strlen(pwd));
-	write(STDOUT_FILENO, "\n", 1);
-    return (EXIT_SUCCESS);
+	if (!s)
+		return ;
+	write (fd, s, ft_strlen(s));
 }

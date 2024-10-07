@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 20:03:31 by vkostand          #+#    #+#             */
-/*   Updated: 2024/10/03 19:29:00 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:14:00 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,23 @@ void exit_shell(t_data *data, int exit_signal)
 {
     clean_data(data);
     exit(exit_signal);
+}
+
+void	minishell_error(char *cmd, char *arg, char *msg)
+{
+	if (!cmd)
+		return ;
+	write(STDERR_FILENO, "minishell: ", ft_strlen("minishell: "));
+	write(STDERR_FILENO, cmd, ft_strlen(cmd));
+	write(STDERR_FILENO, ": ", 2);
+	if (arg)
+	{
+		write(STDERR_FILENO, "`", 1);
+		write(STDERR_FILENO, arg, ft_strlen(arg));
+		write(STDERR_FILENO, "': ", 3);
+	}
+	if (msg)
+		write(STDERR_FILENO, msg, ft_strlen(msg));
+	else
+		perror("");
 }

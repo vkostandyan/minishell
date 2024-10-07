@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 20:38:25 by vkostand          #+#    #+#             */
-/*   Updated: 2024/10/05 17:27:10 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/10/07 20:35:40 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,30 @@ int has_option(char *str)
     return(1);
 }
 
-int echo()
+int echo(char **args)
 {
-    printf("option -> %d\n", has_option("-n -n"));
-    return (0);
+    int i;
+    int newline;
+    
+    newline = 1;
+    i = 0;
+    if (args && args[i])
+        i++;
+    while(args && args[i] && has_option(args[i]))
+    {
+        newline = 0;
+        i++;
+    }
+    while(args && args[i])
+    {
+        ft_putstr_fd(args[i], 1);
+        i++;
+        if (args[i])
+            ft_putstr_fd(" ", 1);
+    }
+    if(newline)
+        ft_putstr_fd("\n", 1);
+    return (EXIT_SUCCESS);
 }
 
 // int echo(char **args)

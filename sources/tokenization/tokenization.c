@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:31:25 by vkostand          #+#    #+#             */
-/*   Updated: 2024/09/17 18:43:49 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/10/06 16:30:57 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,17 @@
 //     return(0);
 // }
 
-void create_tokens(t_data *data)
-{
-    (void)data;
-}
+// void create_tokens(t_data *data)
+// {
+//     (void)data;
+// }
 
-void start_shell(t_data *data)
-{
-    while(1)
-    {
-        data->input = readline("Verishen: ");
-        create_tokens(data); 
-        printf("--> %s\n", data->input);
-    }
-}
+// void start_shell(t_data *data)
+// {
+//     while(1)
+//     {
+//         data->input = readline("Verishen: ");
+//         create_tokens(data); 
+//         printf("--> %s\n", data->input);
+//     }
+// }

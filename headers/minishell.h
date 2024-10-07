@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:25:48 by vkostand          #+#    #+#             */
-/*   Updated: 2024/10/03 17:20:27 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/10/06 16:30:37 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ struct t_env_export
 #include "libft.h"
 #include "helpers.h"
 #include "builtin.h"
+#include "execution.h"
 
 
 
-
-void start_shell(t_data *data);
+// void start_shell(t_data *data);
 // void	ft_lstadd_back(t_token **lst, t_token *new);
 // t_token	*ft_lstnew(void *content);
 

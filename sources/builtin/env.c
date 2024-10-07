@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   environment.c                                      :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:30:53 by vkostand          #+#    #+#             */
-/*   Updated: 2024/09/23 21:29:00 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/10/07 18:58:06 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char *find_key(char *key_value)
+static char *find_key(char *key_value)
 {
     int i;
     char *key;
@@ -35,7 +35,7 @@ char *find_key(char *key_value)
     return (key);
 }
 
-char *find_value(char *key_value)
+static char *find_value(char *key_value)
 {
     int i;
     int j;
@@ -81,6 +81,17 @@ struct t_env_export *init_env(char **env)
     }
     new_env = temp.next;
     return(new_env);
+}
+
+int env(t_data *data)
+{
+    if (!data)
+	{
+		minishell_error("pwd", "NULL", "Data error\n");
+		return (EXIT_FAILURE);
+	}
+    print_list(data->env);
+    return(EXIT_SUCCESS);
 }
 
 // void init_env(t_data *data, char **env)
