@@ -6,11 +6,25 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:30:53 by vkostand          #+#    #+#             */
-/*   Updated: 2024/10/07 18:58:06 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/10/08 18:23:48 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char *get_value_from_env(struct t_env_export *env, char *key)
+{
+    struct t_env_export *temp;
+
+    temp = env;
+    while(temp)
+    {
+        if(ft_strcmp(temp->key, key) == 0)
+            return (temp->value);
+        temp = temp->next;
+    }
+    return (NULL);
+}
 
 static char *find_key(char *key_value)
 {

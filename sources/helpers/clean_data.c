@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 15:25:46 by vkostand          #+#    #+#             */
-/*   Updated: 2024/10/07 17:34:29 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/10/08 20:55:38 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ void clean_data(t_data *data)
 {
     free_env_export(data->env);
     free_env_export(data->export);
+    // free(data->work_dir);
+    // data->work_dir = NULL;
     // free_env(data);
 }
 

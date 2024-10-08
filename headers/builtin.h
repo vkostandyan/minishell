@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:17:10 by vkostand          #+#    #+#             */
-/*   Updated: 2024/10/07 21:08:52 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/10/08 20:46:13 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 /*
 	cd functions
 */
-int                 cd(t_data *data, char **args); // int cd(t_data *data)
+int					cd(t_data *data, char **args); // int cd(t_data *data)
+int update_workdirs(t_data *data, char *new_path);
 
 /*
 	echo functions
@@ -31,6 +32,7 @@ int					echo(char **args);
 */
 struct t_env_export	*init_env(char **env);
 void				clarify_shlvl(struct t_env_export *env_export);
+char				*get_value_from_env(struct t_env_export *env, char *key);
 
 /*
 	export functions
@@ -45,12 +47,12 @@ struct t_env_export	*merge(struct t_env_export *begin, int (*cmp)());
 /*
 	pwd functions
 */
-int				    pwd(t_data *data);
+int					pwd(t_data *data);
 
 /*
 	unset functions
 */
-int	unset(t_data *data, char **args); // int unset(t_data *data)
+int					unset(t_data *data, char **args); // int unset(t_data *data)
 
 /*
 	builtin helper functions
