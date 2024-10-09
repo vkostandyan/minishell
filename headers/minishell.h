@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:25:48 by vkostand          #+#    #+#             */
-/*   Updated: 2024/10/08 18:12:06 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/10/09 21:32:26 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,6 @@ typedef struct s_data
 {
     struct t_env_export *env;
     struct t_env_export *export;
-    
-    char *work_dir;
-    char *old_work_dir;
     
     t_token *tokens;
     char *input;

@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialization.c                                   :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/16 17:57:05 by vkostand          #+#    #+#             */
-/*   Updated: 2024/10/09 22:23:43 by vkostand         ###   ########.fr       */
+/*   Created: 2024/02/02 18:34:32 by vkostand          #+#    #+#             */
+/*   Updated: 2024/02/02 18:40:46 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void init_data(t_data *data, char **env)
+void	ft_putchar_fd(char c, int fd)
 {
-    data->env = init_env(env);
-    data->export = init_env(env);
-    clarify_shlvl(data->env);
-    clarify_shlvl(data->export);
-    data->export = add_oldpwd(data);
-    data->export = merge(data->export, ft_strcmp);
+	write (fd, &c, 1);
 }
