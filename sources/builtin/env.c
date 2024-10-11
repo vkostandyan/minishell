@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:30:53 by vkostand          #+#    #+#             */
-/*   Updated: 2024/10/09 22:29:53 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/10/11 19:50:47 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int update_env(struct t_env_export *env, char *key, char *value)
     temp = env;
     while(temp)
     {
-        if(temp->key == key)
+        if(ft_strcmp(env->key, key) == 0)
         {
             free(temp->value);
             temp->value = value;//ft_strdup(value);
@@ -54,7 +54,7 @@ char *get_value_from_env(struct t_env_export *env, char *key)
     return (NULL);
 }
 
-static char *find_key(char *key_value)
+char *find_key(char *key_value)
 {
     int i;
     char *key;
@@ -77,7 +77,7 @@ static char *find_key(char *key_value)
     return (key);
 }
 
-static char *find_value(char *key_value)
+char *find_value(char *key_value)
 {
     int i;
     int j;
