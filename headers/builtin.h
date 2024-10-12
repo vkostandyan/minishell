@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:17:10 by vkostand          #+#    #+#             */
-/*   Updated: 2024/10/11 19:51:25 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/10/12 16:01:47 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void print_export(struct t_env_export *export);
 struct t_env_export	*add_oldpwd(t_data *data);
 struct t_env_export	*mid_point(struct t_env_export *head);
 struct t_env_export	*merge(struct t_env_export *begin, int (*cmp)());
-int export(struct t_env_export *export, char **args);
+// int export(struct t_env_export *export, char **args);
+struct t_env_export *export(struct t_env_export *export, char **args);
 
 /*
 	pwd functions

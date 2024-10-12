@@ -1,31 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_helpers.c                                  :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/07 18:20:11 by vkostand          #+#    #+#             */
-/*   Updated: 2024/10/12 14:46:27 by vkostand         ###   ########.fr       */
+/*   Created: 2024/01/24 20:11:41 by vkostand          #+#    #+#             */
+/*   Updated: 2024/02/01 16:31:18 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int check_variable_name(char *name)
+char	*ft_strchr(const char *s, int c)
 {
-    int i;
+	int		i;
 
-    if(!name)
-        return (EXIT_FAILURE);
-    if(name[0] && !ft_isalpha(name[0]) && name[0] != '_')
-        return (EXIT_FAILURE);
-    i = 1;
-    while(name[i] && name[i] != '=')
-    {
-        if(name[i] != '_' && !ft_isalnum(name[i]))
-            return (EXIT_FAILURE);
-        i++;
-    }
-    return (EXIT_SUCCESS);
+	i = 0;
+	while (*s)
+	{
+		if (*s == (char)c)
+			return ((char *)s);
+		s++;
+	}
+	if (c == '\0')
+		return ((char *)s);
+	return (0);
 }
+/*
+int	main(void)
+{
+	printf("%c", *ft_strchr("ssada", 't'));
+	return (0);
+}*/

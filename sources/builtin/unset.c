@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:33:28 by vkostand          #+#    #+#             */
-/*   Updated: 2024/10/07 18:55:55 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/10/12 14:45:31 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ static int delete_variable(t_data *data, char *var)
 {
     int	status;
 
+    printf("%s\n\n\n", var);
     status = check_variable_name(var);
     if(status != EXIT_SUCCESS)
     {

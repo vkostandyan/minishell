@@ -37,6 +37,7 @@ BUILIN =	cd.c \
 LIBFT = ft_lstadd_back.c \
 		ft_atoi.c \
 		ft_itoa.c \
+		ft_strchr.c \
 		ft_strcmp.c \
 		ft_lstnew.c \
 		ft_strdup.c \
