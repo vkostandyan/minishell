@@ -1,5 +1,14 @@
 {
     "files.associations": {
-        "minishell.h": "c"
+        "minishell.h": "c",
+        "tokenization.h": "c",
+        "execution.h": "c",
+        "helpers.h": "c",
+        "builtin.h": "c",
+        "array": "c",
+        "iterator": "c",
+        "string": "c",
+        "string_view": "c",
+        "vector": "c"
     }
 }

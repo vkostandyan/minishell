@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 17:35:42 by vkostand          #+#    #+#             */
-/*   Updated: 2024/10/01 20:08:42 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:59:09 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,11 @@ size_t				ft_strlcat(char *dst, const char *src, size_t dstsize);
 void				*ft_calloc(size_t count, size_t size);
 char				*ft_strdup(char *s1);
 
+char    *ft_strndup(const char *s1, int n, int m);
+
 char				*ft_substr(char const *s, unsigned int start, size_t len);
-char				*ft_strjoin(char const *s1, char const *s2);
+// char				*ft_strjoin(char const *s1, char const *s2);
+char				*ft_strjoin(char *s1, char *s2);
 char				*ft_strtrim(char const *s1, char const *set);
 char				**ft_split(char const *s, char c);
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
@@ -57,6 +60,7 @@ void				ft_putstr_fd(char *s, int fd);
 void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
+char *ft_strncat(const char *str, int start, int end);
 
 typedef struct s_list
 {
@@ -64,11 +68,14 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
-t_list				*ft_lstnew(void *content);
+// t_list				*ft_lstnew(void *content);
 void				ft_lstadd_front(t_list **lst, t_list *new);
 int					ft_lstsize(t_list *lst);
 t_list				*ft_lstlast(t_list *lst);
-void				ft_lstadd_back(t_list **lst, t_list *new);
+// void				ft_lstadd_back(t_list **lst, t_list *new);
+// t_token	*ft_lstnew(int quotes);
+// void		ft_lstadd_back(t_token **lst, t_token *new);
+
 void				ft_lstdelone(t_list *lst, void (*del)(void *));
 void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));

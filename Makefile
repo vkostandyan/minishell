@@ -1,6 +1,6 @@
 NAME = minishell
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3 #-lreadline
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3 #-lreadline
 
 CC = cc 
 
@@ -23,7 +23,11 @@ HELPERS =	merge.c \
 
 EXECUTION =	processes.c
 
-TOKENIZATION =	tokenization.c
+TOKENIZATION =	tokenization.c \
+				tokenization_utils.c \
+				tokens_quotes_type.c \
+				tokens_insertion.c \
+				list_functions.c
 
 BUILIN =	cd.c \
 			env.c \
@@ -49,7 +53,10 @@ LIBFT = ft_lstadd_back.c \
 		ft_isalnum.c \
 		ft_putstr_fd.c \
 		ft_putchar_fd.c \
-		ft_putendl_fd.c
+		ft_putendl_fd.c \
+		\
+		ft_substr.c \
+		ft_strncat.c
 
 # OBJ_DIR = ./build/
 SRCS_DIR = ./sources/
