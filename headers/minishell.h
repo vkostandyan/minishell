@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:25:48 by vkostand          #+#    #+#             */
-/*   Updated: 2024/10/09 21:32:26 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/10/30 17:27:05 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ typedef struct s_env_export t_env_export;
 
 typedef struct s_data
 {
-    struct t_env_export *env;
     struct t_env_export *export;
+    struct t_env_export *env;
     
     t_token *tokens;
     char *input;
@@ -45,8 +45,6 @@ struct t_env_export
 #include "helpers.h"
 #include "builtin.h"
 #include "execution.h"
-
-
 
 // void start_shell(t_data *data);
 // void	ft_lstadd_back(t_token **lst, t_token *new);

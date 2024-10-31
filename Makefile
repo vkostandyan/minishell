@@ -1,6 +1,6 @@
 NAME = minishell
 
-CFLAGS = -Wall -Wextra -Werror #-lreadline #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3 #-lreadline
 
 CC = cc 
 
@@ -51,6 +51,7 @@ LIBFT = ft_lstadd_back.c \
 		ft_putchar_fd.c \
 		ft_putendl_fd.c
 
+# OBJ_DIR = ./build/
 SRCS_DIR = ./sources/
 HEADER_DIR = ./headers/
 LIBFT_DIR = ./sources/libft/
@@ -76,9 +77,14 @@ SRCS += $(EXECUTION)
 SRCS += $(VALIDATION)
 SRCS += $(TOKENIZATION)
 
+
+# OBJS = $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRCS))
 OBJS = ${SRCS:.c=.o} #> ./sources/validation/a
 
 all: ${NAME}
+
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
 
 ${NAME}: ${OBJS} Makefile 
 	@${CC} ${CFLAGS} -I$(HEADER_DIR) ${OBJS} -o ${NAME} -lreadline

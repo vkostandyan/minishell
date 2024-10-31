@@ -6,12 +6,11 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 20:03:31 by vkostand          #+#    #+#             */
-/*   Updated: 2024/10/11 19:29:14 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/10/28 18:22:45 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 void clarify_shlvl(struct t_env_export *env_export)
 {
