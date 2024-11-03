@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_insertion.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kgalstya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 14:10:02 by kgalstya          #+#    #+#             */
-/*   Updated: 2024/10/31 15:47:02 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/03 17:15:00 by kgalstya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void dollar_insertion(t_data *data)
     data->current = data->tokens;
     while(data->current)
     {
-        if(data->current->quotes != 1 && data->current->original_content[0] == '$' && (data->current->quotes == data->current->next->quotes))
+        if((data->current->next && data->current->quotes != 1) && data->current->original_content[0] == '$' && (data->current->quotes == data->current->next->quotes))
         {
             if(data->current->next && data->current->next->type == SPACE)
             {
@@ -184,7 +184,7 @@ void redir_insertion(t_data *data)
     while(data->current)
     {
         first = data->current;
-        if(data->current->quotes == 0 && (data->current->original_content[0] == '>' && data->current->next->original_content[0] == '>'))
+        if(data->current->next && data->current->quotes == 0 && (data->current->original_content[0] == '>' && data->current->next->original_content[0] == '>'))
         {
             if(data->current->next->quotes == 0)
             {
@@ -248,14 +248,15 @@ void connect_tokens(t_data *data)
 
 void space_insertion(t_data *data)
 {
-    data->current = data->tokens;
     connect_tokens(data);
+    data->current = data->tokens;
     while(data->current)
     {
         if(data->current->type == SPACE && data->current->quotes == 0)
-            make_space_one(data->current);
+            data->current = ft_lst_delone(&data->tokens, data->current);
         ///// poxel yst anhrajeshtutyan /////
-        data->current = data->current->next;
+        else
+            data->current = data->current->next;
     }
 }
 

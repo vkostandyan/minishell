@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kgalstya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:31:25 by vkostand          #+#    #+#             */
-/*   Updated: 2024/10/31 18:22:18 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/03 16:54:23 by kgalstya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int check_pipe_red_env(t_data *data)
     else if(data->input[data->i] == '$')
     {
         data->i++;
+        data->type = WORD;
         fill_tokens(data, data->i, data->j, data->quotes_flag);
         return(1);
     }
