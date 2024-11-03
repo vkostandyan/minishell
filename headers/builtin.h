@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:17:10 by vkostand          #+#    #+#             */
-/*   Updated: 2024/10/12 16:01:47 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/02 17:18:43 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ char				*get_value_from_env(struct t_env_export *env, char *key);
 int update_env(struct t_env_export *env, char *key, char *value);
 char *find_key(char *key_value);
 char *find_value(char *key_value);
+int env(t_data *data);
 
 /*
 	export functions

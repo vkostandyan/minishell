@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:25:29 by vkostand          #+#    #+#             */
-/*   Updated: 2024/10/31 17:02:33 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/02 17:01:26 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ typedef enum s_quotes t_quotes;
 typedef enum s_type t_type;
 typedef struct s_token t_token;
 typedef struct s_data t_data;
-
 
 enum s_quotes
 {

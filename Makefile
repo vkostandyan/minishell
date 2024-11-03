@@ -1,6 +1,6 @@
 NAME = minishell
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3 #-lreadline
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3 #-lreadline
 CC = cc 
 
 SRCS = main.c
@@ -54,6 +54,8 @@ LIBFT = ft_lstadd_back.c \
         ft_putchar_fd.c \
         ft_putendl_fd.c \
         ft_substr.c \
+		ft_split.c \
+		ft_strlcpy.c \
         ft_strncat.c
 
 OBJ_DIR = ./objects/

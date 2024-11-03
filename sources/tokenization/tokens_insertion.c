@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_insertion.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgalstya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 14:10:02 by kgalstya          #+#    #+#             */
-/*   Updated: 2024/11/03 17:15:00 by kgalstya         ###   ########.fr       */
+/*   Updated: 2024/11/03 17:24:31 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,12 +265,12 @@ void tokens_insertion(t_data *data)
     remove_brakets(data);
     single_string_insertion(data);
     dollar_insertion(data);
-    print_data(data);
+    // print_data(data);
     double_string_insertion(data);
-    print_data(data);
+    // print_data(data);
     redir_insertion(data);
     space_insertion(data);
-    print_data(data);
+    // print_data(data);
     // pipe_insertion(data);
     // heredoc_insertion(data);
 }

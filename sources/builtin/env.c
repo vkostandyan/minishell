@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:30:53 by vkostand          #+#    #+#             */
-/*   Updated: 2024/10/29 18:53:45 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/02 17:00:31 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,6 @@ struct t_env_export *init_env(char **env)
         current = new_node;
         i++;
     }
-    printf("aadsdasd\n\n");
     return head;
 }
 

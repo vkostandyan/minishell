@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution.h                                        :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/06 16:27:50 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/03 18:24:46 by vkostand         ###   ########.fr       */
+/*   Created: 2024/02/02 11:27:15 by vkostand          #+#    #+#             */
+/*   Updated: 2024/02/02 11:49:51 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTION_H
-# define EXECUTION_H
+#include "libft.h"
 
-typedef struct s_cmd t_cmd;
-
-struct s_cmd
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-    struct s_data *data;
-    
-    char **args;
-    char *path;
-};
+	size_t	i;
+	size_t	j;
 
-void start_shell(t_data *data);
-
-#endif
+	j = ft_strlen(src);
+	if (dstsize == 0)
+		return (j);
+	i = 0;
+	while (i < dstsize - 1 && src[i] != '\0')
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (j);
+}
