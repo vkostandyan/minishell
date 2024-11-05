@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:25:48 by vkostand          #+#    #+#             */
-/*   Updated: 2024/10/31 17:01:23 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/04 16:41:16 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,17 @@ typedef struct s_token t_token;
 
 typedef struct s_data t_data;
 
+typedef struct s_cmd t_cmd;
+
+struct s_cmd
+{
+    struct s_data *data;
+    
+    char *name;
+    char **args;
+    char *path;
+    t_cmd *next;
+};
 
 struct s_data
 {
@@ -35,6 +46,7 @@ struct s_data
     struct t_env_export *export;
     struct t_env_export *env;
     
+    t_cmd *cmd;
 
     // Karen
     int i;

@@ -5,8 +5,9 @@ CC = cc
 
 SRCS = main.c
 
-HEADER = libft.h \
+HEADER =  libft.h \
           helpers.h \
+          builtin.h \
           minishell.h \
           tokenization.h
 
@@ -20,7 +21,8 @@ HELPERS = merge.c \
            init_export.c \
            initialization.c 
 
-EXECUTION = processes.c
+EXECUTION = processes.c\
+            lexer.c
 
 TOKENIZATION = tokenization.c \
                tokenization_utils.c \

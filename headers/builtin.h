@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:17:10 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/02 17:18:43 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/05 22:15:13 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,8 @@ int					unset(t_data *data, char **args); // int unset(t_data *data)
 	builtin helper functions
 */
 int					check_variable_name(char *name);
+char				*get_value(struct t_env_export *env, char *key);
+char **list_to_array(struct t_env_export *env);
+int is_biltin(char *cmd);
 
 #endif
