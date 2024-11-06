@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 20:32:07 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/02 18:17:09 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/06 20:57:44 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,40 +111,14 @@ struct t_env_export *set_variable(struct t_env_export *export, char *var)
     return (new);
 }
 
-struct t_env_export *export(struct t_env_export *export, char **args)
-{
-    int i;
-    
-    if(!export || !args)
-        return(NULL);
-    if(args[0] && !args[1])
-        return (print_export(export), export);
-    i = 1;
-    while(args[i])
-    {
-        if(check_variable_name(args[i]) == EXIT_SUCCESS)
-        {
-            export = set_variable(export, args[i]);
-            if(!export)
-                return (NULL);
-            // if(set_variable(export, args[i]) != EXIT_SUCCESS)
-            //     return (EXIT_FAILURE);
-        }
-        else
-            minishell_error("export", args[i], "not a valid identifier");
-        i++;
-    }
-    return (export);
-}
-
-// int export(struct t_env_export *export, char **args)
+// struct t_env_export *export(struct t_env_export *export, char **args)
 // {
 //     int i;
     
 //     if(!export || !args)
-//         return(EXIT_FAILURE);
+//         return(NULL);
 //     if(args[0] && !args[1])
-//         return (print_export(export), EXIT_SUCCESS);
+//         return (print_export(export), export);
 //     i = 1;
 //     while(args[i])
 //     {
@@ -152,7 +126,7 @@ struct t_env_export *export(struct t_env_export *export, char **args)
 //         {
 //             export = set_variable(export, args[i]);
 //             if(!export)
-//                 return (EXIT_FAILURE);
+//                 return (NULL);
 //             // if(set_variable(export, args[i]) != EXIT_SUCCESS)
 //             //     return (EXIT_FAILURE);
 //         }
@@ -160,6 +134,32 @@ struct t_env_export *export(struct t_env_export *export, char **args)
 //             minishell_error("export", args[i], "not a valid identifier");
 //         i++;
 //     }
-//     return (EXIT_SUCCESS);
+//     return (export);
 // }
+
+int export(struct t_env_export *export, char **args)
+{
+    int i;
+    
+    if(!export || !args)
+        return(EXIT_FAILURE);
+    if(args[0] && !args[1])
+        return (print_export(export), EXIT_SUCCESS);
+    i = 1;
+    while(args[i])
+    {
+        if(check_variable_name(args[i]) == EXIT_SUCCESS)
+        {
+            export = set_variable(export, args[i]);
+            if(!export)
+                return (EXIT_FAILURE);
+            // if(set_variable(export, args[i]) != EXIT_SUCCESS)
+            //     return (EXIT_FAILURE);
+        }
+        else
+            minishell_error("export", args[i], "not a valid identifier");
+        i++;
+    }
+    return (EXIT_SUCCESS);
+}
 

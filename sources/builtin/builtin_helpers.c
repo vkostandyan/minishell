@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:20:11 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/05 22:15:02 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/06 18:05:47 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char **list_to_array(struct t_env_export *env)
     return (matrix);
 }
 
-int is_biltin(char *cmd)
+int is_builtin(char *cmd)
 {
     if(ft_strcmp(cmd, "echo") == 0 || ft_strcmp(cmd, "cd") 
         || ft_strcmp(cmd, "pwd") || ft_strcmp(cmd, "export") 

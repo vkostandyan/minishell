@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 16:41:30 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/05 20:50:41 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/06 20:58:08 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,45 +107,78 @@ char **tokens_to_matrix(t_data *data)
     
 // }
 
+// int lexer(t_data *data)
+// {
+
+//     data->input = readline(BLUE "Verishen: " RESET_COLOR);
+//     if (data->input)
+//         add_history(data->input);
+//     tokenization(data);
+
+    
+//     int status = 0;
+//     int pid;
+//     char **args;
+//     char **paths;
+//     char **env;
+//     char *path;
+//     // int i = 0;
+    
+
+//     pid = fork();
+//     if(pid == -1)
+//         return (1);    
+//     if(pid == 0)
+//     {
+//         args = tokens_to_matrix(data);
+//         paths = ft_split(get_value(data->env, "PATH"), ':');
+//         // while(paths[i])
+//         // {
+//         //     printf("%s\n", paths[i]);
+//         //     i++;
+//         // }
+//         path = get_command_path(paths, args[0]);
+//         // printf("path -> %s\n", path);
+//         env = list_to_array(data->env);
+//         // env list to array
+//         execve(path, args, env);
+//     }
+//     waitpid(pid, NULL, 0);
+
+    
+//     free_tokens(data);
+//     return (status);
+//     // status = create_commands(data);
+// }
+
+void run_builtin(t_data *data, char **args)
+{
+    if(!args || !*args)
+        return ;
+    if(args[0] && ft_strcmp(args[0], "echo") == 0)
+        set_g_exit_status(echo(args));
+    if(args[0] && ft_strcmp(args[0], "env") == 0)
+        set_g_exit_status(env(data));
+    if(args[0] && ft_strcmp(args[0], "pwd") == 0)
+        set_g_exit_status(pwd(data));
+    if(args[0] && ft_strcmp(args[0], "unset") == 0)
+        set_g_exit_status(unset(data, args));
+    if(args[0] && ft_strcmp(args[0], "cd") == 0)
+        set_g_exit_status(cd(data->env, args));
+    if(args[0] && ft_strcmp(args[0], "export") == 0)
+    {
+        // data->export = export(data->export, args);
+        set_g_exit_status(export(data->export, args));
+    }
+}
+
 int lexer(t_data *data)
 {
-
-    data->input = readline(BLUE "Verishen: " RESET_COLOR);
-    if (data->input)
-        add_history(data->input);
-    tokenization(data);
-
-    
-    int status = 0;
-    int pid;
     char **args;
-    char **paths;
-    char **env;
-    char *path;
-    // int i = 0;
-
-    pid = fork();
-    if(pid == -1)
-        return (1);    
-    if(pid == 0)
-    {
-        args = tokens_to_matrix(data);
-        paths = ft_split(get_value(data->env, "PATH"), ':');
-        // while(paths[i])
-        // {
-        //     printf("%s\n", paths[i]);
-        //     i++;
-        // }
-        path = get_command_path(paths, args[0]);
-        // printf("path -> %s\n", path);
-        env = list_to_array(data->env);
-        // env list to array
-        execve(path, args, env);
-    }
-    waitpid(pid, NULL, 0);
-
     
-    free_tokens(data);
-    return (status);
-    // status = create_commands(data);
+    args = tokens_to_matrix(data);
+    if(args[0] && is_builtin(args[0]))
+        run_builtin(data, args);
+    free_array(args);
+    return (0);
 }

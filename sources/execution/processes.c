@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 19:45:22 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/05 21:55:40 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/06 18:11:40 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,13 @@ void start_shell(t_data *data)
     
     while(1)
     {
-        
+        data->input = readline(BLUE "Verishen: " RESET_COLOR);
+        if (data->input)
+            add_history(data->input);
+        tokenization(data);
     //     //if(!data->input) ...
         status = lexer(data);
+        free_tokens(data);
         system("leaks minishell");
     }
     // char **matrix;

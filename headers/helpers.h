@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:51:02 by vkostand          #+#    #+#             */
-/*   Updated: 2024/10/11 19:37:26 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/06 18:02:23 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ void				sort_array(char **str);
 void				print_list(struct t_env_export *env);
 void	minishell_error(char *cmd, char *arg, char *msg);
 int check_variable_name(char *name);
+
+//---- Global exit status
+void set_g_exit_status(int new_status);
+int get_g_exit_status();
+
 
 //---- Clean data -----
 void				clean_data(t_data *data);
