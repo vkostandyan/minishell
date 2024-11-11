@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:33:28 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/06 18:38:56 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/10 16:06:25 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,5 @@ int unset(t_data *data, char **args) //int unset(t_data *data)
         status = delete_variable(data, args[i]);
         i++;
     }
-    return (EXIT_SUCCESS);
+    return (status);
 }

@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 16:41:30 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/06 20:58:08 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/11 20:26:18 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ char **tokens_to_matrix(t_data *data)
 //     // status = create_commands(data);
 // }
 
-void run_builtin(t_data *data, char **args)
+void run_builtin(t_data *data, char **args) // (t_data *data)
 {
     if(!args || !*args)
         return ;
@@ -172,13 +172,50 @@ void run_builtin(t_data *data, char **args)
     }
 }
 
-int lexer(t_data *data)
+int run_cmd(t_data *data, char **args)
 {
-    char **args;
-    
-    args = tokens_to_matrix(data);
-    if(args[0] && is_builtin(args[0]))
-        run_builtin(data, args);
-    free_array(args);
-    return (0);
+    int pid;
+    char *path;
+    char **path_args;
+
+    pid = fork();
+    if(pid == 0 && args && args[0])
+    {
+        path_args = ft_split(get_value_from_env(data->env, "PATH"), ':');
+        path = get_command_path(path_args, args[0]);
+        execve(path, args, list_to_array(data->env));
+    }
+    waitpid(pid, NULL, 0);
+    return (EXIT_SUCCESS);
 }
+
+int execute(t_data *data)
+{
+    (void)data;
+    // print_a(data);
+    
+    // char **args;
+
+    // if (!data->commands)
+	// 	return (0);
+    // args = tokens_to_matrix(data);
+    if(data->commands->args[0] && is_builtin(data->commands->args[0]))
+        run_builtin(data, data->commands->args);
+    else
+        run_cmd(data, data->commands->args);
+    // free_array(args);
+    return (EXIT_SUCCESS);
+}
+
+// int lexer(t_data *data)
+// {
+//     char **args;
+
+//     args = tokens_to_matrix(data);
+//     if(args[0] && is_builtin(args[0]))
+//         run_builtin(data, args);
+//     else
+//         run_cmd(data, args);
+//     free_array(args);
+//     return (EXIT_SUCCESS);
+// }

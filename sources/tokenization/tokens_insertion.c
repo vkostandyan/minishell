@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 14:10:02 by kgalstya          #+#    #+#             */
-/*   Updated: 2024/11/03 17:24:31 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/11 20:38:12 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void dollar_parsing(t_data *data)
     }
 }
 
-void dollar_insertion(t_data *data)
+int dollar_insertion(t_data *data)
 {
     char *new_cont;
 
@@ -95,7 +95,28 @@ void dollar_insertion(t_data *data)
             data->current = data->current->next;
     }
     dollar_parsing(data);
-    // change_key_to_value();
+
+	char *new_content;
+	data->current = data->tokens;
+	while(data->current)
+	{
+		if(data->current->type == ENV)
+		{
+			
+    		new_content = ft_strdup(get_value_from_env(data->env ,data->current->original_content));
+			free(data->current->original_content);
+			data->current->original_content = new_content;
+			if(!data->current->original_content)
+				data->current = ft_lst_delone(&data->tokens, data->current);
+			else
+				data->current->type = WORD;
+		}
+		if(data->current)
+			data->current = data->current->next;
+		else
+			break;
+	}
+	return (1);
 }
 
 /*------------------------------ string_insertion -------------------------------------*/
@@ -103,7 +124,7 @@ void single_string_insertion(t_data *data)
 {
     t_token *first;
     t_token *last;
-    
+
     data->current = data->tokens;
     while (data->current)
     {
@@ -119,7 +140,7 @@ void single_string_insertion(t_data *data)
                     continue;
                 }
                 last = data->current;
-                data->current = data->current->next;       
+                data->current = data->current->next;
             }
             data->current = connect_lst_in_one(&data->tokens, first, last, WORD);
         }
@@ -133,7 +154,7 @@ void double_string_insertion(t_data *data)
 {
     t_token *first;
     t_token *last;
-    
+
     data->current = data->tokens;
     while (data->current)
     {
@@ -149,7 +170,7 @@ void double_string_insertion(t_data *data)
                     continue;
                 }
                 last = data->current;
-                data->current = data->current->next;       
+                data->current = data->current->next;
             }
             data->current = connect_lst_in_one(&data->tokens, first, last, WORD);
         }
@@ -189,7 +210,7 @@ void redir_insertion(t_data *data)
             if(data->current->next->quotes == 0)
             {
                 last = data->current->next;
-                data->current = connect_lst_in_one(&data->tokens, first, last, APPRED);
+                data->current = connect_lst_in_one(&data->tokens, first, last, REDIR);
                 if(!data->current)
                     error_exit(data);
                 continue;
@@ -204,44 +225,45 @@ void redir_insertion(t_data *data)
         if(data->current)
             data->current = data->current->next;
         else
-            return ;    
+            return ;
     }
 }
-void make_space_one(t_token *token)
-{
-    char *new_content;
+// void make_space_one(t_token *token)
+// {
+//     char *new_content;
 
-    new_content = (char *)malloc(sizeof(char) * 2);
-    new_content[0] = ' ';
-    new_content[1] = '\0';
-    free(token->original_content);
-    token->original_content = new_content;
-}
+//     new_content = (char *)malloc(sizeof(char) * 2);
+//     new_content[0] = ' ';
+//     new_content[1] = '\0';
+//     free(token->original_content);
+//     token->original_content = new_content;
+// }
 
 void connect_tokens(t_data *data)
 {
     t_token *first;
     t_token *last;
-    
+
     data->current = data->tokens;
     first = data->current;
     last = data->current;
     while(data->current)
-    {   
+    {
         last = data->current;
         first = data->current;
-        while(data->current && data->current->type != SPACE)
+        while(data->current && (data->current->type != SPACE && data->current->type != PIPE && data->current->type != REDIR))
         {
             last = data->current;
             if(data->current->next)
                 data->current = data->current->next;
-            else break;
+            else
+				break;
         }
         if(last != first)
             data->current = connect_lst_in_one(&data->tokens, first, last, WORD);
         else if(data->current->next)
             data->current = data->current->next;
-        else 
+        else
             return ;
     }
 }
@@ -260,17 +282,40 @@ void space_insertion(t_data *data)
     }
 }
 
+int pipe_insertion(t_data *data)
+{
+	data->current = data->tokens;
+	if(data->current->type == PIPE)
+	{
+		parse_error("|");
+		return(EXIT_FAILURE);
+	}
+	while(data->current)
+	{
+		if(data->current->type == PIPE && (!data->current->next))
+		{
+			parse_error("|");
+			return(EXIT_FAILURE);
+		}
+		data->current = data->current->next;
+	}
+	return(EXIT_SUCCESS);
+}
+
 void tokens_insertion(t_data *data)
 {
     remove_brakets(data);
     single_string_insertion(data);
-    dollar_insertion(data);
+	// dollar_insertion(data);
+    if(!dollar_insertion(data))
+		return ;
     // print_data(data);
     double_string_insertion(data);
     // print_data(data);
     redir_insertion(data);
+	// print_data(data);
     space_insertion(data);
     // print_data(data);
-    // pipe_insertion(data);
+    set_g_exit_status(pipe_insertion(data));
     // heredoc_insertion(data);
 }

@@ -1,0 +1,8 @@
+shlvl
+
+$?
+exit status in tokenization
+
+unset TES=T
+unset TES$?T
+

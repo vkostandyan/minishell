@@ -21,8 +21,11 @@ HELPERS = merge.c \
            init_export.c \
            initialization.c 
 
-EXECUTION = processes.c\
-            lexer.c
+EXECUTION = processes.c \
+            lexer.c \
+            commands.c \
+            chisht_command.c
+            #signal.c \
 
 TOKENIZATION = tokenization.c \
                tokenization_utils.c \
@@ -30,7 +33,7 @@ TOKENIZATION = tokenization.c \
                tokens_insertion.c \
                list_functions.c
 
-BUILIN = cd.c \
+BUILTIN = cd.c \
          env.c \
          pwd.c \
          echo.c \
@@ -64,7 +67,7 @@ OBJ_DIR = ./objects/
 SRCS_DIR = ./sources/
 HEADER_DIR = ./headers/
 LIBFT_DIR = ./sources/libft/
-BUILIN_DIR = ./sources/builtin/
+BUILTIN_DIR = ./sources/builtin/
 HELPERS_DIR = ./sources/helpers/
 EXECUTION_DIR = ./sources/execution/
 VALIDATION_DIR = ./sources/validation/
@@ -75,14 +78,14 @@ $(shell mkdir -p $(OBJ_DIR))
 SRCS := $(addprefix $(SRCS_DIR), $(SRCS))
 LIBFT := $(addprefix $(LIBFT_DIR), $(LIBFT))
 HEADER := $(addprefix $(HEADER_DIR), $(HEADER)) 
-BUILIN := $(addprefix $(BUILIN_DIR), $(BUILIN))
+BUILTIN := $(addprefix $(BUILTIN_DIR), $(BUILTIN))
 HELPERS := $(addprefix $(HELPERS_DIR), $(HELPERS))
 EXECUTION := $(addprefix $(EXECUTION_DIR), $(EXECUTION))
 VALIDATION := $(addprefix $(VALIDATION_DIR), $(VALIDATION))
 TOKENIZATION := $(addprefix $(TOKENIZATION_DIR), $(TOKENIZATION))
 
 SRCS += $(LIBFT)
-SRCS += $(BUILIN)
+SRCS += $(BUILTIN)
 SRCS += $(HELPERS)
 SRCS += $(EXECUTION)
 SRCS += $(VALIDATION)
@@ -92,8 +95,12 @@ OBJS = $(patsubst $(SRCS_DIR)%.c, $(OBJ_DIR)%.o, $(SRCS))
 
 all: ${NAME}
 
+config:
+	mkdir -p readline_local
+	./readline_config.sh readline_local
+
 ${NAME}: ${OBJS} Makefile 
-	@${CC} ${CFLAGS} -I$(HEADER_DIR) ${OBJS} -o ${NAME} -lreadline
+	@${CC} ${CFLAGS} -I/readline_local/lib/readline -I$(HEADER_DIR) ${OBJS} -o ${NAME} -lreadline
 
 $(OBJ_DIR)%.o: $(SRCS_DIR)%.c
 	@mkdir -p $(dir $@)

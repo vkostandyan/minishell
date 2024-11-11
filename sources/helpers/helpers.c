@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 20:03:31 by vkostand          #+#    #+#             */
-/*   Updated: 2024/10/28 18:22:45 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/11 15:34:04 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,16 @@ void exit_shell(t_data *data, int exit_signal)
     clean_data(data);
     exit(exit_signal);
 }
+
+void parse_error(char *arg)
+{
+    ft_putstr_fd("minishell: ", STDERR_FILENO);
+    ft_putstr_fd("syntax error near unexpected token `", STDERR_FILENO);
+	ft_putstr_fd(arg, STDERR_FILENO);
+	ft_putendl_fd("'", STDERR_FILENO);
+    // ft_putstr_fd("'", STDERR_FILENO);
+}
+
 void minishell_error(char *command, char *arg, char *message)
 {
     ft_putstr_fd("minishell: ", STDERR_FILENO);
@@ -62,7 +72,9 @@ void minishell_error(char *command, char *arg, char *message)
 	}
 	if (arg != NULL && ft_strlen(arg) > 0)
 	{
+        ft_putstr_fd("`", STDERR_FILENO);
 		ft_putstr_fd(arg, STDERR_FILENO);
+        ft_putstr_fd("'", STDERR_FILENO);
 		ft_putstr_fd(": ", STDERR_FILENO);
 	}
 	ft_putendl_fd(message, STDERR_FILENO);

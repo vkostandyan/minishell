@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 19:45:22 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/06 18:11:40 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/11 22:17:11 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # define RESET_COLOR "\033[0m"
 
 void start_shell(t_data *data)
-{   
-    int status;
+{
+    // int status;
     
     while(1)
     {
@@ -25,8 +25,15 @@ void start_shell(t_data *data)
         if (data->input)
             add_history(data->input);
         tokenization(data);
+        create_commands(data);
     //     //if(!data->input) ...
-        status = lexer(data);
+        // status = lexer(data);
+        if(get_g_exit_status() == EXIT_SUCCESS)
+        {
+			create_commands(data);
+            set_g_exit_status(execute(data));
+        }
+        free_commands(data);
         free_tokens(data);
         system("leaks minishell");
     }
