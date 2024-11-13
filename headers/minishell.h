@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:25:48 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/11 22:11:46 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/13 21:55:30 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,36 +26,25 @@
 #include <errno.h>
 #include <string.h>
 
+#define in 0
+#define out 1
+#define PIPE_MAX 2
 
 typedef struct s_env_export t_env_export;
-
 typedef struct s_token t_token;
-
 typedef struct s_data t_data;
-
 typedef struct s_cmd t_cmd;
-
 typedef struct s_command t_command;
-
-
-struct s_cmd
-{
-    struct s_data *data;
-    
-    char *name;
-    char **args;
-    char *path;
-    t_cmd *next;
-};
 
 struct s_data
 {
     // Vitali
-    struct t_env_export *export;
-    struct t_env_export *env;
+    struct  t_env_export *export;
+    struct  t_env_export *env;
+    int	    (*fd)[2];
+    int     pipe_count;
+    int     pipe_index;
     
-    t_cmd *cmd;
-
     // Karen
     int i;
     int j;

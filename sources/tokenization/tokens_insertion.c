@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_insertion.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kgalstya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 14:10:02 by kgalstya          #+#    #+#             */
-/*   Updated: 2024/11/11 20:38:12 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/12 19:29:50 by kgalstya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ int dollar_insertion(t_data *data)
 	{
 		if(data->current->type == ENV)
 		{
-			
     		new_content = ft_strdup(get_value_from_env(data->env ,data->current->original_content));
 			free(data->current->original_content);
 			data->current->original_content = new_content;
@@ -302,6 +301,33 @@ int pipe_insertion(t_data *data)
 	return(EXIT_SUCCESS);
 }
 
+void heredoc_insertion(t_data *data)
+{
+	t_token *first;
+    t_token *last;
+
+    data->current = data->tokens;
+    while(data->current)
+    {
+        first = data->current;
+        if(data->current->next && data->current->quotes == 0 && (data->current->original_content[0] == '<' && data->current->next->original_content[0] == '<'))
+        {
+            if(data->current->next->quotes == 0)
+            {
+                last = data->current->next;
+                data->current = connect_lst_in_one(&data->tokens, first, last, HEREDOC);
+                if(!data->current)
+                    error_exit(data);
+                continue;
+            }
+        }
+        if(data->current)
+            data->current = data->current->next;
+        else
+            return ;
+    }
+}
+
 void tokens_insertion(t_data *data)
 {
     remove_brakets(data);
@@ -317,5 +343,6 @@ void tokens_insertion(t_data *data)
     space_insertion(data);
     // print_data(data);
     set_g_exit_status(pipe_insertion(data));
-    // heredoc_insertion(data);
+	// print_data(data);
+    heredoc_insertion(data);
 }

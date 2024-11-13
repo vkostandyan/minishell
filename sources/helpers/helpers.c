@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 20:03:31 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/11 15:34:04 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/13 20:01:58 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void clarify_shlvl(struct t_env_export *env_export)
     int shlvl;
     struct t_env_export *temp;
     char *str;
-    
+    // ete chka dnum es shlvln mek
     temp = env_export;
     while (temp && ft_strcmp("SHLVL", temp->key) != 0)
     {

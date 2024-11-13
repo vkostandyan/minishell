@@ -1,6 +1,6 @@
 NAME = minishell
 
-CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3 #-lreadline
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3 #-lreadline
 CC = cc 
 
 SRCS = main.c
@@ -24,7 +24,9 @@ HELPERS = merge.c \
 EXECUTION = processes.c \
             lexer.c \
             commands.c \
-            chisht_command.c
+            chisht_command.c \
+            execute.c \
+            fd.c
             #signal.c \
 
 TOKENIZATION = tokenization.c \
@@ -59,9 +61,11 @@ LIBFT = ft_lstadd_back.c \
         ft_putchar_fd.c \
         ft_putendl_fd.c \
         ft_substr.c \
+        ft_memset.c \
 		ft_split.c \
 		ft_strlcpy.c \
-        ft_strncat.c
+        ft_strncat.c \
+        ft_bzero.c 
 
 OBJ_DIR = ./objects/
 SRCS_DIR = ./sources/

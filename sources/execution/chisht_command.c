@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 22:10:00 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/11 22:16:31 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/12 20:45:59 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 // 	}
 // 	return(num);
 // }
+
 // void print_a(t_data *data)
 // {
 //     t_command *pr_cmd = data->commands;
@@ -49,28 +50,28 @@
 //     }
 // }
 
-// void fill_commands(t_data *data)
-// {
-// 	int len;
-// 	t_token *tmp;
+// // void fill_commands(t_data *data)
+// // {
+// // 	int len;
+// // 	t_token *tmp;
 
-// 	len = 0;
-// 	if(data->current->type == WORD)
-// 		data->curr_cmd->name = ft_strdup(data->current->original_content);
-// 	tmp = data->current;
-// 	while(tmp && tmp->type == WORD)
-// 	{
-// 		len++;
-// 		tmp = tmp->next;
-// 	}
-// 	if(len > 0)
-// 	{
-// 		data->curr_cmd->args = (char **)malloc(sizeof(char *) * (len + 1));
-// 		if(!data->curr_cmd->args)
-// 			return ;
-// 		data->curr_cmd->args[len] = NULL;
-// 	}
-// }
+// // 	len = 0;
+// // 	if(data->current->type == WORD)
+// // 		data->curr_cmd->name = ft_strdup(data->current->original_content);
+// // 	tmp = data->current;
+// // 	while(tmp && tmp->type == WORD)
+// // 	{
+// // 		len++;
+// // 		tmp = tmp->next;
+// // 	}
+// // 	if(len > 0)
+// // 	{
+// // 		data->curr_cmd->args = (char **)malloc(sizeof(char *) * (len + 1));
+// // 		if(!data->curr_cmd->args)
+// // 			return ;
+// // 		data->curr_cmd->args[len] = NULL;
+// // 	}
+// // }
 
 // int count_command_len(t_token *token)
 // {
@@ -114,6 +115,7 @@
 // 	i = 0;
 // 	while(i < len && data->current)
 // 	{
+// 		printf("content -> %s\n", data->current->original_content);
 // 		args[i] = ft_strdup(data->current->original_content);
 // 		if(!args[i])
 // 			return (free_array(args), NULL);
@@ -125,15 +127,16 @@
 
 void free_commands(t_data *data)
 {
-	data->curr_cmd = data->commands;
+	(void)data;
+	// data->curr_cmd = data->commands;
 	
-	while (data->curr_cmd)
-	{
-		free(data->curr_cmd->name);
-		data->curr_cmd->name = NULL;
-		free_array(data->curr_cmd->args);
-		data->curr_cmd = data->curr_cmd->next;
-	}
+	// while (data->curr_cmd)
+	// {
+	// 	free(data->curr_cmd->name);
+	// 	data->curr_cmd->name = NULL;
+	// 	free_array(data->curr_cmd->args);
+	// 	data->curr_cmd = data->curr_cmd->next;
+	// }
 }
 
 // int fill_commands(t_data *data, int cmd_count)

@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 19:45:22 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/11 22:17:11 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/13 22:52:52 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,32 +25,19 @@ void start_shell(t_data *data)
         if (data->input)
             add_history(data->input);
         tokenization(data);
-        create_commands(data);
-    //     //if(!data->input) ...
+        // create_commands(data);
+        //if(!data->input) ...
         // status = lexer(data);
         if(get_g_exit_status() == EXIT_SUCCESS)
         {
 			create_commands(data);
+            create_pipes(data);
             set_g_exit_status(execute(data));
+            close_pipes(data);
+            
         }
         free_commands(data);
         free_tokens(data);
-        system("leaks minishell");
+        // system("leaks minishell");
     }
-    // char **matrix;
-
-    // while(1)
-    // {
-    //     data->input = readline(BLUE "Verishen: " RESET_COLOR);
-    //     if (data->input)
-    //         add_history(data->input);
-    //     tokenization(data);
-    //     print_data(data);
-    //     printf("len -> %d\n\n", count_list_len(data));
-    //     matrix = tokens_to_matrix(data);
-    //     free_array(matrix);
-    //     // printf("✅ CORRECT INPUT\n");
-    //     free_tokens(data);
-    //     // system("leaks minishell");
-    // }
 }

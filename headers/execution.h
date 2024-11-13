@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 16:27:50 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/11 22:15:05 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/13 22:10:55 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,11 @@ struct s_command
 
 t_command    *ft_lstnew_cmd(void);
 void    ft_lstadd_back_cmd(t_command **lst, t_command *new);
+
+int create_pipes(t_data *data);
+void	close_pipes(t_data *data);
+
+void run_builtin(t_data *data, char **args);
+char	*get_command_path(char **path_args, char *cmd);
 
 #endif

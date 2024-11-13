@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_quotes_type.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kgalstya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 15:04:04 by kgalstya          #+#    #+#             */
-/*   Updated: 2024/11/11 15:41:09 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/10/06 18:43:03 by kgalstya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,15 @@ void check_quotes_close(t_data *data)
             i++;
             while(data->input[i] && data->input[i] != '\'')
                 i++;
-            if(!data->input[i])
-            {
-                set_g_exit_status(EXIT_FAILURE);       
-                parse_error("'");
-            }
         }
         else if(data->input[i] && data->input[i] == '"')
         {
             i++;
             while(data->input[i] && data->input[i] != '"')
                 i++;
-            if(!data->input[i])
-            {
-                set_g_exit_status(EXIT_FAILURE);       
-                parse_error("\"");
-            }
         }
+        if(!data->input[i])
+            error_exit(data);
         i++;
     }
 }
@@ -56,7 +48,7 @@ static int allot_double_quotes_value(t_data *data)
     {
         data->current->quotes = DOUBLE;
         data->current = data->current->next;
-        return(EXIT_SUCCESS);
+        return(1);
     }
     while(data->current && data->current->original_content[i] != '"')
     {
@@ -68,7 +60,7 @@ static int allot_double_quotes_value(t_data *data)
         data->current->quotes = DOUBLE;
         data->current = data->current->next;
     }
-    return(EXIT_SUCCESS);
+    return(1);
 }
 
 static int allot_single_quotes_value(t_data *data)

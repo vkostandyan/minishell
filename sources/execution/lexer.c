@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 16:41:30 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/11 20:26:18 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/13 21:40:19 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,40 +172,44 @@ void run_builtin(t_data *data, char **args) // (t_data *data)
     }
 }
 
-int run_cmd(t_data *data, char **args)
-{
-    int pid;
-    char *path;
-    char **path_args;
+// int run_cmd(t_data *data, char **args)
+// {
+//     int pid;
+//     char *path;
+//     char **path_args;
 
-    pid = fork();
-    if(pid == 0 && args && args[0])
-    {
-        path_args = ft_split(get_value_from_env(data->env, "PATH"), ':');
-        path = get_command_path(path_args, args[0]);
-        execve(path, args, list_to_array(data->env));
-    }
-    waitpid(pid, NULL, 0);
-    return (EXIT_SUCCESS);
-}
+//     pid = fork();
+//     // if(pid == -1)
+//     //     ...
+//     if(pid == 0 && args && args[0])
+//     {
+//         path_args = ft_split(get_value_from_env(data->env, "PATH"), ':');
+//         path = get_command_path(path_args, args[0]);
+//         int (*fd)[2]
+//         execve(path, args, list_to_array(data->env));
+//         //...
+//     }
+//     waitpid(pid, NULL, 0);
+//     return (EXIT_SUCCESS);
+// }
 
-int execute(t_data *data)
-{
-    (void)data;
-    // print_a(data);
+// int execute(t_data *data)
+// {
+//     (void)data;
+//     // print_a(data);
     
-    // char **args;
+//     // char **args;
 
-    // if (!data->commands)
-	// 	return (0);
-    // args = tokens_to_matrix(data);
-    if(data->commands->args[0] && is_builtin(data->commands->args[0]))
-        run_builtin(data, data->commands->args);
-    else
-        run_cmd(data, data->commands->args);
-    // free_array(args);
-    return (EXIT_SUCCESS);
-}
+//     // if (!data->commands)
+// 	// 	return (0);
+//     // args = tokens_to_matrix(data);
+//     if(data->commands->args[0] && is_builtin(data->commands->name))
+//         run_builtin(data, data->commands->args);
+//     else
+//         run_cmd(data, data->commands->args);
+//     // free_array(args);
+//     return (EXIT_SUCCESS);
+// }
 
 // int lexer(t_data *data)
 // {

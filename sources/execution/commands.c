@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/11 16:53:33 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/11 22:11:23 by vkostand         ###   ########.fr       */
+/*   Created: 2024/11/10 16:08:28 by kgalstya          #+#    #+#             */
+/*   Updated: 2024/11/13 22:16:22 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int count_commands(t_data *data)
 	data->current = data->tokens;
 	while(data->current)
 	{
-		if(data->current->type == PIPE && (data->current->type == WORD))
+		if(data->current->type == PIPE) //&& (data->current->type == WORD))
 			num++;
 		data->current = data->current->next;
 	}
@@ -31,14 +31,13 @@ void print_a(t_data *data)
     t_command *pr_cmd = data->commands;
 
 	int i = 0;
-    printf("🔵🔵🔵🔵🔵🔵🔵🔵🔵\n");
     while(pr_cmd)
     {
 		i = 0;
-		printf("	NAME  ->>>>>> %s\n", pr_cmd->name);
+		printf("NAME -> %s\n", pr_cmd->name);
 		while(pr_cmd->args[i])
 		{
-			printf("	ARGS ->>>>>> %s\n", pr_cmd->args[i]);
+			printf("args[%d] -> %s\n", i, pr_cmd->args[i]);
 			i++;
 		}
         pr_cmd = pr_cmd->next;
@@ -74,7 +73,12 @@ int handle_redir(t_data *data)
 	data->curr_cmd = data->commands;
 	while(data->current)
 	{
-		if(data->current->type == REDIR && ((!data->current->next) || data->current->next->type != WORD))
+		if(data->current->type == REDIR && data->current->next && (data->current->next->type == REDIR || data->current->next->type == HEREDOC))
+		{
+			parse_error(">>");
+			return(EXIT_FAILURE);
+		}
+		else if(data->current->type == REDIR && ((!data->current->next) || data->current->next->type != WORD))
 		{
 			parse_error("newline");
 			return(EXIT_FAILURE);
@@ -103,16 +107,16 @@ int handle_redir(t_data *data)
 
 int create_commands(t_data *data)
 {
-	int cmd_count;
 	int i;
 	int j;
 	t_command *tmp;
 
-	cmd_count = count_commands(data);
+	data->pipe_count = count_commands(data) - 1;
+	// cmd_count = count_commands(data);
 	i = 0;
 	j = 0;
 	data->commands = ft_lstnew_cmd();
-	while(i < cmd_count - 1)
+	while(i < data->pipe_count)
 	{
 		tmp = ft_lstnew_cmd();
     	if(!tmp)
@@ -120,10 +124,11 @@ int create_commands(t_data *data)
     	ft_lstadd_back_cmd(&data->commands, tmp);
 		i++;
 	}
+	set_g_exit_status(handle_redir(data));
 	i = 0;
 	data->curr_cmd = data->commands;
 	data->current = data->tokens;
-	while(data->current && i < cmd_count)
+	while(data->current && i < data->pipe_count + 1)
 	{
 		if(data->current->type == PIPE)
 		{
@@ -145,7 +150,8 @@ int create_commands(t_data *data)
 		i++;
 	}
 	data->curr_cmd = NULL;
-	set_g_exit_status(handle_redir(data));
-	print_a(data);
+	// print_data(data);
+	// print_a(data);
 	return(0);
 }
+
