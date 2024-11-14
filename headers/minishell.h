@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:25:48 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/13 21:55:30 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/14 19:57:16 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ struct s_data
     int	    (*fd)[2];
     int     pipe_count;
     int     pipe_index;
+    int *pid;
+    int index;
     
     // Karen
     int i;

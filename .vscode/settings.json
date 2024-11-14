@@ -13,6 +13,7 @@
         "sstream": "c",
         "algorithm": "c",
         "unordered_map": "c",
-        "locale": "c"
+        "locale": "c",
+        "chrono": "c"
     }
 }

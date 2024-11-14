@@ -26,7 +26,7 @@ EXECUTION = processes.c \
             commands.c \
             chisht_command.c \
             execute.c \
-            fd.c
+            pipe.c
             #signal.c \
 
 TOKENIZATION = tokenization.c \
