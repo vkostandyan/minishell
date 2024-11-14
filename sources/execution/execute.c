@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 17:34:29 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/14 20:02:07 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/14 22:20:56 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	dups(t_data *data)
 		minishell_error("pipe error", "", "");
 		exit(1);
 	}
-	write(2, "blabla\n", 7);
 	close_pipes(data);
 }
 
@@ -60,7 +59,6 @@ int	run_cmd(t_data *data)
 
 	if (is_builtin(data->commands->name))
 	{
-		printf("1\n");
 		run_builtin(data, data->commands->args);
 		return (0);
 	}
@@ -77,7 +75,6 @@ int	run_cmd(t_data *data)
 		path = get_command_path(path_args, data->commands->args[0]);
 		free_array(path_args);
 		
-		printf("AGVANNNNN ___ %s \n", path);
 		execve(path, data->commands->args, list_to_array(data->env));
 		minishell_error("Executing command failed", "", "");
 		exit(1);
@@ -99,19 +96,11 @@ int	run_cmd(t_data *data)
 
 int	execute(t_data *data)
 {
-	printf("%d %d\n", data->pipe_count, data->pipe_index);
 	while (data->pipe_index <= data->pipe_count)
 	{
-	printf("%d %d\n", data->pipe_count, data->pipe_index);
-		// dups(data);
-		int i = 0;
-		while (data->commands->args[i])
-		{
-			printf("data->commands->args[i] -> %s\n", data->commands->args[i]);
-			i++;
-		}
 		run_cmd(data);
-		data->commands = data->commands->next;
+		free_one_command(data);
+		// data->commands = data->commands->next;
 		// free one command
 		data->pipe_index++;
 	}
@@ -125,7 +114,6 @@ int	execute(t_data *data)
 		waitpid(data->pid[k], NULL, 0);
 		k++;
 	}
-	write(2, "5\n", 2);
 	
 	// (void)data;
 	// // print_a(data);

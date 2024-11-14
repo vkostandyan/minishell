@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 22:10:00 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/12 20:45:59 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/14 21:59:44 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,17 @@
 // 	}
 // 	return (args);
 // }
+
+void free_one_command(t_data *data)
+{
+	data->curr_cmd = data->commands->next;
+	free(data->commands->name);
+	data->commands->name = NULL;
+	free_array(data->commands->args);
+	free(data->commands);
+	data->commands = NULL;
+	data->commands = data->curr_cmd;
+}
 
 void free_commands(t_data *data)
 {

@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 16:27:50 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/14 18:18:40 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/14 22:00:32 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int execute(t_data *data);
 int create_commands(t_data *data);
 void print_a(t_data *data);
 void free_commands(t_data *data);
+void free_one_command(t_data *data);
 
 struct s_command
 {

@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:25:29 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/11 18:59:00 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/14 22:02:52 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ enum s_type
     HEREDOC,
     ENV,
     WORD,
-    SPACE,
+    SPACEO,
 };
 
 struct s_token

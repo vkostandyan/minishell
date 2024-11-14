@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 19:41:30 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/14 19:14:57 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/14 22:01:33 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int create_pipes(t_data *data)
     // if(!) ...
     while(i < data->pipe_count)
     {
-        printf("2\n");
         if(pipe(fd[i]) == -1)
         {
             while (i > 0)
@@ -48,8 +47,6 @@ void	close_pipes(t_data *data)
 	i = 0;
 	while (i < data->pipe_count)
 	{
-        printf("ban0 ->%d\n", data->fd[i][0]);
-        printf("ban1 ->%d\n", data->fd[i][1]);
 		close(data->fd[i][0]);
 		close(data->fd[i][1]);
 		i++;
