@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 12:23:21 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/03 16:25:39 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/15 21:42:53 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,10 @@ int	cd_home(struct t_env_export *env)
 		minishell_error("cd", home, "No such file or directory");
 		return (free(cwd), EXIT_FAILURE);
 	}
-    // printf("home -> %s\n", home);
-    // printf("cwd -> %s\n", cwd);
-
 	if (update_env(env, "PWD", home) != EXIT_SUCCESS)
 		return (free(cwd), EXIT_FAILURE);
 	if (update_env(env, "OLDPWD", cwd) != EXIT_SUCCESS)
 		return (free(cwd), EXIT_FAILURE);
-    // printf("new home -> %s\n", get_value_from_env(env, "HOME"));
-    // printf("new cwd -> %s\n", get_value_from_env(env, "PWD"));
-    // printf("stexem\n\n\n");
 	return (free(cwd), EXIT_SUCCESS);
 }
 
@@ -84,7 +78,6 @@ int	cd_oldpwd(struct t_env_export *env)
 	update_env(env, "PWD", ft_strdup(oldpwd));
 	update_env(env, "OLDPWD", ft_strdup(pwd));
 	ft_putendl_fd(oldpwd, 1);
-    printf("\n\n\n");
 	return (EXIT_SUCCESS);
 }
 

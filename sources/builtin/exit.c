@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 17:36:18 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/15 19:31:25 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/15 22:23:40 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ static unsigned long long ft_atol(char *str)
 		{
 			minishell_error2("exit", str, "numeric argument required");
 			set_g_exit_status(255);
+			printf("%d\n", get_g_exit_status());
 			exit(get_g_exit_status());
 		}
 		++i;
@@ -65,6 +66,9 @@ static unsigned long long ft_atol(char *str)
 
 void builtin_exit(t_data *data)
 {
+	int flag;
+
+	flag = 0;
     write(STDOUT_FILENO, "exit\n", 5);
 	if(data->commands->args && data->commands->args[1])
 	{
@@ -72,6 +76,7 @@ void builtin_exit(t_data *data)
 		{
 			minishell_error2("exit", "", "too many arguments");
 			set_g_exit_status(EXIT_FAILURE);
+			flag = 1;
 		}
 		else if(is_number(data->commands->args[1]))
 			set_g_exit_status(ft_atol(data->commands->args[1]) % 256);
@@ -83,5 +88,7 @@ void builtin_exit(t_data *data)
 	}
 	if(get_g_exit_status() < 0)
 		set_g_exit_status(get_g_exit_status() + 256);
-	exit (get_g_exit_status());
+	printf("%d\n", get_g_exit_status());
+	if(!flag)
+		exit (get_g_exit_status());
 }

@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 20:32:07 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/07 20:38:51 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/15 21:36:49 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ struct t_env_export *add_node(struct t_env_export *export, char *key, char *valu
         node->value = NULL;
     node->next = export;
     export = node;
+    printf("2\n");
     return (export);
 }
 
@@ -99,6 +100,7 @@ struct t_env_export *set_variable(struct t_env_export *export, char *var)
 
     if(ft_strchr(var, '=') == 0)
     {
+    printf("1\n");
         new = add_node(export, var, NULL);
         return (new);
     }   
