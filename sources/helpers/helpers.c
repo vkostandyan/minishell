@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 20:03:31 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/13 20:01:58 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/15 19:27:42 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,22 @@ void minishell_error(char *command, char *arg, char *message)
         ft_putstr_fd("`", STDERR_FILENO);
 		ft_putstr_fd(arg, STDERR_FILENO);
         ft_putstr_fd("'", STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
+	}
+	ft_putendl_fd(message, STDERR_FILENO);
+}
+
+void minishell_error2(char *command, char *arg, char *message)
+{
+    ft_putstr_fd("minishell: ", STDERR_FILENO);
+	if (command != NULL)
+	{
+		ft_putstr_fd(command, STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
+	}
+	if (arg != NULL && ft_strlen(arg) > 0)
+	{
+		ft_putstr_fd(arg, STDERR_FILENO);
 		ft_putstr_fd(": ", STDERR_FILENO);
 	}
 	ft_putendl_fd(message, STDERR_FILENO);

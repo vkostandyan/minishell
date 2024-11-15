@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:17:10 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/13 21:37:35 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/15 19:28:40 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,17 @@ int					pwd(t_data *data);
 int	unset(t_data *data, char **args); // int unset(t_data *data)
 
 /*
+	exit functions
+*/
+void builtin_exit(t_data *data);
+
+/*
 	builtin helper functions
 */
 int					check_variable_name(char *name);
 char				*get_value(struct t_env_export *env, char *key);
 char				**list_to_array(struct t_env_export *env);
 int					is_builtin(char *cmd);
+int	ft_isspace(char c);
 
 #endif

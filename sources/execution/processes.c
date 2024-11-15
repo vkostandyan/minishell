@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 19:45:22 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/14 22:17:03 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/15 20:22:56 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void start_shell(t_data *data)
         // status = lexer(data);
         if(get_g_exit_status() == EXIT_SUCCESS)
         {
+            // init redirs
 			create_commands(data); 
             data->pid = malloc(sizeof(int) * (data->pipe_count + 1));
             // if(!)
@@ -37,7 +38,7 @@ void start_shell(t_data *data)
             data->pipe_index = 0;
             create_pipes(data);
             set_g_exit_status(execute(data));
-            close_pipes(data);
+            close_pipes(data);   
             
         }
         free_commands(data);

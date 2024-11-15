@@ -39,6 +39,7 @@ BUILTIN = cd.c \
          env.c \
          pwd.c \
          echo.c \
+         exit.c \
          unset.c \
          export.c \
          cd_helpers.c \

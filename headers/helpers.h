@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:51:02 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/11 15:32:32 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/15 19:27:51 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int					count_array_len(char **str);
 void				sort_array(char **str);
 void				print_list(struct t_env_export *env);
 void	minishell_error(char *cmd, char *arg, char *msg);
+void minishell_error2(char *command, char *arg, char *message);
 int check_variable_name(char *name);
 void parse_error(char *arg);
 

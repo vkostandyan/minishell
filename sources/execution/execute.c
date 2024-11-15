@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 17:34:29 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/14 22:20:56 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/15 20:25:32 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	dups(t_data *data)
 
 int	run_cmd(t_data *data)
 {
-	// int		pid;
 	char	*path;
 	char	**path_args;
 
@@ -71,17 +70,21 @@ int	run_cmd(t_data *data)
 	if (data->pid[data->index] == 0)
 	{
 		dups(data);
+		//rediri duper
+		if(access(data->commands->name, F_OK) == 0)
+		{
+			execve(data->commands->name, data->commands->args, list_to_array(data->env));
+			minishell_error("command not found", "", data->commands->name);
+			exit(1);
+		}
 		path_args = ft_split(get_value_from_env(data->env, "PATH"), ':');
 		path = get_command_path(path_args, data->commands->args[0]);
 		free_array(path_args);
-		
 		execve(path, data->commands->args, list_to_array(data->env));
-		minishell_error("Executing command failed", "", "");
+		minishell_error("command not found", "", data->commands->name);
 		exit(1);
 	}
-	data->index++;
-	// waitpid(pid, NULL, 0);
-	return (EXIT_SUCCESS);
+	return (data->index++, EXIT_SUCCESS);
 }
 // int	run_commands(t_data *data)
 // {
