@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 17:34:29 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/17 00:52:17 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/17 03:15:40 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ int	execute(t_data *data)
 	while (data->pipe_index <= data->pipe_count)
 	{
 		run_cmd(data);
+		// close(data->curr_cmd->stdin);
 		free_one_command(data);
 		// data->commands = data->commands->next;
 		// free one command

@@ -6,102 +6,108 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:18:20 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/17 00:51:28 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/17 03:14:58 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int open_infile(char *name)
+int	open_infile(char *name)
 {
-    int fd;
+	int	fd;
 
-    fd = open(name, O_RDONLY);
-    if(fd < 0)
-    {
-        minishell_error2(name, "", strerror(errno));
-        set_g_exit_status(EXIT_FAILURE);
-        return (-1);
-    }
-    return (fd);
+	fd = open(name, O_RDONLY);
+	if (fd < 0)
+	{
+		minishell_error2(name, "", strerror(errno));
+		set_g_exit_status(EXIT_FAILURE);
+		return (-1);
+	}
+	return (fd);
 }
 
-int open_outfile(char *name, int append)
+int	open_outfile(char *name, int append)
 {
-    int fd;
+	int	fd;
 
-    if(append)
-        fd = open(name, O_APPEND | O_WRONLY, 0777);
-    else
-        fd = open(name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-    if(fd < 0)
-    {
-        minishell_error2(name, "", strerror(errno));
-        set_g_exit_status(EXIT_FAILURE);
-        return (-1);
-    }
-    return (fd);
+	if (append)
+		fd = open(name, O_WRONLY | O_APPEND, 0777);
+	else
+		fd = open(name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd < 0)
+	{
+		minishell_error2(name, "", strerror(errno));
+		set_g_exit_status(EXIT_FAILURE);
+		return (-1);
+	}
+	return (fd);
 }
 
-void in_redir(t_data *data)
+void	in_redir(t_data *data)
 {
-    if(data->commands->stdin > 0)
-    {
-        if(dup2(data->commands->stdin, 0) < 0)
-        {
-            minishell_error2("dup2 error", "", "");
-            set_g_exit_status(EXIT_FAILURE); // hrcneq chishty verna
-        }
-        close(data->commands->stdin);
-    }
+    printf("stdin -> %d\n", data->commands->stdin);
+	if (data->commands->stdin > 0)
+	{
+		if (dup2(data->commands->stdin, 0) < 0)
+		{
+			minishell_error2("dup2 error", "", "");
+			set_g_exit_status(EXIT_FAILURE); // hrcneq chishty verna
+		}
+		close(data->commands->stdin);
+	}
 }
 
-void out_redir(t_data *data)
+void	out_redir(t_data *data)
 {
-    if(data->commands->stdout > 0)
-    {
-        if(dup2(data->commands->stdout, 1) < 0)
-        {
-            minishell_error2("dup2 error", "", "");
-            set_g_exit_status(EXIT_FAILURE); // hrcneq chishty verna
-        }
-        close(data->commands->stdout);
-    }
+	if (data->commands->stdout > 0)
+	{
+		if (dup2(data->commands->stdout, 1) < 0)
+		{
+			minishell_error2("dup2 error", "", "");
+			set_g_exit_status(EXIT_FAILURE); // hrcneq chishty verna
+		}
+		close(data->commands->stdout);
+	}
 }
 
-void redir_dups(t_data *data)
+void	redir_dups(t_data *data)
 {
-    in_redir(data);
-    out_redir(data);
-    // heredoc
+	in_redir(data);
+	out_redir(data);
 }
 
 int	open_file_and_remove_token(t_data *data)
 {
-    if(ft_strcmp(data->current->original_content, ">>") == 0)
-    {
-        data->current = ft_lst_delone(&data->tokens, data->current);
-		data->curr_cmd->stdout = open_outfile(data->current->original_content, 1);
-        data->curr_cmd->stdin = -1;
-    }
+	if (ft_strcmp(data->current->original_content, ">>") == 0)
+	{
+		data->current = ft_lst_delone(&data->tokens, data->current);
+		data->curr_cmd->stdout = open_outfile(data->current->original_content,
+				1);
+		data->curr_cmd->stdin = -1;
+	}
 	else if (data->current->original_content[0] == '>')
 	{
 		data->current = ft_lst_delone(&data->tokens, data->current);
-		data->curr_cmd->stdout = open_outfile(data->current->original_content, 0);
-        data->curr_cmd->stdin = -1;
+		data->curr_cmd->stdout = open_outfile(data->current->original_content,
+				0);
+		data->curr_cmd->stdin = -1;
 	}
-	else 
+	else if (ft_strcmp(data->current->original_content, "<<") == 0)
+	{
+		data->current = ft_lst_delone(&data->tokens, data->current);
+		data->curr_cmd->stdin = open_heredoc(data->current->original_content);
+        printf("redirs -> %d\n", data->curr_cmd->stdin);
+		data->curr_cmd->stdout = -1;
+	}
+	else
 	{
 		data->current = ft_lst_delone(&data->tokens, data->current);
 		data->curr_cmd->stdin = open_infile(data->current->original_content);
-        data->curr_cmd->stdout = -1;
+		data->curr_cmd->stdout = -1;
 	}
-    // heredoc //
 	data->current = ft_lst_delone(&data->tokens, data->current);
 	return (EXIT_SUCCESS);
 }
-
-
 
 int	handle_redir(t_data *data)
 {
@@ -124,7 +130,8 @@ int	handle_redir(t_data *data)
 			set_g_exit_status(EXIT_FAILURE);
 			return (EXIT_FAILURE);
 		}
-		else if (data->current->type == REDIR && (data->current->next
+		else if ((data->current->type == REDIR
+				|| data->current->type == HEREDOC) && (data->current->next
 				&& data->current->next->type == WORD))
 		{
 			if (open_file_and_remove_token(data))

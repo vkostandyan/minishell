@@ -28,6 +28,7 @@ EXECUTION = processes.c \
             execute.c \
             signal.c \
             redirs.c \
+            heredoc.c \
             pipe.c
 
 TOKENIZATION = tokenization.c \

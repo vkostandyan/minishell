@@ -14,6 +14,7 @@
         "algorithm": "c",
         "unordered_map": "c",
         "locale": "c",
-        "chrono": "c"
+        "chrono": "c",
+        "typeinfo": "c"
     }
 }

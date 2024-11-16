@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 19:45:22 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/16 20:24:03 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/17 03:02:13 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 
 int start_shell(t_data *data)
 {
-    // int status;
-    
     while(1)
     {
         data->input = readline(BLUE "Verishen: " RESET_COLOR);
@@ -27,23 +25,20 @@ int start_shell(t_data *data)
         if (data->input)
             add_history(data->input);
         tokenization(data);
-        // create_commands(data);
-        //if(!data->input) ...
-        // status = lexer(data);
         if(get_g_exit_status() == EXIT_SUCCESS)
         {
-            // init redirs
 			create_commands(data); 
             data->pid = malloc(sizeof(int) * (data->pipe_count + 1));
-            // if(!)
+            // if(!data->pid)
+                
             data->index = 0;
             data->pipe_index = 0;
             create_pipes(data);
             set_g_exit_status(execute(data));
-            close_pipes(data);   
-            
+            close_pipes(data);
+            remove_heredoc_file(data->env);
+            free_commands(data);
         }
-        free_commands(data);
         free_tokens(data);
         // system("leaks minishell");
     }
