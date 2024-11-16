@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 17:57:05 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/15 23:00:22 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/16 19:46:16 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,5 @@ void init_data(t_data *data, char **env)
     data->export = merge(data->export, ft_strcmp);
     data->tokens = NULL;
     data->current = NULL;
+    init_signals();
 }

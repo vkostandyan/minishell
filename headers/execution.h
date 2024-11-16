@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 16:27:50 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/14 22:00:32 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/16 19:50:47 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #define FORK_ERR "fork: Resource temporarily unavailable"
 
-void start_shell(t_data *data);
+int start_shell(t_data *data);
 int lexer(t_data *data);
 int execute(t_data *data);
 int create_commands(t_data *data);

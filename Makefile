@@ -26,8 +26,8 @@ EXECUTION = processes.c \
             commands.c \
             chisht_command.c \
             execute.c \
+            signal.c \
             pipe.c
-            #signal.c \
 
 TOKENIZATION = tokenization.c \
                tokenization_utils.c \
@@ -104,12 +104,12 @@ config:
 	mkdir -p readline_local
 	./readline_config.sh readline_local
 
-${NAME}: ${OBJS} Makefile 
-	@${CC} ${CFLAGS} -I/readline_local/lib/readline -I$(HEADER_DIR) ${OBJS} -o ${NAME} -lreadline
+${NAME}: ${OBJS} Makefile
+	@${CC} ${CFLAGS}  -I$(HEADER_DIR) -I./readline_local/include ${OBJS} -Lreadline_local/lib -lreadline -o ${NAME}
 
 $(OBJ_DIR)%.o: $(SRCS_DIR)%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -I$(HEADER_DIR) -c $< -o $@
+	$(CC) $(CFLAGS)  -I$(HEADER_DIR) -I./readline_local/include -c $< -o $@
 
 clean:
 	rm -rf ${OBJ_DIR}

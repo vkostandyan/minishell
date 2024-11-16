@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:51:02 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/15 19:27:51 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/16 19:45:56 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ void				clean_data(t_data *data);
 void				exit_shell(t_data *data, int exit_signal);
 void free_env_node(struct t_env_export *node);
 void				free_env_export(struct t_env_export *env_export);
+
+// ---- signal
+void init_signals(void);
 
 
 #endif
