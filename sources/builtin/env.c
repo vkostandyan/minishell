@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:30:53 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/16 20:12:41 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/16 20:30:52 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ char *get_value_from_env(struct t_env_export *env, char *key)
     struct t_env_export *temp;
 
     temp = env;
+    if(!ft_strcmp(key, "?"))
+        return(ft_itoa(get_g_exit_status()));
     while(temp)
     {
         if(ft_strcmp(temp->key, key) == 0)

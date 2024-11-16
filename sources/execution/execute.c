@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 17:34:29 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/16 20:14:03 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/16 20:39:16 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,11 @@ void	dups(t_data *data)
 
 int	run_cmd(t_data *data)
 {
+
 	char	*path;
 	char	**path_args;
+	(void)path;
+	(void)path_args;
 
 	data->pid[data->index] = fork();
 	if (data->pid[data->index] == -1)
@@ -65,7 +68,7 @@ int	run_cmd(t_data *data)
 	if (data->pid[data->index] == 0)
 	{
 		dups(data);
-		//rediri duper
+		// //rediri duper
 		if (is_builtin(data->commands->name))
 		{
 			run_builtin(data, data->commands->args);
@@ -78,6 +81,10 @@ int	run_cmd(t_data *data)
 			exit(1);
 		}
 		path_args = ft_split(get_value_from_env(data->env, "PATH"), ':');
+		if(!path_args)
+			exit(1);
+		if(!data->commands->args)
+			exit(1);
 		path = get_command_path(path_args, data->commands->args[0]);
 		free_array(path_args);
 		execve(path, data->commands->args, list_to_array(data->env));

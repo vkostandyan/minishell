@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 12:23:21 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/16 20:12:07 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/16 20:28:35 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,5 @@ int	cd(t_data *data, char **args)
 		status = cd_oldpwd(data);
 	else if (args[0] && args[1])
 		status = cd_path(data, args[1]);
-	printf("status -> %d\n", status);
 	return (status);
 }

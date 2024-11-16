@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 14:10:02 by kgalstya          #+#    #+#             */
-/*   Updated: 2024/11/15 17:39:55 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/16 20:29:36 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,9 @@ void	dollar_parsing(t_data *data)
 			else if (data->current->original_content[0] == '?' && div.i == 0)
 			{
 				div.i++;
-				new_cont = ft_substr(data->current->original_content, div.i,
-						ft_strlen(data->current->original_content));
-				free(data->current->original_content);
-				data->current->original_content = new_cont;
-				printf("🔵there will be hold this exit status\n");
+				div.type1 = ENV;
+				div.type2 = WORD;
+				data->current = divide_lst(&data->tokens, data->current, &div);
 				break ;
 			}
 			else
