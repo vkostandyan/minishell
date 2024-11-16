@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:17:10 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/15 19:28:40 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/16 20:23:13 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ cannot access parent directories: No such file or directory"
 /*
 	cd functions
 */
-int					cd(struct t_env_export *env, char **args);
+
+int	cd(t_data *data, char **args);
 int					update_workdirs(t_data *data, char *new_path);
 
 /*
@@ -51,8 +52,8 @@ void				print_export(struct t_env_export *export);
 struct 	t_env_export	*add_oldpwd(t_data *data);
 struct 	t_env_export	*mid_point(struct t_env_export *head);
 struct 	t_env_export	*merge(struct t_env_export *begin, int (*cmp)());
-int 				export(struct t_env_export *export, char **args);
-// struct t_env_export	*export(struct t_env_export *export, char **args);
+// int 				export(struct t_env_export *export, char **args);
+struct t_env_export	*export(struct t_env_export *export, char **args);
 
 /*
 	pwd functions

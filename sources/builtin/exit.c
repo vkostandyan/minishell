@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 17:36:18 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/15 22:23:40 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/16 20:17:30 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ static unsigned long long ft_atol(char *str)
 		{
 			minishell_error2("exit", str, "numeric argument required");
 			set_g_exit_status(255);
-			printf("%d\n", get_g_exit_status());
 			exit(get_g_exit_status());
 		}
 		++i;
@@ -88,7 +87,6 @@ void builtin_exit(t_data *data)
 	}
 	if(get_g_exit_status() < 0)
 		set_g_exit_status(get_g_exit_status() + 256);
-	printf("%d\n", get_g_exit_status());
 	if(!flag)
 		exit (get_g_exit_status());
 }

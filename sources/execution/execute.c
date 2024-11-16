@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 17:34:29 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/15 20:25:32 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/16 20:14:03 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,6 @@ int	run_cmd(t_data *data)
 	char	*path;
 	char	**path_args;
 
-	if (is_builtin(data->commands->name))
-	{
-		run_builtin(data, data->commands->args);
-		return (0);
-	}
 	data->pid[data->index] = fork();
 	if (data->pid[data->index] == -1)
 	{
@@ -71,6 +66,11 @@ int	run_cmd(t_data *data)
 	{
 		dups(data);
 		//rediri duper
+		if (is_builtin(data->commands->name))
+		{
+			run_builtin(data, data->commands->args);
+			exit(1);
+		}
 		if(access(data->commands->name, F_OK) == 0)
 		{
 			execve(data->commands->name, data->commands->args, list_to_array(data->env));

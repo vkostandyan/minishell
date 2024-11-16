@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:30:53 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/14 18:04:00 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/16 20:12:41 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ int update_env(struct t_env_export *env, char *key, char *value)
     temp = env;
     while(temp)
     {
-        if(ft_strcmp(env->key, key) == 0)
+        if(ft_strcmp(temp->key, key) == 0)
         {
-            free(temp->value);
-            temp->value = value;//ft_strdup(value);
+            // free(temp->value); // seg
+            temp->value = ft_strdup(value); // leak
             if(!temp->value)
                 return (EXIT_FAILURE);
             return (EXIT_SUCCESS);
@@ -34,8 +34,6 @@ int update_env(struct t_env_export *env, char *key, char *value)
         return (MALLOC_ERR);
     temp->key = key;//ft_strdup(key);
     temp->value = value;//ft_strdup(value);
-    // if(!temp->key || !temp->value)
-    //     return (EXIT_FAILURE);
     free(temp);
     return (EXIT_SUCCESS);
 }
@@ -160,3 +158,4 @@ int env(t_data *data)
     print_list(data->env);
     return(EXIT_SUCCESS);
 }
+

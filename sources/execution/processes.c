@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 19:45:22 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/16 19:50:35 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/16 20:24:03 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int start_shell(t_data *data)
     while(1)
     {
         data->input = readline(BLUE "Verishen: " RESET_COLOR);
-        if (!data->input)
+        if(!data->input)
             return (EXIT_FAILURE);
         if (data->input)
             add_history(data->input);

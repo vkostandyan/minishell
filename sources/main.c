@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 20:38:59 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/16 20:01:19 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/16 20:22:41 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int main(int argc, char **argv, char **env)
     if(start_shell(&data))
         printf("exit\n");
     clean_data(&data);
-    // systemleaks minishell")
+    // system("leaks minishell");
     (void)argc;
     (void)argv;
     return (0);
