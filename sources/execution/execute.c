@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 17:34:29 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/16 20:39:16 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/17 00:52:17 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	run_cmd(t_data *data)
 	if (data->pid[data->index] == 0)
 	{
 		dups(data);
+		redir_dups(data);
 		// //rediri duper
 		if (is_builtin(data->commands->name))
 		{

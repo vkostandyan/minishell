@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 16:27:50 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/16 20:23:31 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/17 00:41:06 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,9 @@ void	close_pipes(t_data *data);
 
 void run_builtin(t_data *data, char **args);
 char	*get_command_path(char **path_args, char *cmd);
+
+// --- redirs
+int	handle_redir(t_data *data);
+void redir_dups(t_data *data);
 
 #endif
