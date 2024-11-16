@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:18:20 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/17 03:14:58 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/17 03:23:59 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	open_outfile(char *name, int append)
 
 void	in_redir(t_data *data)
 {
-    printf("stdin -> %d\n", data->commands->stdin);
 	if (data->commands->stdin > 0)
 	{
 		if (dup2(data->commands->stdin, 0) < 0)
@@ -83,27 +82,26 @@ int	open_file_and_remove_token(t_data *data)
 		data->current = ft_lst_delone(&data->tokens, data->current);
 		data->curr_cmd->stdout = open_outfile(data->current->original_content,
 				1);
-		data->curr_cmd->stdin = -1;
+		// data->curr_cmd->stdin = -1;
 	}
 	else if (data->current->original_content[0] == '>')
 	{
 		data->current = ft_lst_delone(&data->tokens, data->current);
 		data->curr_cmd->stdout = open_outfile(data->current->original_content,
 				0);
-		data->curr_cmd->stdin = -1;
+		// data->curr_cmd->stdin = -1;
 	}
 	else if (ft_strcmp(data->current->original_content, "<<") == 0)
 	{
 		data->current = ft_lst_delone(&data->tokens, data->current);
 		data->curr_cmd->stdin = open_heredoc(data->current->original_content);
-        printf("redirs -> %d\n", data->curr_cmd->stdin);
-		data->curr_cmd->stdout = -1;
+		// data->curr_cmd->stdout = -1;
 	}
 	else
 	{
 		data->current = ft_lst_delone(&data->tokens, data->current);
 		data->curr_cmd->stdin = open_infile(data->current->original_content);
-		data->curr_cmd->stdout = -1;
+		// data->curr_cmd->stdout = -1;
 	}
 	data->current = ft_lst_delone(&data->tokens, data->current);
 	return (EXIT_SUCCESS);

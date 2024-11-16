@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 01:16:50 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/17 03:09:16 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/17 03:23:43 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,5 @@ int open_heredoc(char *limiter)
         set_g_exit_status(EXIT_FAILURE);
         return (-1);
     }
-    printf("here -> %d\n", fd);
     return (fd);
 }
