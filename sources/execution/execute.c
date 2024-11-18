@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 17:34:29 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/18 12:50:41 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/18 13:53:00 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	wait_and_status(pid_t pid, int *_status)
 	set_g_exit_status(WEXITSTATUS(*_status));
 }
 
+
+
 int	run_cmd(t_data *data)
 {
 
@@ -82,7 +84,7 @@ int	run_cmd(t_data *data)
 		{
 			execve(data->commands->name, data->commands->args, list_to_array(data->env));
 			minishell_error("command not found", "", data->commands->name);
-			exit(126);
+			exit(127);
 		}
 		path_args = ft_split(get_value_from_env(data->env, "PATH"), ':');
 		if(!path_args)
@@ -97,20 +99,26 @@ int	run_cmd(t_data *data)
 	}
 	return (data->index++, EXIT_SUCCESS);
 }
+
 int	run_commands(t_data *data)
 {
 	if (data->pipe_count == 0)
 	{
-	    if(ft_strcmp(data->commands->name, "exit") == 0)
+	    if(data->commands && data->commands->name && ft_strcmp(data->commands->name, "exit") == 0)
 		{
-			builtin_exit(data);
-			return (EXIT_SUCCESS);//kmtacem der
+			// builtin_exit(data);
+			return (builtin_exit(data));//kmtacem der
 		}
+		if(data->commands && data->commands->name && ft_strcmp(data->commands->name, "cd") == 0)
+			return(cd(data, data->commands->args));
+		if(data->commands && data->commands->name && ft_strcmp(data->commands->name, "export") == 0)
+			return(export(data, data->commands->args));
+		if(data->commands && data->commands->name && ft_strcmp(data->commands->name, "unset") == 0)
+			return(unset(data, data->commands->args));
 	}
-	if(ft_strcmp(data->commands->name, "cd") == 0)
-		return(cd(data, data->commands->args));
-	run_cmd(data);
-	return (EXIT_SUCCESS);
+	
+	// run_cmd(data);
+	return (run_cmd(data));
 }
 
 int	execute(t_data *data)
@@ -118,7 +126,7 @@ int	execute(t_data *data)
 	int k = 0;
 	while (data->pipe_index <= data->pipe_count)
 	{
-		run_commands(data);
+		set_g_exit_status(run_commands(data));
 		free_one_command(data);
 		data->pipe_index++;
 	}
@@ -129,5 +137,6 @@ int	execute(t_data *data)
 		// waitpid(data->pid[k], NULL, 0);
 		k++;
 	}
+    // printf("alo2 -> %d\n", get_g_exit_status());
 	return (EXIT_SUCCESS);
 }

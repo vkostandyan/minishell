@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 16:41:30 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/18 11:57:03 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/18 13:10:14 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,8 @@ void run_builtin(t_data *data, char **args) // (t_data *data)
         set_g_exit_status(cd(data, args));
     if(args[0] && ft_strcmp(args[0], "export") == 0)
     {
-        data->export = export(data->export, args);
-        // set_g_exit_status(export(data->export, args));
+        // data->export = export(data, args);
+        set_g_exit_status(export(data, args));
     }
     if(args[0] && ft_strcmp(args[0], "exit") == 0)
         builtin_exit(data);

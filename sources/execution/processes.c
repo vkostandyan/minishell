@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 19:45:22 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/18 12:03:13 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/18 13:47:46 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int start_shell(t_data *data)
         if(get_g_exit_status() == EXIT_SUCCESS)
         {
 			create_commands(data); 
+            // printf("alo -> %d\n", get_g_exit_status());
             data->pid = malloc(sizeof(int) * (data->pipe_count + 1));
             // if(!data->pid)
                 
@@ -35,6 +36,8 @@ int start_shell(t_data *data)
             data->pipe_index = 0;
             create_pipes(data);
             execute(data);
+            // printf("alo -> %d\n", get_g_exit_status());
+
             // set_g_exit_status(execute(data));
             close_pipes(data);
             remove_heredoc_file(data->env);

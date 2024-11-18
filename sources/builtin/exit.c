@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 17:36:18 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/18 12:17:51 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/18 13:45:27 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static unsigned long long ft_atol(char *str)
 	return (number);
 }
 
-void builtin_exit(t_data *data)
+int builtin_exit(t_data *data)
 {
 	int flag;
 
@@ -74,7 +74,7 @@ void builtin_exit(t_data *data)
 		if(data->commands->args[2])
 		{
 			minishell_error2("exit", "", "too many arguments");
-			set_g_exit_status(EXIT_FAILURE);
+			return (EXIT_FAILURE);
 			flag = 1;
 		}
 		else if(is_number(data->commands->args[1]))
@@ -89,4 +89,33 @@ void builtin_exit(t_data *data)
 		set_g_exit_status(get_g_exit_status() + 256);
 	if(!flag)
 		exit (get_g_exit_status());
+	return (EXIT_SUCCESS);
 }
+
+// void builtin_exit(t_data *data)
+// {
+// 	int flag;
+
+// 	flag = 0;
+//     write(STDOUT_FILENO, "exit\n", 5);
+// 	if(data->commands->args && data->commands->args[1])
+// 	{
+// 		if(data->commands->args[2])
+// 		{
+// 			minishell_error2("exit", "", "too many arguments");
+// 			set_g_exit_status(EXIT_FAILURE);
+// 			flag = 1;
+// 		}
+// 		else if(is_number(data->commands->args[1]))
+// 			set_g_exit_status(ft_atol(data->commands->args[1]) % 256);
+// 		else
+// 		{
+// 			minishell_error2("exit", data->commands->args[1], "numeric argument required");
+// 			set_g_exit_status(255);
+// 		}
+// 	}
+// 	if(get_g_exit_status() < 0)
+// 		set_g_exit_status(get_g_exit_status() + 256);
+// 	if(!flag)
+// 		exit (get_g_exit_status());
+// }
