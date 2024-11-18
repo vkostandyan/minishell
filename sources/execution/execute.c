@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 17:34:29 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/17 20:33:01 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/18 12:50:41 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,25 +31,6 @@ void	dups(t_data *data)
 	}
 	close_pipes(data);
 }
-
-
-
-// void	dupeing(t_pipex *pipex, t_cmd *cmd)
-// {
-// 	if (cmd->input != 0)
-// 	{
-// 		if (dup2(cmd->input, 0) == -1)
-// 			p_error(pipex, DUP_ERR, NULL, 1);
-// 		close(cmd->input);
-// 	}
-// 	if (cmd->output != 1)
-// 	{
-// 		if (dup2(cmd->output, 1) == -1)
-// 			p_error(pipex, DUP_ERR, NULL, 1);
-// 		close(cmd->output);
-// 	}
-// 	close_pipes(pipex);
-// }
 
 int	g_exit_status = 0;
 
@@ -81,9 +62,7 @@ int	run_cmd(t_data *data)
 
 	char	*path;
 	char	**path_args;
-	(void)path;
-	(void)path_args;
-
+	
 	data->pid[data->index] = fork();
 	if (data->pid[data->index] == -1)
 	{
@@ -103,7 +82,6 @@ int	run_cmd(t_data *data)
 		{
 			execve(data->commands->name, data->commands->args, list_to_array(data->env));
 			minishell_error("command not found", "", data->commands->name);
-			set_g_exit_status(126);
 			exit(126);
 		}
 		path_args = ft_split(get_value_from_env(data->env, "PATH"), ':');
@@ -115,56 +93,41 @@ int	run_cmd(t_data *data)
 		free_array(path_args);
 		execve(path, data->commands->args, list_to_array(data->env));
 		minishell_error("command not found", "", data->commands->name);
-		set_g_exit_status(127);
 		exit(127);
 	}
-	// wait_and_status(data->pid[data->index], &g_exit_status);
 	return (data->index++, EXIT_SUCCESS);
 }
-// int	run_commands(t_data *data)
-// {
-// 	if (data->pipe_count == 0)
-// 	{
-// 	    if(data->commands->args[0] && is_builtin(data->commands->name))
-// 	        run_builtin(data, data->commands->args);
-// 	}
-// 	run_cmd(data);
-// 	return (EXIT_SUCCESS);
-// }
+int	run_commands(t_data *data)
+{
+	if (data->pipe_count == 0)
+	{
+	    if(ft_strcmp(data->commands->name, "exit") == 0)
+		{
+			builtin_exit(data);
+			return (EXIT_SUCCESS);//kmtacem der
+		}
+	}
+	if(ft_strcmp(data->commands->name, "cd") == 0)
+		return(cd(data, data->commands->args));
+	run_cmd(data);
+	return (EXIT_SUCCESS);
+}
 
 int	execute(t_data *data)
 {
+	int k = 0;
 	while (data->pipe_index <= data->pipe_count)
 	{
-		run_cmd(data);
-		// close(data->curr_cmd->stdin);
+		run_commands(data);
 		free_one_command(data);
-		// data->commands = data->commands->next;
-		// free one command
 		data->pipe_index++;
 	}
 	close_pipes(data);
-	// if (data->pipe_index == 0)
-	// 	run_cmd(data);
-	// int a;
-	int k = 0;
 	while (k < data->index)
 	{
 		wait_and_status(data->pid[k], &g_exit_status);
-		waitpid(data->pid[k], NULL, 0);
+		// waitpid(data->pid[k], NULL, 0);
 		k++;
 	}
-	
-	// (void)data;
-	// // print_a(data);
-	// // char **args;
-	// // if (!data->commands)
-	// // 	return (0);
-	// // args = tokens_to_matrix(data);
-	// if(data->commands->args[0] && is_builtin(data->commands->name))
-	//     run_builtin(data, data->commands->args);
-	// else
-	//     run_cmd(data, data->commands->args);
-	// // free_array(args);
 	return (EXIT_SUCCESS);
 }
