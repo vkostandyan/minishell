@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 17:34:29 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/18 13:53:00 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/19 22:52:52 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ void	wait_and_status(pid_t pid, int *_status)
 	set_g_exit_status(WEXITSTATUS(*_status));
 }
 
-
-
 int	run_cmd(t_data *data)
 {
 
@@ -88,9 +86,9 @@ int	run_cmd(t_data *data)
 		}
 		path_args = ft_split(get_value_from_env(data->env, "PATH"), ':');
 		if(!path_args)
-			exit(1);
+			exit(0);
 		if(!data->commands->args)
-			exit(1);
+			exit(0);
 		path = get_command_path(path_args, data->commands->args[0]);
 		free_array(path_args);
 		execve(path, data->commands->args, list_to_array(data->env));
