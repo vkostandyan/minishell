@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 19:45:22 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/18 13:47:46 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/19 18:17:33 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int start_shell(t_data *data)
         tokenization(data);
         if(get_g_exit_status() == EXIT_SUCCESS)
         {
-			create_commands(data); 
+			create_commands(data);
             // printf("alo -> %d\n", get_g_exit_status());
             data->pid = malloc(sizeof(int) * (data->pipe_count + 1));
             // if(!data->pid)

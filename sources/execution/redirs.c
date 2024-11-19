@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:18:20 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/17 03:23:59 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/19 17:53:54 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,14 +118,14 @@ int	handle_redir(t_data *data)
 				|| data->current->next->type == HEREDOC))
 		{
 			parse_error(">>");
-			set_g_exit_status(EXIT_FAILURE);
+			set_g_exit_status(258);
 			return (EXIT_FAILURE);
 		}
 		else if (data->current->type == REDIR && ((!data->current->next)
 				|| data->current->next->type != WORD))
 		{
 			parse_error("newline");
-			set_g_exit_status(EXIT_FAILURE);
+			set_g_exit_status(258);
 			return (EXIT_FAILURE);
 		}
 		else if ((data->current->type == REDIR

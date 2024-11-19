@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgalstya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:31:25 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/13 19:55:45 by kgalstya         ###   ########.fr       */
+/*   Updated: 2024/11/18 20:47:29 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,6 @@ void print_data(t_data *data)
         pr_token = pr_token->next;
     }
     printf("⚪️⚪️⚪️⚪️⚪️⚪️⚪️⚪️⚪️⚪️\n");
-}
-
-void error_exit(t_data *data)
-{
-    printf("⛔️ INCORRECT INPUT\n");
-    free_tokens(data);
-    //("leaks minishell");
-    exit(4);
 }
 
 void tokenization(t_data *data)

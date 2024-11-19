@@ -35,11 +35,11 @@ TOKENIZATION = tokenization.c \
                tokenization_utils.c \
                tokens_quotes_type.c \
                tokens_insertion.c \
-               list_functions.c
-                # brakets_insertion.c \
+               list_functions.c \
+                 brakets_insertion.c \
                tokens_insertion_2.c \
                 dollar_insertion.c \
-                connect_lists.c \
+                connect_lists.c 
 
 BUILTIN = cd.c \
          env.c \
