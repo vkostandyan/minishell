@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 16:08:28 by kgalstya          #+#    #+#             */
-/*   Updated: 2024/11/19 22:53:43 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/20 20:10:11 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,7 @@ void	print_a(t_data *data)
 	{
 		i = 0;
 		if (pr_cmd->name)
-			printf("	NAME  ->>>>>> %s\n", pr_cmd->name);
+			printf("NAME -> %s\n", pr_cmd->name);
 		if (!pr_cmd->args)
 		{
 			pr_cmd = pr_cmd->next;
@@ -199,9 +199,13 @@ void	print_a(t_data *data)
 		}
 		while (pr_cmd->args[i])
 		{
-			printf("	ARGS ->>>>>> %s\n", pr_cmd->args[i]);
+			printf("ARGS -> %s\n", pr_cmd->args[i]);
 			i++;
 		}
+		if(pr_cmd->stdin)
+			printf("stdin -> %d\n", pr_cmd->stdin);
+		if(pr_cmd->stdout)
+			printf("stdout -> %d\n", pr_cmd->stdout);
 		pr_cmd = pr_cmd->next;
 	}
 }
@@ -425,6 +429,7 @@ int create_commands_helper(t_data *data, int i, int j)
 			data->curr_cmd->next = NULL;
 		i++;
 	}
+	// print_a(data);
 	return (EXIT_SUCCESS);
 }
 
