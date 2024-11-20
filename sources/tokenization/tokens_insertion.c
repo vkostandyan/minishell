@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_insertion.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kgalstya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 14:10:02 by kgalstya          #+#    #+#             */
-/*   Updated: 2024/11/18 20:47:32 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/20 19:36:21 by kgalstya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,20 +217,20 @@ int check_redir(t_data *data, t_token	*first, t_token	*last)
 			return(1);
 		}
 	}
-	else if (data->current->quotes == 0 && (data->current->original_content[0] == '>' || data->current->original_content[0] == '<'))
-	{
-		data->current->type = REDIR;
-		if (!data->current->next)
-		{
-			parse_error("newline");
-			return(set_g_exit_status(258), 2);
-		}
-		return(0);
-	}
+	// else if (data->current->quotes == 0 && (data->current->original_content[0] == '>' || data->current->original_content[0] == '<'))
+	// {
+	// 	data->current->type = REDIR;
+	// 	if (!data->current->next)
+	// 	{
+	// 		parse_error(data->current->original_content);
+	// 		return(set_g_exit_status(258), 2);
+	// 	}
+	// 	return(0);
+	// }
 	return(0);
 }
 
-void	redir_insertion(t_data *data)
+int	redir_insertion(t_data *data)
 {
 	t_token	*first;
 	t_token	*last;
@@ -238,6 +238,15 @@ void	redir_insertion(t_data *data)
 
 	last = NULL;
 	data->current = data->tokens;
+	if (data->current && data->current->quotes == 0 && (data->current->original_content[0] == '>' || data->current->original_content[0] == '<'))
+	{
+		data->current->type = REDIR;
+		if (!data->current->next)
+		{
+			parse_error("newline");
+			return (set_g_exit_status(2) , EXIT_FAILURE); //258
+		}
+	}
 	while (data->current)
 	{
 		first = data->current;
@@ -245,12 +254,13 @@ void	redir_insertion(t_data *data)
 		if(check_status == 1)
 			continue;
 		else if(check_status == 2)
-			return ;
+			return(EXIT_FAILURE);
 		if (data->current)
 			data->current = data->current->next;
 		else
-			return ;
+			return(EXIT_SUCCESS);
 	}
+	return(EXIT_SUCCESS);
 }
 // void make_space_one(t_token *token)
 // {
@@ -362,21 +372,22 @@ void	redir_insertion(t_data *data)
 // 	}
 // }
 
-void	tokens_insertion(t_data *data)
+int	tokens_insertion(t_data *data)
 {
 	remove_brakets(data);
-	single_string_insertion(data);
-	// dollar_insertion(data);
-	if (!dollar_insertion(data))
-		return ;
-	// print_data(data);
-	double_string_insertion(data);
-	// print_data(data);
-	redir_insertion(data);
-	// print_data(data);
-	space_insertion(data);
-	// print_data(data);
-	set_g_exit_status(pipe_insertion(data));
-	// print_data(data);
-	set_g_exit_status(heredoc_insertion(data));
+	if(single_string_insertion(data) != EXIT_SUCCESS)
+		return(EXIT_FAILURE);
+	if(dollar_insertion(data) != EXIT_SUCCESS)
+		return (EXIT_FAILURE);
+	if(double_string_insertion(data) != EXIT_SUCCESS)
+		return (EXIT_FAILURE);
+	if(redir_insertion(data) != EXIT_SUCCESS)
+		return (EXIT_FAILURE);
+	if(space_insertion(data) != EXIT_SUCCESS)
+		return (EXIT_FAILURE);
+	if(heredoc_insertion(data) != EXIT_SUCCESS)
+		return (EXIT_FAILURE);
+	if(pipe_insertion(data) != EXIT_SUCCESS)
+		return (EXIT_FAILURE);
+	return(EXIT_SUCCESS);
 }

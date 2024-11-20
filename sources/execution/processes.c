@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 19:45:22 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/19 22:52:49 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/20 20:40:52 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ int start_shell(t_data *data)
             return (EXIT_FAILURE);
         if (data->input)
             add_history(data->input);
-        tokenization(data);
-        if(get_g_exit_status() == EXIT_SUCCESS)
+        if(tokenization(data) == EXIT_SUCCESS)
         {
 			// create_commands(data);
             if(create_commands(data) == EXIT_SUCCESS)

@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 14:10:02 by kgalstya          #+#    #+#             */
-/*   Updated: 2024/11/18 21:05:05 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/20 21:06:54 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void make_new_cont(t_data *data, t_div	*div, char	*new_cont)
 	data->current->original_content = new_cont;
 }
 
-void	connect_tokens(t_data *data)
+int	connect_tokens(t_data *data)
 {
 	t_token	*first;
 	t_token	*last;
@@ -42,18 +42,34 @@ void	connect_tokens(t_data *data)
 				break ;
 		}
 		if (last != first)
+		{
 			data->current = connect_lst_in_one(&data->tokens, first, last,
 					WORD);
+			if(!data->current)
+				return(set_g_exit_status(MALLOC_ERR), EXIT_FAILURE);
+		}
 		else if (data->current->next)
 			data->current = data->current->next;
 		else
-			return ;
+			return(EXIT_SUCCESS);
 	}
+	return(EXIT_SUCCESS);
 }
 
-void	space_insertion(t_data *data)
+int	space_insertion(t_data *data)
 {
-	connect_tokens(data);
+	data->current = data->tokens;
+	while (data->current)
+	{
+		if(data->current && data->current->type == REDIR && data->current->next && data->current->next->type == SPACEO && data->current->next->next && data->current->next->next->type == REDIR)
+		{
+			parse_error(data->current->original_content); // ||
+			return (set_g_exit_status(2) , EXIT_FAILURE);//258
+		}
+		data->current = data->current->next;
+	}
+	if(connect_tokens(data) != EXIT_SUCCESS)
+		return(EXIT_FAILURE);
 	data->current = data->tokens;
 	while (data->current)
 	{
@@ -63,6 +79,7 @@ void	space_insertion(t_data *data)
 		else
 			data->current = data->current->next;
 	}
+	return(EXIT_SUCCESS);
 }
 
 int	pipe_insertion(t_data *data)
@@ -70,21 +87,21 @@ int	pipe_insertion(t_data *data)
 	data->current = data->tokens;
 	if (data->current && data->current->type == PIPE)
 	{
-		parse_error("|");
-		return (258);
+		parse_error("|"); // ||
+		return (set_g_exit_status(2) , EXIT_FAILURE);//258
 	}
 	while (data->current)
 	{
 		if (data->current->type == PIPE && (!data->current->next))
 		{
 			parse_error("|");
-			return (258);
+			return (set_g_exit_status(2) , EXIT_FAILURE);//258
 		}
 		if (data->current->type == PIPE && data->current->next
-			&& data->current->next->type == PIPE)
+			&& (data->current->next->type == HEREDOC))
 		{
-			parse_error("||");
-			return (258);
+			parse_error("newline");
+			return (set_g_exit_status(2) , EXIT_FAILURE);//258
 		}
 		data->current = data->current->next;
 	}
@@ -110,7 +127,17 @@ int	heredoc_insertion(t_data *data)
 				data->current = connect_lst_in_one(&data->tokens, first, last,
 						HEREDOC);
 				if (!data->current)
-					return (258);
+					return (set_g_exit_status(MALLOC_ERR), EXIT_FAILURE);
+				if(!data->current->next)
+				{
+					parse_error("newline");
+					return(set_g_exit_status(2), EXIT_FAILURE); //258
+				}
+				else if(data->current->next->type == PIPE)
+				{
+					parse_error("|");
+					return(set_g_exit_status(2), EXIT_FAILURE); //258
+				}
 				continue ;
 			}
 		}

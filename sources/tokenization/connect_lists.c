@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   connect_lists.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kgalstya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 16:54:08 by kgalstya          #+#    #+#             */
-/*   Updated: 2024/11/18 21:44:29 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/19 21:39:04 by kgalstya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,5 @@ t_token *connect_lst_in_one(t_token **lst, t_token *first, t_token *last, int ty
 	if(check_new_token(&new_tok))
 		return(NULL);
 	create_new_token(&new_tok, lst, first, type);
-	return(new_tok.tmp);
+	return(new_tok.new);
 }

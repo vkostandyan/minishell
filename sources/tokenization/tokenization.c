@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kgalstya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:31:25 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/18 20:47:29 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/19 21:28:47 by kgalstya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void create_tokens(t_data *data)
+int create_tokens(t_data *data)
 {
     data->i = 0;
     data->j = 0;
@@ -37,8 +37,10 @@ void create_tokens(t_data *data)
             data->i++;
         }
         data->type = WORD;
-        fill_tokens(data, data->i, data->j, data->quotes_flag);
+        if(fill_tokens(data, data->i, data->j, data->quotes_flag) != EXIT_SUCCESS)
+			return(EXIT_FAILURE);
     }
+	return(EXIT_SUCCESS);
 }
 
 # define RED "\033[1;31m"
@@ -62,12 +64,16 @@ void print_data(t_data *data)
     printf("⚪️⚪️⚪️⚪️⚪️⚪️⚪️⚪️⚪️⚪️\n");
 }
 
-void tokenization(t_data *data)
+int tokenization(t_data *data)
 {
-    create_tokens(data);
-    allot_quotes_value(data);
-    tokens_insertion(data);
+    if(create_tokens(data) != EXIT_SUCCESS)
+		return(EXIT_FAILURE);
+    if(allot_quotes_value(data) != EXIT_SUCCESS)
+		return(EXIT_FAILURE);
+    if(tokens_insertion(data) != EXIT_SUCCESS)
+		return(EXIT_FAILURE);
 	// print_data(data);
+	return(EXIT_SUCCESS);
 }
 // void start_shell(t_data *data)
 // {

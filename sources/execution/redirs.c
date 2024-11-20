@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:18:20 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/20 20:08:59 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/20 20:46:01 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,25 +115,30 @@ int	handle_redir(t_data *data)
 {
 	data->current = data->tokens;
 	data->curr_cmd = data->commands;
-	while (data->current && data->curr_cmd)
+	while (data->current)
 	{
 		if(data->current->type == PIPE)
-			data->curr_cmd = data->curr_cmd->next;
+			data->current = data->current->next;
 		if (data->current->type == REDIR && data->current->next
 			&& (data->current->next->type == REDIR
 				|| data->current->next->type == HEREDOC))
 		{
-			parse_error(">>");
-			set_g_exit_status(258);
+			parse_error(data->current->next->original_content);
+			set_g_exit_status(2);  //258
 			return (EXIT_FAILURE);
 		}
-		else if (data->current->type == REDIR && ((!data->current->next)
-				|| data->current->next->type != WORD))
+		if (data->current->type == REDIR && ((!data->current->next)
+				|| data->current->next->type == PIPE))
 		{
 			parse_error("newline");
-			set_g_exit_status(258);
+			set_g_exit_status(2);  //258
 			return (EXIT_FAILURE);
 		}
+		// else if (data->current && data->current->type == REDIR && !data->current->next)
+		// {
+		// 	parse_error("IN REDIR");//parse_error(data->current->original_content);
+		// 	return (set_g_exit_status(2) , EXIT_FAILURE); //258
+		// }
 		else if ((data->current->type == REDIR
 				|| data->current->type == HEREDOC) && (data->current->next
 				&& data->current->next->type == WORD))
