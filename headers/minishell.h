@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:25:48 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/21 17:20:50 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/21 19:56:26 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #include "readline/readline.h"
 #include "readline/history.h"
 #include <fcntl.h>
+#include <sys/ioctl.h>
 
 #include <termios.h>
 #include <errno.h>

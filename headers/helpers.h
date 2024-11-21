@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:51:02 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/16 19:45:56 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/21 19:56:04 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void free_env_node(struct t_env_export *node);
 void				free_env_export(struct t_env_export *env_export);
 
 // ---- signal
-void init_signals(void);
+void init_signals(int type);
 
 
 #endif
