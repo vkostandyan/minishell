@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 17:34:29 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/21 16:37:52 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/21 17:38:30 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,22 @@ void check_and_exec2(t_data *data)
 	exit (127);
 }
 
+bool	is_directory(const char	*path)
+{
+	struct stat	path_stat;
+
+	if (stat(path, &path_stat) != 0)
+		return (false);
+	return (S_ISDIR(path_stat.st_mode));
+}
+
 void check_and_exec(t_data *data)
 {
+	if(is_directory(data->commands->name))
+	{
+		minishell_error2(data->commands->name, "is a directory", "");
+		exit(126);	
+	}
 	if (access(data->commands->name, F_OK) == 0)
 	{
 		if(access(data->commands->name, X_OK) == 0)
@@ -102,8 +116,11 @@ void check_and_exec(t_data *data)
 			exit (126);
 		}
 	}
-	minishell_error2(data->commands->name, "", strerror(errno));
-	exit (0);
+	else
+	{
+		minishell_error2(data->commands->name, "", strerror(errno));
+		exit (127);
+	}
 }
 
 // char	*get_path(t_data *data)

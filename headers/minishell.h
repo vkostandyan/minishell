@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:25:48 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/17 03:03:43 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/21 17:20:50 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <stdbool.h>
 #include "readline/readline.h"
 #include "readline/history.h"
 #include <fcntl.h>
