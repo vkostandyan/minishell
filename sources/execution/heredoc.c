@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 01:16:50 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/17 03:23:43 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/21 15:37:45 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,18 @@ void	remove_heredoc_file(struct t_env_export *env)
 		kill(pid, 0);
 	}
 }
+// void handle_heredoc_sig(int sig)
+// {
+//     (void)sig;
+//     set_g_exit_status(EXIT_FAILURE);
+//     rl_redisplay();
+// }
 
 void heredoc_loop(int fd, char *limiter)
 {
     char *cur;
 
+    // signal(SIGINT, handle_heredoc_sig);
     while(1)
     {
         cur = readline("> ");
