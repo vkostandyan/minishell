@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgalstya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:25:29 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/19 21:52:05 by kgalstya         ###   ########.fr       */
+/*   Updated: 2024/11/22 17:22:08 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ struct s_token
     t_type type;
     t_quotes quotes;
     //int index;
-    char *content;
+    // char *content;
     char *original_content;
 };
 

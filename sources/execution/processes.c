@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 19:45:22 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/21 19:57:45 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/22 21:29:41 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,28 +27,26 @@ int start_shell(t_data *data)
             add_history(data->input);
         if(tokenization(data) == EXIT_SUCCESS)
         {
-			// create_commands(data);
             if(create_commands(data) == EXIT_SUCCESS)
             {
-                
-            // printf("alo -> %d\n", get_g_exit_status());
-            data->pid = malloc(sizeof(int) * (data->pipe_count + 1));
-            // if(!data->pid)
-                
-            data->index = 0;
-            data->pipe_index = 0;
-            create_pipes(data);
-            execute(data);
-
-            // printf("alo -> %d\n", get_g_exit_status());
-
-            // set_g_exit_status(execute(data));
-            close_pipes(data);
-            remove_heredoc_file(data->env);
+                data->pid = malloc(sizeof(int) * (data->pipe_count + 1));
+                // if(  !data->pid)
+                    
+                data->index = 0;
+                data->pipe_index = 0;
+                create_pipes(data);
+                execute(data);
+                remove_heredoc_file(data->env);
+                close_pipes(data);
+                free(data->fd);
+                data->fd = NULL;
+                free(data->pid);
+                data->pid = NULL;
             }
             free_commands(data);
         }
         free_tokens(data);
+        free(data->input);
         // system("leaks minishell");
     }
 }

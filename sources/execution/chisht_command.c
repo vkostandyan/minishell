@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 22:10:00 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/19 21:57:47 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/22 20:12:44 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,18 +136,37 @@ void free_one_command(t_data *data)
 	data->commands = data->curr_cmd;
 }
 
+// void free_commands(t_data *data)
+// {
+// 	t_command *tmp;
+// 	while (data->commands)
+// 	{
+// 		tmp = data->commands->next;
+// 		if(data->commands->name)
+// 		{
+// 			printf("name -> %s\n", data->commands->name);
+// 			free(data->commands->name);
+// 			data->commands->name = NULL;
+// 		}
+// 		if(data->commands->args)
+// 			free_array(data->commands->args);
+// 		data->commands = tmp;
+// 	}
+// }
+
 void free_commands(t_data *data)
 {
-	(void)data;
-	// data->curr_cmd = data->commands;
-	
-	// while (data->curr_cmd)
-	// {
-	// 	free(data->curr_cmd->name);
-	// 	data->curr_cmd->name = NULL;
-	// 	free_array(data->curr_cmd->args);
-	// 	data->curr_cmd = data->curr_cmd->next;
-	// }
+	data->curr_cmd = data->commands;	
+	while (data->curr_cmd)
+	{
+		data->commands = data->commands->next;
+		free(data->curr_cmd->name);
+		data->curr_cmd->name = NULL;
+		free_array(data->curr_cmd->args);
+		free(data->curr_cmd);
+		data->curr_cmd = NULL;
+		data->curr_cmd = data->commands;
+	}
 }
 
 // int fill_commands(t_data *data, int cmd_count)

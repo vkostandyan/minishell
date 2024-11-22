@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgalstya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:31:25 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/19 21:28:47 by kgalstya         ###   ########.fr       */
+/*   Updated: 2024/11/22 18:16:07 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "minishell.h"
 
 #include "minishell.h"
 
@@ -16,6 +18,7 @@ int create_tokens(t_data *data)
 {
     data->i = 0;
     data->j = 0;
+	
     while(data->input[data->i])
     {
         data->quotes_flag = NONE;

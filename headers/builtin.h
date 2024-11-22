@@ -13,7 +13,7 @@
 #ifndef BUILTIN_H
 # define BUILTIN_H
 
-# define PATH_MAX 1024
+//# define PATH_MAX 1024
 # define CWD_RETRIEVING_ERROR \
 	"error retrieving current directory: getcwd: \
 cannot access parent directories: No such file or directory"

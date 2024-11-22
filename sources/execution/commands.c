@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 16:08:28 by kgalstya          #+#    #+#             */
-/*   Updated: 2024/11/20 20:10:11 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/22 20:16:06 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,6 +231,8 @@ void	fill_commands(t_data *data)
 			return ;
 		data->curr_cmd->args[len] = NULL;
 	}
+	data->curr_cmd->stdin = -2;
+	data->curr_cmd->stdout = -2;
 }
 
 // int	open_file_and_remove_token(t_data *data)
