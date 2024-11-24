@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:17:10 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/24 20:45:52 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/24 21:20:38 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,9 @@ char				*get_value(struct t_env_export *env, char *key);
 char				**list_to_array(struct t_env_export *env);
 int					is_builtin(char *cmd);
 int	ft_isspace(char c);
+
+void set_clean_exit(t_data *data, int status);
+int	check_unset_name(char *name);
+void	ft_remove_var(struct t_env_export *prev, struct t_env_export *ptr);
 
 #endif

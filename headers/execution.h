@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 16:27:50 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/17 03:01:44 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/24 22:01:20 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,15 @@ int	handle_redir(t_data *data);
 void redir_dups(t_data *data);
 int open_heredoc(char *limiter);
 void	remove_heredoc_file(struct t_env_export *env);
+int	open_infile(char *name);
+int	open_outfile(char *name, int append);
+
+//--execute
+void	wait_and_status(pid_t pid, int *_status);
+void	get_path_and_execute(t_data *data);
+void	dups(t_data *data);
+void	clean_exit(t_data *data, int status);
+bool	is_directory(const char *path);
+int	is_absolute_path(t_data *data);
 
 #endif
