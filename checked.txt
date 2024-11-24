@@ -42,6 +42,6 @@ echo (except $?)
     }
 
 ❌
-    redirects (43/75)
+    redirects (49/75)
 
 Overall (323/358)

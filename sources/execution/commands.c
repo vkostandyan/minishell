@@ -6,59 +6,59 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 16:08:28 by kgalstya          #+#    #+#             */
-/*   Updated: 2024/11/24 12:32:08 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/24 16:27:05 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	count_commands(t_data *data)
-{
-	int	num;
-
-	num = 1;
-	data->current = data->tokens;
-	if(!data->current)
-		return (0);
-	if (data->current && data->current->type == PIPE)
-		data->current = data->current->next;
-	while (data->current)
-	{
-		if (data->current && data->current->next
-			&& data->current->type == REDIR)
-		{
-			data->current = data->current->next;
-			data->current = data->current->next;
-			if (data->current && data->current->type == PIPE)
-				data->current = data->current->next;
-			continue ;
-		}
-		else if (data->current && data->current->type == PIPE)
-			//&& (data->current->type == WORD))
-		{
-			num++;
-			data->current = data->current->next;
-		}
-		else
-			data->current = data->current->next;
-	}
-	return (num);
-}
-
-// int count_commands(t_data *data)
+// int	count_commands(t_data *data)
 // {
-// 	int num;
+// 	int	num;
 
 // 	num = 1;
 // 	data->current = data->tokens;
-// 	while(data->current)
-// 	{
-// 		if(data->current->type == PIPE) //&& (data->current->type == WORD))
-// 			num++;
+// 	if(!data->current)
+// 		return (0);
+// 	if (data->current && data->current->type == PIPE)
 // 		data->current = data->current->next;
+// 	while (data->current)
+// 	{
+// 		if (data->current && data->current->next
+// 			&& data->current->type == REDIR)
+// 		{
+// 			data->current = data->current->next;
+// 			data->current = data->current->next;
+// 			if (data->current && data->current->type == PIPE)
+// 				data->current = data->current->next;
+// 			continue ;
+// 		}
+// 		else if (data->current && data->current->type == PIPE)
+// 			//&& (data->current->type == WORD))
+// 		{
+// 			num++;
+// 			data->current = data->current->next;
+// 		}
+// 		else
+// 			data->current = data->current->next;
 // 	}
-// 	return(num);
+// 	return (num);
 // }
+
+int count_commands(t_data *data)
+{
+	int num;
+
+	num = 1;
+	data->current = data->tokens;
+	while(data->current)
+	{
+		if(data->current->type == PIPE) //&& (data->current->type == WORD))
+			num++;
+		data->current = data->current->next;
+	}
+	return(num);
+}
 
 // void fill_commands(t_data *data)
 // {
@@ -439,13 +439,18 @@ int	create_commands(t_data *data)
 	int			j;
 	t_command	*tmp;
 
+	// print_data(data);
 	data->pipe_count = count_commands(data) - 1;
+	// printf("pipe -> %d\n", data->pipe_count);
 	if(data->pipe_count < 0)
 		return (EXIT_SUCCESS); // erevi senc
 	data->commands = ft_lstnew_cmd();
+	data->commands->stdin = -2;
+	data->commands->stdout = -2;
 	i = 0;
 	while (i < data->pipe_count)
 	{
+		// printf("mtav\n");
 		tmp = ft_lstnew_cmd();
 		if (!tmp)
 			return (MALLOC_ERR);
@@ -454,8 +459,12 @@ int	create_commands(t_data *data)
 		ft_lstadd_back_cmd(&data->commands, tmp);
 		i++;
 	}
+	// handle_redir(data);
 	if(handle_redir(data) == EXIT_FAILURE)
+	{
+		// printf("hastat stexica -> %d\n", data->pipe_count);
 		return (EXIT_FAILURE);
+	}
 	// set_g_exit_status(handle_redir(data));
 	data->curr_cmd = data->commands;
 	data->current = data->tokens;

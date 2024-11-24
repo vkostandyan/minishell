@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 14:10:02 by kgalstya          #+#    #+#             */
-/*   Updated: 2024/11/22 18:16:48 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/24 17:53:33 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void make_new_cont(t_data *data, t_div	*div, char	*new_cont)
 	new_cont = ft_substr(data->current->original_content, div->i, ft_strlen(data->current->original_content));
 	free(data->current->original_content);
 	data->current->original_content = new_cont;
+	data->current->type = WORD;
 }
 
 int	connect_tokens(t_data *data)

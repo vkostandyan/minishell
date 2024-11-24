@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 20:32:07 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/18 13:23:59 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/24 14:15:59 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ struct t_env_export *add_oldpwd(t_data *data)
     {
         oldpwd = (struct t_env_export *)malloc(sizeof(struct t_env_export));
         if(!oldpwd)
-            exit_shell(data, MALLOC_ERR);
+            return(NULL);
         oldpwd->key = ft_strdup("OLDPWD");
         oldpwd->value = NULL;
         oldpwd->next = data->export;

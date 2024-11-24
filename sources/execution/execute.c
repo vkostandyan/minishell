@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 17:34:29 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/24 12:35:08 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/24 18:33:49 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,17 +81,23 @@ void check_and_exec2(t_data *data)
 			execve(data->curr_cmd->name, data->curr_cmd->args, list_to_array(data->env));	
 			minishell_error2(data->curr_cmd->name, strerror(errno), "");
 			clean_data(data);
+    		// system("leaks minishell");
+
 			exit(127);	
 		}
 		else
 		{
 			minishell_error2(data->curr_cmd->name, "", strerror(errno));
 			clean_data(data);
+    		// system("leaks minishell");
+
 			exit (127);
 		}
 	}
 	minishell_error2(data->curr_cmd->name, "", strerror(errno));
 	clean_data(data);
+    // system("leaks minishell");
+
 	exit (127);
 }
 
@@ -217,10 +223,14 @@ int	run_cmd(t_data *data)
 	{
 		dups(data);
 		redir_dups(data);
+		// if(is_absolute_path(data))
+		// 	check_and_exec(data);
 		if (data->curr_cmd->name && is_builtin(data->curr_cmd->name))
 		{
 			run_builtin(data, data->curr_cmd->args);
 			clean_data(data);
+			// system("leaks minishell");
+			
 			exit(get_g_exit_status());
 		}
 		get_path_and_execute(data);
@@ -305,6 +315,7 @@ int	execute(t_data *data)
 	{
 		set_g_exit_status(run_commands(data));
 		data->curr_cmd = data->curr_cmd->next;
+		// printf("execute \n");
 		// free_one_command(data);
 		data->pipe_index++;
 	}

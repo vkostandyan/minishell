@@ -1,6 +1,6 @@
 NAME = minishell
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3 #-lreadline
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3 #-lreadline
 CC = cc 
 
 SRCS = main.c
@@ -69,8 +69,8 @@ LIBFT = ft_lstadd_back.c \
         ft_putendl_fd.c \
         ft_substr.c \
         ft_memset.c \
-		ft_split.c \
-		ft_strlcpy.c \
+		    ft_split.c \
+		    ft_strlcpy.c \
         ft_strncat.c \
         ft_bzero.c 
 
@@ -104,7 +104,7 @@ SRCS += $(TOKENIZATION)
 
 OBJS = $(patsubst $(SRCS_DIR)%.c, $(OBJ_DIR)%.o, $(SRCS))
 
-all: ${NAME}
+all: config ${NAME} 
 
 config:
 	mkdir -p readline_local
