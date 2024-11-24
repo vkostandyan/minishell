@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 12:23:21 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/24 18:41:53 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/24 20:56:03 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,13 @@ int	cd_oldpwd(t_data *data)
 	if (chdir(oldpwd) != 0)
 		return (minishell_error2("cd", oldpwd, "No such file or directory"),
 			EXIT_FAILURE);
-	if(update_env(data->env, "PWD", ft_strdup(oldpwd)) != EXIT_SUCCESS)
+	if(update_env(data->env, "PWD", oldpwd) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
-	if(update_env(data->env, "OLDPWD", ft_strdup(pwd)) != EXIT_SUCCESS)
+	if(update_env(data->env, "OLDPWD", pwd) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
-	if(update_env(data->export, "PWD", ft_strdup(oldpwd)) != EXIT_SUCCESS)
+	if(update_env(data->export, "PWD", oldpwd) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
-	if(update_env(data->export, "OLDPWD", ft_strdup(pwd)) != EXIT_SUCCESS)
+	if(update_env(data->export, "OLDPWD", pwd) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
 	ft_putendl_fd(oldpwd, 1);
 	return (EXIT_SUCCESS);
