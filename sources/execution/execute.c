@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 17:34:29 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/22 21:31:07 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/24 12:35:08 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -303,12 +303,12 @@ int	execute(t_data *data)
 	data->curr_cmd = data->commands;
 	while (data->pipe_index <= data->pipe_count)
 	{
-		run_commands(data);
+		set_g_exit_status(run_commands(data));
 		data->curr_cmd = data->curr_cmd->next;
 		// free_one_command(data);
 		data->pipe_index++;
 	}
-	// close_pipes(data);
+	close_pipes(data);
 	k = 0;
 	while (k < data->index)
 	{

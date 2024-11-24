@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:18:20 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/21 16:10:01 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/24 12:32:54 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,27 +45,27 @@ int	open_outfile(char *name, int append)
 
 void	in_redir(t_data *data)
 {
-	if (data->commands->stdin > 0)
+	if (data->curr_cmd->stdin > 0)
 	{
-		if (dup2(data->commands->stdin, 0) < 0)
+		if (dup2(data->curr_cmd->stdin, 0) < 0)
 		{
 			minishell_error2("dup2 error", "", "");
 			set_g_exit_status(EXIT_FAILURE); // hrcneq chishty verna
 		}
-		close(data->commands->stdin);
+		close(data->curr_cmd->stdin);
 	}
 }
 
 void	out_redir(t_data *data)
 {
-	if (data->commands->stdout > 0)
+	if (data->curr_cmd->stdout > 0)
 	{
-		if (dup2(data->commands->stdout, 1) < 0)
+		if (dup2(data->curr_cmd->stdout, 1) < 0)
 		{
 			minishell_error2("dup2 error", "", "");
 			set_g_exit_status(EXIT_FAILURE); // hrcneq chishty verna
 		}
-		close(data->commands->stdout);
+		close(data->curr_cmd->stdout);
 	}
 }
 

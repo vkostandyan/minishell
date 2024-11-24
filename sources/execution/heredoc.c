@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 01:16:50 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/21 19:57:11 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/24 13:01:03 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,19 @@ int heredoc_loop(int fd, char *limiter)
     {
 		init_signals(2);
         cur = readline("> ");
-        if(!cur || ft_strcmp(cur, limiter) == 0 || get_g_exit_status() == EXIT_FAILURE)
+        if(!cur || ft_strcmp(cur, limiter) == 0)
         {
             free(cur);
             cur = NULL;
-			close(fd);
-			return(-1);
+            break ;
+			// close(fd);
+			// return(-1);
+        }
+        if(get_g_exit_status() == 247)
+        {
+            set_g_exit_status(1);
+            // close(fd);
+            return(-1);
         }
         write(fd, cur, ft_strlen(cur));
         write(fd, "\n", 1);

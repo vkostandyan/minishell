@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 16:51:02 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/21 20:02:03 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/24 12:51:25 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	handle_heredoc_sig(int sig)
 	write(1, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();
-	set_g_exit_status(1);
+	set_g_exit_status(247);
 }
 
 void init_signals(int type)

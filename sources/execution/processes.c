@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 19:45:22 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/22 21:29:41 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/11/24 12:06:43 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ int start_shell(t_data *data)
                 data->pipe_index = 0;
                 create_pipes(data);
                 execute(data);
-                remove_heredoc_file(data->env);
                 close_pipes(data);
                 free(data->fd);
                 data->fd = NULL;
                 free(data->pid);
                 data->pid = NULL;
+                remove_heredoc_file(data->env);
             }
             free_commands(data);
         }
