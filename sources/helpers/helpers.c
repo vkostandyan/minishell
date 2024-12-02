@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 20:03:31 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/24 21:23:16 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/02 18:58:41 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	clarify_shlvl(struct t_env_export *env_export)
 		shlvl = ft_atoi(temp->value);
 		shlvl++;
 		free(temp->value);
-		str = ft_itoa(shlvl);
+		str = ft_itoa(shlvl % 1000);
 		temp->value = ft_strdup(str);
 		free(str);
 	}
