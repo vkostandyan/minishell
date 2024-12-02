@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:25:48 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/22 16:39:26 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/02 16:37:18 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,14 +79,5 @@ struct t_env_export
 #include "builtin.h"
 #include "execution.h"
 #include "tokenization.h"
-
-// void tokenization(t_data *data);
-// void start_shell(t_data *data);
-// void	ft_lstadd_back(t_token **lst, t_token *new);
-// t_token	*ft_lstnew(void *content);
-
-void rl_replace_line (const char *, int);
-extern void rl_clear_history (void);
-
 
 #endif

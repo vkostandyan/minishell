@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 20:32:07 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/02 16:07:13 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/02 16:19:29 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,8 @@ int	export(t_data *data, char **args)
 		if (check_variable_name(args[i]) == EXIT_SUCCESS)
 		{
 			// data->export = set_variable(data->export, args[i]);
-			data->export = merge(set_variable(data->export, args[i]), ft_strcmp);
+			data->export = merge(set_variable(data->export, args[i]),
+					ft_strcmp);
 			data->env = set_variable(data->env, args[i]);
 		}
 		else
