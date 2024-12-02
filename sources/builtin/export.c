@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 20:32:07 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/02 15:35:17 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/02 16:07:13 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,10 @@ struct t_env_export	*add_node(struct t_env_export *export, char *key,
 {
 	struct t_env_export	*node;
 
-	if(update_env(export, key, value) == EXIT_SUCCESS)
+	if (update_env(export, key, value) == EXIT_SUCCESS)
 		return (export);
 	if (!key || !export)
-		return(NULL);
+		return (NULL);
 	node = (struct t_env_export *)malloc(sizeof(struct t_env_export));
 	if (!node)
 		return (NULL);
@@ -178,7 +178,7 @@ int	export(t_data *data, char **args)
 		if (check_variable_name(args[i]) == EXIT_SUCCESS)
 		{
 			// data->export = set_variable(data->export, args[i]);
-			data->export = set_variable(merge(data->export, ft_strcmp), args[i]);
+			data->export = merge(set_variable(data->export, args[i]), ft_strcmp);
 			data->env = set_variable(data->env, args[i]);
 		}
 		else
