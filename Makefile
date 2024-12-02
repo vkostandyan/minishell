@@ -28,10 +28,10 @@ EXECUTION = processes.c \
             signal.c \
             redirs.c \
             heredoc.c \
-            redir_helper.c \
+            pipe.c
+            #redir_helper.c \
             execute_helper.c \
             execute_helper_2.c \
-            pipe.c
 
 TOKENIZATION = tokenization.c \
                tokenization_utils.c \

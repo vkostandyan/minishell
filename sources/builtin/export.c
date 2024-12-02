@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 20:32:07 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/24 21:15:42 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/02 15:35:17 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	print_export(struct t_env_export *export)
 	struct t_env_export	*temp;
 
 	temp = export;
-	temp = merge(temp, ft_strcmp);
+	// temp = merge(temp, ft_strcmp);
 	while (temp)
 	{
 		if (temp->key)
@@ -100,14 +100,16 @@ struct t_env_export	*add_node(struct t_env_export *export, char *key,
 {
 	struct t_env_export	*node;
 
+	if(update_env(export, key, value) == EXIT_SUCCESS)
+		return (export);
 	if (!key || !export)
-		NULL;
+		return(NULL);
 	node = (struct t_env_export *)malloc(sizeof(struct t_env_export));
 	if (!node)
-		NULL;
-	node->key = ft_strdup(key);
+		return (NULL);
+	node->key = ft_strdup(key); // key
 	if (value)
-		node->value = ft_strdup(value);
+		node->value = ft_strdup(value); // value
 	else
 		node->value = NULL;
 	node->next = export;
@@ -175,7 +177,8 @@ int	export(t_data *data, char **args)
 	{
 		if (check_variable_name(args[i]) == EXIT_SUCCESS)
 		{
-			data->export = set_variable(data->export, args[i]);
+			// data->export = set_variable(data->export, args[i]);
+			data->export = set_variable(merge(data->export, ft_strcmp), args[i]);
 			data->env = set_variable(data->env, args[i]);
 		}
 		else

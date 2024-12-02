@@ -15,6 +15,8 @@
         "unordered_map": "c",
         "locale": "c",
         "chrono": "c",
-        "typeinfo": "c"
+        "typeinfo": "c",
+        "complex": "c",
+        "new": "c"
     }
 }
