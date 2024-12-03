@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 17:34:29 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/03 20:17:21 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/03 20:35:21 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,13 +161,6 @@ int	execute(t_data *data)
 	while (data->pipe_index <= data->pipe_count)
 	{
 		set_g_exit_status(run_commands(data));
-		if (data->pid[data->index] == -1)
-		{
-			minishell_error2("fork", "Resource temporarily unavailable", "");
-			// printf("mtav\n");
-			kill_processes(data);
-			break ;
-		}
 		data->curr_cmd = data->curr_cmd->next;
 		data->pipe_index++;
 	}
