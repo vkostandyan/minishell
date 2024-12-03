@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 16:08:28 by kgalstya          #+#    #+#             */
-/*   Updated: 2024/11/24 22:06:16 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/03 20:18:12 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ int	count_commands(t_data *data)
 			num++;
 		data->current = data->current->next;
 	}
+	if (num > 100)
+		return (set_g_exit_status(EXIT_FAILURE), minishell_error2("fork",
+				"Resource temporarily unavailable", ""), -1);
 	return (num);
 }
 
@@ -87,7 +90,7 @@ int	create_commands(t_data *data)
 
 	data->pipe_count = count_commands(data) - 1;
 	if (data->pipe_count < 0)
-		return (EXIT_SUCCESS);
+		return (EXIT_FAILURE);
 	data->commands = ft_lstnew_cmd();
 	i = 0;
 	while (i++ < data->pipe_count)

@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:18:20 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/02 16:41:34 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/03 20:20:41 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,15 +97,13 @@ int	handle_redir(t_data *data)
 				|| data->current->next->type == HEREDOC))
 		{
 			parse_error(data->current->next->original_content);
-			set_g_exit_status(2);//258
-			return (EXIT_FAILURE);
+			return (set_g_exit_status(2), EXIT_FAILURE); //258
 		}
 		if (data->current->type == REDIR && ((!data->current->next)
 				|| data->current->next->type == PIPE))
 		{
 			parse_error("newline");
-			set_g_exit_status(2);//258
-			return (EXIT_FAILURE);
+			return (set_g_exit_status(2), EXIT_FAILURE);//258
 		}
 		else if ((data->current->type == REDIR
 				|| data->current->type == HEREDOC) && (data->current->next

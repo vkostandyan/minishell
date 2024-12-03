@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 19:45:22 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/02 18:56:28 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/03 20:16:27 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,27 @@ void	shell_helper(t_data *data)
 	remove_heredoc_file(data->env);
 }
 
-void check_heredoc_limit(t_data *data)
+void	check_heredoc_limit(t_data *data)
 {
-    int here_count;
+	int	here_count;
 
-    here_count = 0;
-    data->current = data->tokens;
-    while(data->current)
-    {
-        if(data->current->type == HEREDOC)
-            here_count++;
-        data->current = data->current->next;
-    }
-    if(here_count > 16)
-    {
-        minishell_error2("maximum here-document count exceeded", "", "");
-        free_tokens(data);
-        free(data->input);
-        clean_data(data);
-        set_g_exit_status(2);
-        exit(2);
-    }
+	here_count = 0;
+	data->current = data->tokens;
+	while (data->current)
+	{
+		if (data->current->type == HEREDOC)
+			here_count++;
+		data->current = data->current->next;
+	}
+	if (here_count > 16)
+	{
+		minishell_error2("maximum here-document count exceeded", "", "");
+		free_tokens(data);
+		free(data->input);
+		clean_data(data);
+		set_g_exit_status(2);
+		exit(2);
+	}
 }
 
 int	start_shell(t_data *data)
@@ -62,7 +62,7 @@ int	start_shell(t_data *data)
 			add_history(data->input);
 		if (tokenization(data) == EXIT_SUCCESS)
 		{
-            check_heredoc_limit(data);
+			check_heredoc_limit(data);
 			if (create_commands(data) == EXIT_SUCCESS)
 			{
 				data->pid = malloc(sizeof(int) * (data->pipe_count + 1));
