@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 20:03:31 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/02 18:58:41 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/05 19:15:12 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,23 @@ void	clarify_shlvl(struct t_env_export *env_export)
 //     exit(exit_signal);
 // }
 
-void	parse_error(char *arg)
+char *parse_error(char *arg)
 {
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putstr_fd("syntax error near unexpected token `", STDERR_FILENO);
-	ft_putstr_fd(arg, STDERR_FILENO);
-	ft_putendl_fd("'", STDERR_FILENO);
+	// ft_putstr_fd("minishell: ", STDERR_FILENO);
+	// ft_putstr_fd("syntax error near unexpected token `", STDERR_FILENO);
+	// ft_putstr_fd(arg, STDERR_FILENO);
+	// ft_putendl_fd("'", STDERR_FILENO);
+	char *tmp;
+	char *result;
+
+	tmp = NULL;
+	result = NULL;
+	tmp = ft_strjoin("minishell: syntax error near unexpected token `", arg);
+	result = ft_strjoin(tmp, "'\n");
+	free(tmp);
+	tmp = NULL;
+	return (result);
+	
 }
 
 void	minishell_error(char *command, char *arg, char *message)

@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 14:10:02 by kgalstya          #+#    #+#             */
-/*   Updated: 2024/12/02 16:25:01 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/05 20:03:38 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,9 @@ int	redir_insertion(t_data *data)
 		data->current->type = REDIR;
 		if (!data->current->next)
 		{
-			parse_error("newline");
+			data->error = parse_error("newline");
+		// if
+			// parse_error("newline");
 			return (set_g_exit_status(2), EXIT_FAILURE); // 258
 		}
 	}
@@ -85,7 +87,9 @@ int	space_insertion(t_data *data)
 			&& data->current->next->type == SPACEO && data->current->next->next
 			&& data->current->next->next->type == REDIR)
 		{
-			parse_error(data->current->original_content);// ||
+			data->error = parse_error(data->current->original_content);
+		// if
+			// parse_error(data->current->original_content);// ||
 			return (set_g_exit_status(2), EXIT_FAILURE);// 258
 		}
 		data->current = data->current->next;

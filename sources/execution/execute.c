@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 17:34:29 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/03 20:35:21 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/05 20:30:17 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,14 @@ int	get_g_exit_status(void)
 // 	return (path);
 // }
 
+void handle_error(t_data *data)
+{
+	minishell_error2(NULL, "", data->curr_cmd->error);
+	clean_data(data);
+	set_g_exit_status(EXIT_FAILURE);
+	exit(EXIT_FAILURE);
+}
+
 int	run_cmd(t_data *data)
 {
 	data->pid[data->index] = fork();
@@ -63,6 +71,8 @@ int	run_cmd(t_data *data)
 	}
 	if (data->pid[data->index] == 0)
 	{
+		if(data->curr_cmd->error)
+			handle_error(data);
 		dups(data);
 		redir_dups(data);
 		if (data->curr_cmd->name && is_builtin(data->curr_cmd->name))
@@ -158,12 +168,20 @@ int	execute(t_data *data)
 	if (!data->tokens)
 		return (set_g_exit_status(EXIT_SUCCESS), EXIT_SUCCESS);
 	data->curr_cmd = data->commands;
+	// if(data->error)
+	// {
+	// 	// minishell_error
+	// 	write(STDERR_FILENO, data->error, ft_strlen(data->error));
+	// }
+	// else
+	// {
 	while (data->pipe_index <= data->pipe_count)
 	{
 		set_g_exit_status(run_commands(data));
 		data->curr_cmd = data->curr_cmd->next;
 		data->pipe_index++;
 	}
+	// }
 	close_pipes(data);
 	k = 0;
 	while (k < data->index)

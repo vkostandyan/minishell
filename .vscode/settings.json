@@ -17,6 +17,7 @@
         "chrono": "c",
         "typeinfo": "c",
         "complex": "c",
-        "new": "c"
+        "new": "c",
+        "ostream": "c"
     }
 }

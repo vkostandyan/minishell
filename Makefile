@@ -107,7 +107,7 @@ SRCS += $(TOKENIZATION)
 
 OBJS = $(patsubst $(SRCS_DIR)%.c, $(OBJ_DIR)%.o, $(SRCS))
 
-all: config ${NAME} 
+all: ${NAME} 
 
 config:
 	mkdir -p readline_local

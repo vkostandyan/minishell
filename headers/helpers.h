@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:51:02 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/02 16:31:54 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/05 19:09:19 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	print_list(struct t_env_export *env);
 void	minishell_error(char *cmd, char *arg, char *msg);
 void	minishell_error2(char *command, char *arg, char *message);
 int		check_variable_name(char *name);
-void	parse_error(char *arg);
+char *	parse_error(char *arg);
 
 //---- Global exit status
 void	set_g_exit_status(int new_status);

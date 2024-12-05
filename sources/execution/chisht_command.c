@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 22:10:00 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/02 16:51:24 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/05 18:29:11 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,8 @@ void	free_commands(t_data *data)
 		data->commands = data->commands->next;
 		free(data->curr_cmd->name);
 		data->curr_cmd->name = NULL;
+		free(data->curr_cmd->error);
+		data->curr_cmd->error = NULL;
 		free_array(data->curr_cmd->args);
 		free(data->curr_cmd);
 		data->curr_cmd = NULL;

@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 21:57:57 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/03 20:16:44 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/05 20:50:04 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,11 @@ void	get_path_and_execute(t_data *data)
 	}
 	path = get_command_path(path_args, data->curr_cmd->name);
 	free_array(path_args);
-	if (path)
-	{
+	// if (path)
+	// {
 		execve(path, data->curr_cmd->args, list_to_array(data->env));
 		minishell_error2(data->curr_cmd->name, "command not found", "");
 		clean_exit(data, 127);
-	}
-	check_and_exec2(data);
+	// }
+	// check_and_exec2(data);
 }

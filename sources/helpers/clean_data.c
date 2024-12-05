@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 15:25:46 by vkostand          #+#    #+#             */
-/*   Updated: 2024/11/24 21:21:28 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/05 19:02:34 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,11 @@ void	clean_data(t_data *data)
 	data->env = NULL;
 	free_env_export(data->export);
 	data->export = NULL;
+	if(data->error)
+	{
+		free(data->error);
+		data->error = NULL;
+	}
 }
 
 void	free_env_node(struct t_env_export *node)

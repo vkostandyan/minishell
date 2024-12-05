@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 14:10:02 by kgalstya          #+#    #+#             */
-/*   Updated: 2024/12/03 18:44:39 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/05 20:03:28 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,20 +62,26 @@ int	pipe_insertion(t_data *data)
 	data->current = data->tokens;
 	if (data->current && data->current->type == PIPE)
 	{
-		parse_error("|");// ||
+		data->error = parse_error("|");
+		// if
+		// parse_error("|");// ||
 		return (set_g_exit_status(2), EXIT_FAILURE);// 258
 	}
 	while (data->current)
 	{
 		if (data->current->type == PIPE && (!data->current->next))
 		{
-			parse_error("|");
+			data->error = parse_error("|");
+		// if
+			// parse_error("|");
 			return (set_g_exit_status(2), EXIT_FAILURE);// 258
 		}
 		if (data->current->type == PIPE && data->current->next
 			&& (data->current->next->type == HEREDOC))
 		{
-			parse_error("newline");
+			data->error = parse_error("newline");
+		// if
+			// parse_error("newline");
 			return (set_g_exit_status(2), EXIT_FAILURE);// 258
 		}
 		data->current = data->current->next;
@@ -89,12 +95,16 @@ int	check_heredoc(t_data *data)
 		return (set_g_exit_status(MALLOC_ERR), EXIT_FAILURE);
 	if (!data->current->next)
 	{
-		parse_error("newline");
+		data->error = parse_error("newline");
+		// if
+		// parse_error("newline");
 		return (set_g_exit_status(2), EXIT_FAILURE);// 258
 	}
 	else if (data->current->next->type == PIPE)
 	{
-		parse_error("|");
+		data->error = parse_error("|");
+		// if
+		// parse_error("|");
 		return (set_g_exit_status(2), EXIT_FAILURE);// 258
 	}
 	return (EXIT_SUCCESS);

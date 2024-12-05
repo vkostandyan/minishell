@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:25:48 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/02 16:37:18 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/05 19:01:06 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ struct s_data
     int     pipe_index;
     int *pid;
     int index;
+    char *error;
     
     // Karen
     int i;
