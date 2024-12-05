@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:18:20 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/05 20:47:30 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/05 21:01:38 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	open_file_and_remove_token_2(t_data *data)
 	if (ft_strcmp(data->current->original_content, "<<") == 0)
 	{
 		data->current = ft_lst_delone(&data->tokens, data->current);
-		data->curr_cmd->stdin = open_heredoc(data->current->original_content);
+		data->curr_cmd->stdin = open_heredoc(data, data->current->original_content, data->current->quotes);
 		if (data->curr_cmd->stdin == -1)
 		{
 			// join
