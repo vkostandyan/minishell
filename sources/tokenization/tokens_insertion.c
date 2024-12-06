@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 14:10:02 by kgalstya          #+#    #+#             */
-/*   Updated: 2024/12/05 20:03:38 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/06 18:12:25 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ int	redir_insertion(t_data *data)
 		if (!data->current->next)
 		{
 			data->error = parse_error("newline");
-		// if
-			// parse_error("newline");
-			return (set_g_exit_status(2), EXIT_FAILURE); // 258
+			if (!data->error)
+				return (set_g_exit_status(MALLOC_ERR), MALLOC_ERR);
+			return (set_g_exit_status(258), EXIT_FAILURE);
 		}
 	}
 	if (redir_helper(data, first, last, check_status))
@@ -88,9 +88,9 @@ int	space_insertion(t_data *data)
 			&& data->current->next->next->type == REDIR)
 		{
 			data->error = parse_error(data->current->original_content);
-		// if
-			// parse_error(data->current->original_content);// ||
-			return (set_g_exit_status(2), EXIT_FAILURE);// 258
+			if (!data->error)
+				return (set_g_exit_status(MALLOC_ERR), MALLOC_ERR);
+			return (set_g_exit_status(258), EXIT_FAILURE);
 		}
 		data->current = data->current->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 15:04:04 by kgalstya          #+#    #+#             */
-/*   Updated: 2024/12/05 19:08:31 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/06 17:55:14 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,7 @@ int	check_quotes_close(t_data *data)
 			while (data->input[i] && data->input[i] != '\'')
 				i++;
 			if (!data->input[i])
-			{
-				data->error = parse_error("'");
-		// if	
-				return (EXIT_FAILURE);
-				// return (parse_error("'"), EXIT_FAILURE);
-			}
+				return (data->error = parse_error("'"), EXIT_FAILURE);
 		}
 		else if (data->input[i] && data->input[i] == '"')
 		{
@@ -38,12 +33,7 @@ int	check_quotes_close(t_data *data)
 			while (data->input[i] && data->input[i] != '"')
 				i++;
 			if (!data->input[i])
-			{
-				data->error = parse_error("\"");
-		// if	
-				return (EXIT_FAILURE);
-				// return (parse_error("\""), EXIT_FAILURE);
-			}
+				return (data->error = parse_error("'"), EXIT_FAILURE);
 		}
 		i++;
 	}
