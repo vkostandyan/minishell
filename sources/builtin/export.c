@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 20:32:07 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/03 20:18:27 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/06 17:25:19 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	print_export(struct t_env_export *export)
 	struct t_env_export	*temp;
 
 	temp = export;
-	// temp = merge(temp, ft_strcmp);
 	while (temp)
 	{
 		if (temp->key)
@@ -107,9 +106,9 @@ struct t_env_export	*add_node(struct t_env_export *export, char *key,
 	node = (struct t_env_export *)malloc(sizeof(struct t_env_export));
 	if (!node)
 		return (NULL);
-	node->key = ft_strdup(key); // key
+	node->key = ft_strdup(key);
 	if (value)
-		node->value = ft_strdup(value); // value
+		node->value = ft_strdup(value);
 	else
 		node->value = NULL;
 	node->next = export;
