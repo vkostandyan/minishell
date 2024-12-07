@@ -6,82 +6,52 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 01:16:50 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/05 21:06:04 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/07 16:40:36 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	remove_heredoc_file(struct t_env_export *env)
+void	get_new_content(struct s_env_export *env, char *input, int *i, int fd)
 {
-	pid_t	pid;
+	char	*word;
+	char	*new_content;
+	int		j;
 
-	pid = fork();
-	if (pid == -1)
-		minishell_error2(FORK_ERR, "", "");
-	if (pid == 0)
-	{
-		execve("/bin/rm", (char *[4]){"rm", "-rf", HEREDOC_FILE, NULL},
-			list_to_array(env));
-	}
-	else
-	{
-		waitpid(pid, NULL, 0);
-		kill(pid, 0);
-	}
-}
-
-int have_dollar(char *str)
-{
-	int i;
-
-	i = 0;
-	while(str[i])
-	{
-		if(str[i] == '$')
-			return(1);
-		i++;
-	}
-	return(0);
-}
-
-void change_word(t_data *data, t_data *here, int lim_status, int fd)
-{
-	char *word;
-	char *new_content;
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	if(!here->input)
+	(*i)++;
+	j = *i;
+	while (input[*i] && (ft_isdigit(input[*i]) || ft_isalpha(input[*i])
+			|| input[*i] == '_'))
+		(*i)++;
+	word = ft_strndup(input, *i, j);
+	if (!word)
 		return ;
-	if(have_dollar(here->input) && lim_status == 0)
+	new_content = ft_strdup(get_value_from_env(env, word));
+	free(word);
+	if (!new_content)
+		return ;
+	write(fd, new_content, ft_strlen(new_content) + 1);
+	if (input[*i])
+		write(fd, &(input[*i]), 1);
+	free(new_content);
+	(void)i;
+}
+
+void	change_word(t_data *data, t_data *here, int lim_status, int fd)
+{
+	int	i;
+
+	i = 0;
+	if (!here->input)
+		return ;
+	if (have_dollar(here->input) && lim_status == 0)
 	{
-		while(here->input[i])
+		while (here->input[i])
 		{
-			if(here->input[i] == '$')
-			{
-				i++;
-				j = i;
-				if(here->input[i] == '$')
-				{
-					write(fd, "\n", 1);
-					return ;
-				}
-				while(here->input[i] && (ft_isdigit(here->input[i]) || ft_isalpha(here->input[i]) || here->input[i] == '_'))
-					i++;
-				word = ft_strndup(here->input, i, j);
-				new_content = ft_strdup(get_value_from_env(data->env, word));
-				if(new_content)
-				{
-					free(word);
-					write(fd, new_content, ft_strlen(new_content) + 1);
-					if(here->input[i])
-						write(fd, &(here->input[i]), 1);
-					free(new_content);
-				}
-			}
+			if (here->input[i] == '$' && here->input[i + 1] == '$')
+				break ;
+			if (here->input[i] == '$')
+				get_new_content(data->env, here->input, &i, fd);
 			else
 			{
 				write(fd, &(here->input[i]), 1);
@@ -91,15 +61,12 @@ void change_word(t_data *data, t_data *here, int lim_status, int fd)
 		write(fd, "\n", 1);
 	}
 	else
-	{
-		write(fd, here->input, ft_strlen(here->input) + 1);
-		write(fd, "\n", 1);
-	}
+		ft_putendl_fd(here->input, fd);
 }
 
 char	*get_key_from_env(t_data *data)
 {
-	struct t_env_export	*temp;
+	t_env_export	*temp;
 
 	temp = data->env;
 	if (data->value && !ft_strcmp(data->value, ft_itoa(get_g_exit_status())))
@@ -115,7 +82,7 @@ char	*get_key_from_env(t_data *data)
 
 int	heredoc_loop(t_data *data, int fd, char *limiter, int lim_status)
 {
-	t_data here;
+	t_data	here;
 
 	data->value = ft_strdup(limiter);
 	data->new_limiter = ft_strdup(get_key_from_env(data));
@@ -133,15 +100,12 @@ int	heredoc_loop(t_data *data, int fd, char *limiter, int lim_status)
 		if (get_g_exit_status() == 247)
 		{
 			set_g_exit_status(1);
-			free(here.input);
-			free(data->new_limiter);
-			return (-1);
+			return (free(here.input), free(data->new_limiter), -1);
 		}
 		change_word(data, &here, lim_status, fd);
 		here.input = NULL;
 	}
-	free(data->new_limiter);
-	return (close(fd), 0);
+	return (free(data->new_limiter), close(fd), 0);
 }
 
 int	open_heredoc(t_data *data, char *limiter, int lim_status)

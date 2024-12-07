@@ -1,28 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   heredoc_helper.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 20:38:59 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/07 16:03:21 by vkostand         ###   ########.fr       */
+/*   Created: 2024/12/07 16:39:36 by vkostand          #+#    #+#             */
+/*   Updated: 2024/12/07 16:40:34 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **env)
+void	remove_heredoc_file(t_env_export *env)
 {
-	t_data	data;
+	pid_t	pid;
 
-	(void)env;
-	init_data(&data, env);
-	rl_catch_signals = 0;
-	if (start_shell(&data))
-		printf("exit\n");
-	clean_data(&data);
-	(void)argc;
-	(void)argv;
+	pid = fork();
+	if (pid == -1)
+		minishell_error2(FORK_ERR, "", "");
+	if (pid == 0)
+	{
+		execve("/bin/rm", (char *[4]){"rm", "-rf", HEREDOC_FILE, NULL},
+			list_to_array(env));
+	}
+	else
+	{
+		waitpid(pid, NULL, 0);
+		kill(pid, 0);
+	}
+}
+
+int	have_dollar(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '$')
+			return (1);
+		i++;
+	}
 	return (0);
 }

@@ -29,6 +29,7 @@ EXECUTION = processes.c \
             redirs.c \
             heredoc.c \
             redir_helper.c \
+            heredoc_helper.c \
             execute_helper.c \
             execute_helper_2.c \
             pipe.c

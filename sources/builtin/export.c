@@ -6,15 +6,15 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 20:32:07 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/06 17:25:19 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/07 16:01:58 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_export(struct t_env_export *export)
+void	print_export(t_env_export *export)
 {
-	struct t_env_export	*temp;
+	t_env_export	*temp;
 
 	temp = export;
 	while (temp)
@@ -29,10 +29,10 @@ void	print_export(struct t_env_export *export)
 	}
 }
 
-struct t_env_export	*add_oldpwd(struct t_env_export *env)
+t_env_export	*add_oldpwd(t_env_export *env)
 {
-	struct t_env_export	*oldpwd;
-	struct t_env_export	*temp;
+	t_env_export	*oldpwd;
+	t_env_export	*temp;
 
 	oldpwd = NULL;
 	temp = env;
@@ -40,7 +40,7 @@ struct t_env_export	*add_oldpwd(struct t_env_export *env)
 		temp = temp->next;
 	if (!temp)
 	{
-		oldpwd = (struct t_env_export *)malloc(sizeof(struct t_env_export));
+		oldpwd = (t_env_export *)malloc(sizeof(t_env_export));
 		if (!oldpwd)
 			return (NULL);
 		oldpwd->key = ft_strdup("OLDPWD");
@@ -52,17 +52,17 @@ struct t_env_export	*add_oldpwd(struct t_env_export *env)
 		return (env);
 }
 
-// struct t_env_export *add_oldpwd(t_data *data)
+// t_env_export *add_oldpwd(t_data *data)
 // {
-//     struct t_env_export *oldpwd = NULL;
-//     struct t_env_export *temp;
+//     t_env_export *oldpwd = NULL;
+//     t_env_export *temp;
 
 //     temp = data->export;
 //     while(temp && ft_strcmp(temp->key, "OLDPWD") != 0)
 //         temp = temp->next;
 //     if(!temp)
 //     {
-//         oldpwd = (struct t_env_export *)malloc(sizeof(struct t_env_export));
+//         oldpwd = (t_env_export *)malloc(sizeof(t_env_export));
 //         if(!oldpwd)
 //             return(NULL);
 //         oldpwd->key = ft_strdup("OLDPWD");
@@ -74,13 +74,13 @@ struct t_env_export	*add_oldpwd(struct t_env_export *env)
 //         return (data->export);
 // }
 
-// int add_node(struct t_env_export **export, char *key, char *value)
+// int add_node(t_env_export **export, char *key, char *value)
 // {
-//     struct t_env_export *node;
+//     t_env_export *node;
 
 //     if (!key || !export || !*export)
 //         return (EXIT_FAILURE);
-//     node = (struct t_env_export *)malloc(sizeof(struct t_env_export));
+//     node = (t_env_export *)malloc(sizeof(t_env_export));
 //     if(!node)
 //         return (EXIT_FAILURE);
 //     node->key = ft_strdup(key);
@@ -94,16 +94,15 @@ struct t_env_export	*add_oldpwd(struct t_env_export *env)
 //     return (EXIT_SUCCESS);
 // }
 
-struct t_env_export	*add_node(struct t_env_export *export, char *key,
-		char *value)
+t_env_export	*add_node(t_env_export *export, char *key, char *value)
 {
-	struct t_env_export	*node;
+	t_env_export	*node;
 
 	if (update_env(export, key, value) == EXIT_SUCCESS)
 		return (export);
 	if (!key || !export)
 		return (NULL);
-	node = (struct t_env_export *)malloc(sizeof(struct t_env_export));
+	node = (t_env_export *)malloc(sizeof(t_env_export));
 	if (!node)
 		return (NULL);
 	node->key = ft_strdup(key);
@@ -116,11 +115,11 @@ struct t_env_export	*add_node(struct t_env_export *export, char *key,
 	return (export);
 }
 
-struct t_env_export	*set_variable(struct t_env_export *export, char *var)
+t_env_export	*set_variable(t_env_export *export, char *var)
 {
-	struct t_env_export	*new;
-	char				*key;
-	char				*value;
+	t_env_export	*new;
+	char			*key;
+	char			*value;
 
 	if (ft_strchr(var, '=') == 0)
 	{
@@ -135,7 +134,7 @@ struct t_env_export	*set_variable(struct t_env_export *export, char *var)
 	return (new);
 }
 
-// struct t_env_export *export(struct t_env_export *export, char **args)
+// t_env_export *export(t_env_export *export, char **args)
 // {
 //     int i;
 
@@ -190,7 +189,7 @@ int	export(t_data *data, char **args)
 	return (status);
 }
 
-// int export(struct t_env_export *export, char **args)
+// int export(t_env_export *export, char **args)
 // {
 //     int i;
 

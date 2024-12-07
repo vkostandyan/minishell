@@ -6,17 +6,17 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 20:03:31 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/06 17:26:02 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/07 16:03:42 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	clarify_shlvl(struct t_env_export *env_export)
+void	clarify_shlvl(t_env_export *env_export)
 {
-	int					shlvl;
-	struct t_env_export	*temp;
-	char				*str;
+	int				shlvl;
+	t_env_export	*temp;
+	char			*str;
 
 	temp = env_export;
 	while (temp && ft_strcmp("SHLVL", temp->key) != 0)

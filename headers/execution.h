@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 16:27:50 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/07 15:58:21 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/07 16:42:52 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int							open_heredoc(t_data *data, char *limiter,
 void						remove_heredoc_file(t_env_export *env);
 int							open_infile(char *name);
 int							open_outfile(char *name, int append);
+int							have_dollar(char *str);
 
 //--execute
 void						wait_and_status(pid_t pid, int *_status);

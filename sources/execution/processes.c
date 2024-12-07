@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 19:45:22 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/05 20:02:13 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/06 18:03:49 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 #define BLUE "\033[1;34m"
 #define RESET_COLOR "\033[0m"
-
 
 void	check_heredoc_limit(t_data *data)
 {
@@ -39,7 +38,6 @@ void	check_heredoc_limit(t_data *data)
 	}
 }
 
-
 void	shell_helper(t_data *data)
 {
 	data->index = 0;
@@ -50,6 +48,18 @@ void	shell_helper(t_data *data)
 	free(data->pid);
 	data->pid = NULL;
 	remove_heredoc_file(data->env);
+}
+
+void	free_in_loop(t_data *data)
+{
+	free_commands(data);
+	if (data->error)
+	{
+		free(data->error);
+		data->error = NULL;
+	}
+	free_tokens(data);
+	free(data->input);
 }
 
 int	start_shell(t_data *data)
@@ -65,22 +75,15 @@ int	start_shell(t_data *data)
 		tokenization(data);
 		check_heredoc_limit(data);
 		create_commands(data);
-		if(data->error)
+		if (data->error)
 			write(STDERR_FILENO, data->error, ft_strlen(data->error));
 		else
-		{		
+		{
 			data->pid = malloc(sizeof(int) * (data->pipe_count + 1));
 			if (!data->pid)
 				return (set_g_exit_status(MALLOC_ERR), EXIT_FAILURE);
 			shell_helper(data);
 		}
-		free_commands(data);	
-		if(data->error)
-		{
-			free(data->error);
-			data->error = NULL;
-		}
-		free_tokens(data);
-		free(data->input);
+		free_in_loop(data);
 	}
 }

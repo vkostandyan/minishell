@@ -6,21 +6,21 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:18:20 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/05 21:01:38 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/06 18:59:27 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char *get_error_message(t_data *data)
+char	*get_error_message(t_data *data)
 {
-	char *tmp;
-	char *result;
+	char	*tmp;
+	char	*result;
 
 	tmp = NULL;
 	result = NULL;
 	tmp = ft_strjoin(data->current->original_content, ": ");
-	if(!tmp)
+	if (!tmp)
 		return (NULL);
 	result = ft_strjoin(tmp, strerror(errno));
 	free(tmp);
@@ -32,17 +32,11 @@ int	open_file_and_remove_token_2(t_data *data)
 	if (ft_strcmp(data->current->original_content, "<<") == 0)
 	{
 		data->current = ft_lst_delone(&data->tokens, data->current);
-		data->curr_cmd->stdin = open_heredoc(data, data->current->original_content, data->current->quotes);
+		data->curr_cmd->stdin = open_heredoc(data,
+				data->current->original_content, data->current->quotes);
 		if (data->curr_cmd->stdin == -1)
 		{
-			// join
-			// data->curr_cmd->error = ft_strdup(strerror(errno));
 			data->curr_cmd->error = get_error_message(data);
-			if (!data->curr_cmd->error)
-			{
-				return (MALLOC_ERR);
-				//malloc_error
-			}
 			return (EXIT_FAILURE);
 		}
 	}
@@ -54,10 +48,7 @@ int	open_file_and_remove_token_2(t_data *data)
 		{
 			data->curr_cmd->error = get_error_message(data);
 			if (!data->curr_cmd->error)
-			{
 				return (MALLOC_ERR);
-				//malloc_error
-			}
 			return (EXIT_FAILURE);
 		}
 	}
@@ -75,15 +66,8 @@ int	open_file_and_remove_token(t_data *data)
 		data->curr_cmd->stdout = open_outfile(data->current->original_content,
 				1);
 		if (data->curr_cmd->stdout == -1)
-		{
-			data->curr_cmd->error = get_error_message(data);
-			if (!data->curr_cmd->error)
-			{
-				return (MALLOC_ERR);
-				//malloc_error
-			}
-			return (EXIT_FAILURE);
-		}
+			return (data->curr_cmd->error = get_error_message(data),
+				EXIT_FAILURE);
 	}
 	else if (data->current->original_content[0] == '>')
 	{
@@ -91,15 +75,8 @@ int	open_file_and_remove_token(t_data *data)
 		data->curr_cmd->stdout = open_outfile(data->current->original_content,
 				0);
 		if (data->curr_cmd->stdout == -1)
-		{
-			data->curr_cmd->error = get_error_message(data);
-			if (!data->curr_cmd->error)
-			{
-				return (MALLOC_ERR);
-				//malloc_error
-			}
-			return (EXIT_FAILURE);
-		}
+			return (data->curr_cmd->error = get_error_message(data),
+				EXIT_FAILURE);
 	}
 	else
 		status = open_file_and_remove_token_2(data);
@@ -142,9 +119,9 @@ int	handle_redir_2(t_data *data)
 			|| data->current->next->type == HEREDOC))
 	{
 		data->error = parse_error(data->current->next->original_content);
-		// if
-		// parse_error(data->current->next->original_content);
-		return (set_g_exit_status(2), EXIT_FAILURE); // 258
+		if (!data->error)
+			return (set_g_exit_status(MALLOC_ERR), MALLOC_ERR);
+		return (set_g_exit_status(258), EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }
@@ -157,14 +134,10 @@ int	handle_redir(t_data *data)
 	{
 		if (handle_redir_2(data) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
-		if (data->current && data->current->type == REDIR && ((!data->current->next)
-				|| data->current->next->type == PIPE))
-		{
-			data->error = parse_error("newline");
-		// if	
-			// parse_error("newline");
-			return (set_g_exit_status(2), EXIT_FAILURE); // 258
-		}
+		if (data->current && data->current->type == REDIR
+			&& ((!data->current->next) || data->current->next->type == PIPE))
+			return (data->error = parse_error("newline"),
+				set_g_exit_status(258), EXIT_FAILURE);
 		else if (data->current && (data->current->type == REDIR
 				|| data->current->type == HEREDOC) && (data->current->next
 				&& data->current->next->type == WORD))
