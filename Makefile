@@ -111,10 +111,19 @@ OBJS = $(patsubst $(SRCS_DIR)%.c, $(OBJ_DIR)%.o, $(SRCS))
 all: ${NAME} 
 
 config:
-	mkdir -p readline_local
-	./readline_config.sh readline_local
+  
+	@if [ ! -d "readline_local" ]; then \
+		curl -O https://ftp.gnu.org/gnu/readline/readline-8.2.tar.gz; \
+		tar -xpf readline-8.2.tar.gz; \
+		rm -rf readline-8.2.tar.gz; \
+		cd readline-8.2; \
+		mkdir -p ./readline_local; \
+		./configure --prefix="/Users/vkostand/Desktop/minishell/readline_local"; \
+    make; \
+    make install; \
+	fi		
 
-${NAME}: ${OBJS} Makefile
+${NAME}: config ${OBJS} Makefile
 	@${CC} ${CFLAGS}  -I$(HEADER_DIR) -I./readline_local/include ${OBJS} -Lreadline_local/lib -lreadline -o ${NAME}
 
 $(OBJ_DIR)%.o: $(SRCS_DIR)%.c
@@ -126,7 +135,9 @@ clean:
 
 fclean: clean
 	rm -rf ${NAME}
+	rm -rf readline-8.2
+	rm -rf readline_local
 
 re: fclean ${NAME}
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re config
