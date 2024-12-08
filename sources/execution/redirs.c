@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:18:20 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/07 20:26:12 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/08 18:42:11 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	open_file_and_remove_token_2(t_data *data)
 	else
 	{
 		data->current = ft_lst_delone(&data->tokens, data->current);
-		data->curr_cmd->stdin = open_infile(data->current->original_content);
+		data->curr_cmd->stdin = open_infile(data, data->current->original_content);
 		if (data->curr_cmd->stdin == -1)
 		{
 			data->curr_cmd->error = get_error_message(data);
@@ -63,7 +63,7 @@ int	open_file_and_remove_token(t_data *data)
 	if (ft_strcmp(data->current->original_content, ">>") == 0)
 	{
 		data->current = ft_lst_delone(&data->tokens, data->current);
-		data->curr_cmd->stdout = open_outfile(data->current->original_content,
+		data->curr_cmd->stdout = open_outfile(data, data->current->original_content,
 				1);
 		if (data->curr_cmd->stdout == -1)
 			return (data->curr_cmd->error = get_error_message(data),
@@ -72,7 +72,7 @@ int	open_file_and_remove_token(t_data *data)
 	else if (data->current->original_content[0] == '>')
 	{
 		data->current = ft_lst_delone(&data->tokens, data->current);
-		data->curr_cmd->stdout = open_outfile(data->current->original_content,
+		data->curr_cmd->stdout = open_outfile(data, data->current->original_content,
 				0);
 		if (data->curr_cmd->stdout == -1)
 			return (data->curr_cmd->error = get_error_message(data),
@@ -133,6 +133,9 @@ int	handle_redir(t_data *data)
 {
 	data->current = data->tokens;
 	data->curr_cmd = data->commands;
+	int tmp;
+
+	tmp = 0;
 	while (data->curr_cmd && data->current)
 	{
 		if (handle_redir_2(data) == EXIT_FAILURE)
@@ -145,7 +148,8 @@ int	handle_redir(t_data *data)
 			&& (data->current->type == REDIR || data->current->type == HEREDOC)
 			&& (data->current->next && data->current->next->type == WORD))
 		{
-			if (open_file_and_remove_token(data) && data->pipe_count < 1)
+			tmp = open_file_and_remove_token(data);
+			if (tmp == EXIT_FAILURE && data->pipe_count < 1)
 				return (EXIT_FAILURE);
 		}
 		else if (data->current)
