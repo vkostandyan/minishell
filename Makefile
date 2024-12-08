@@ -11,8 +11,6 @@ HEADER =  libft.h \
           minishell.h \
           tokenization.h
 
-VALIDATION = 
-
 HELPERS = merge.c \
            helpers.c \
            clean_data.c \
@@ -107,23 +105,25 @@ SRCS += $(VALIDATION)
 SRCS += $(TOKENIZATION)
 
 OBJS = $(patsubst $(SRCS_DIR)%.c, $(OBJ_DIR)%.o, $(SRCS))
+READLINE_DIR = /readline_local
+READLINE_PATH := $(addprefix $(shell pwd), $(READLINE_DIR))
 
 all: ${NAME} 
 
 config:
-  
+
 	@if [ ! -d "readline_local" ]; then \
 		curl -O https://ftp.gnu.org/gnu/readline/readline-8.2.tar.gz; \
 		tar -xpf readline-8.2.tar.gz; \
 		rm -rf readline-8.2.tar.gz; \
-		cd readline-8.2; \
 		mkdir -p ./readline_local; \
-		./configure --prefix="/Users/vkostand/Desktop/minishell/readline_local"; \
+		cd readline-8.2; \
+    ./configure --prefix="${READLINE_PATH}"; \
     make; \
     make install; \
 	fi		
 
-${NAME}: config ${OBJS} Makefile
+${NAME}: Makefile ${OBJS}
 	@${CC} ${CFLAGS}  -I$(HEADER_DIR) -I./readline_local/include ${OBJS} -Lreadline_local/lib -lreadline -o ${NAME}
 
 $(OBJ_DIR)%.o: $(SRCS_DIR)%.c
@@ -135,8 +135,7 @@ clean:
 
 fclean: clean
 	rm -rf ${NAME}
-	rm -rf readline-8.2
-	rm -rf readline_local
+
 
 re: fclean ${NAME}
 

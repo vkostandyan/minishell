@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 16:27:50 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/07 16:42:52 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/07 22:04:03 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void						redir_dups(t_data *data);
 // int				open_heredoc(char *limiter);
 int							open_heredoc(t_data *data, char *limiter,
 								int lim_status);
-void						remove_heredoc_file(t_env_export *env);
+void						remove_heredoc_file(void);
 int							open_infile(char *name);
 int							open_outfile(char *name, int append);
 int							have_dollar(char *str);

@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 01:16:50 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/07 16:40:36 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/07 22:51:43 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,20 @@ void	change_word(t_data *data, t_data *here, int lim_status, int fd)
 char	*get_key_from_env(t_data *data)
 {
 	t_env_export	*temp;
+	char			*tmp;
 
 	temp = data->env;
-	if (data->value && !ft_strcmp(data->value, ft_itoa(get_g_exit_status())))
-		return ("$?");
+	tmp = ft_itoa(get_g_exit_status());
+	if (data->value && !ft_strcmp(data->value, tmp))
+		return (free(tmp), ft_strdup("$?"));
+	free(tmp);
 	while (temp)
 	{
 		if (temp->value && (ft_strcmp(temp->value, data->value) == 0))
 			return (ft_strjoin("$", temp->key));
 		temp = temp->next;
 	}
-	return (data->value);
+	return (ft_strdup(data->value));
 }
 
 int	heredoc_loop(t_data *data, int fd, char *limiter, int lim_status)
@@ -85,11 +88,11 @@ int	heredoc_loop(t_data *data, int fd, char *limiter, int lim_status)
 	t_data	here;
 
 	data->value = ft_strdup(limiter);
-	data->new_limiter = ft_strdup(get_key_from_env(data));
+	data->new_limiter = get_key_from_env(data);
 	free(data->value);
+	init_signals(3);
 	while (1)
 	{
-		init_signals(2);
 		here.input = readline("> ");
 		if (!here.input || ft_strcmp(here.input, data->new_limiter) == 0)
 		{
@@ -98,11 +101,10 @@ int	heredoc_loop(t_data *data, int fd, char *limiter, int lim_status)
 			break ;
 		}
 		if (get_g_exit_status() == 247)
-		{
-			set_g_exit_status(1);
 			return (free(here.input), free(data->new_limiter), -1);
-		}
 		change_word(data, &here, lim_status, fd);
+		if (here.input)
+			free(here.input);
 		here.input = NULL;
 	}
 	return (free(data->new_limiter), close(fd), 0);

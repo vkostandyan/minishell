@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 17:34:29 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/06 18:15:56 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/07 22:49:44 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	get_g_exit_status(void)
 
 int	run_cmd(t_data *data)
 {
+	init_signals(2);
 	data->pid[data->index] = fork();
 	if (data->pid[data->index] == -1)
 	{

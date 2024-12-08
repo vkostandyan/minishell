@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 19:45:22 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/06 18:03:49 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/08 17:30:51 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,35 +47,49 @@ void	shell_helper(t_data *data)
 	close_pipes(data);
 	free(data->pid);
 	data->pid = NULL;
-	remove_heredoc_file(data->env);
+	remove_heredoc_file();
 }
 
 void	free_in_loop(t_data *data)
 {
-	free_commands(data);
+	if (data->commands)
+		free_commands(data);
 	if (data->error)
 	{
 		free(data->error);
 		data->error = NULL;
 	}
-	free_tokens(data);
-	free(data->input);
+	if (data->tokens)
+		free_tokens(data);
+	if (data->input)
+		free(data->input);
+}
+
+void	shell_helper2(t_data *data)
+{
+	if (data->input && data->input[0])
+		add_history(data->input);
+	tokenization(data);
+	check_heredoc_limit(data);
+	create_commands(data);
 }
 
 int	start_shell(t_data *data)
 {
+	rl_catch_signals = 0;
 	while (1)
 	{
 		init_signals(1);
 		data->input = readline(BLUE "Verishen: " RESET_COLOR);
 		if (!data->input)
 			return (EXIT_FAILURE);
-		if (data->input)
-			add_history(data->input);
-		tokenization(data);
-		check_heredoc_limit(data);
-		create_commands(data);
-		if (data->error)
+		shell_helper2(data);
+		if (get_g_exit_status() == 247)
+		{
+			remove_heredoc_file();
+			set_g_exit_status(1);
+		}
+		else if (data->error)
 			write(STDERR_FILENO, data->error, ft_strlen(data->error));
 		else
 		{

@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 21:37:02 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/06 18:00:47 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/08 17:31:48 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	open_outfile(char *name, int append)
 	int	fd;
 
 	if (append)
-		fd = open(name, O_WRONLY | O_APPEND, 0777);
+		fd = open(name, O_WRONLY | O_CREAT | O_APPEND, 0777);
 	else
 		fd = open(name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	return (fd);

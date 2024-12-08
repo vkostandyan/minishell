@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:18:20 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/06 18:59:27 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/07 20:26:12 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,10 @@ int	open_file_and_remove_token(t_data *data)
 int	handle_redir_2(t_data *data)
 {
 	if (data->current && data->current->type == PIPE)
+	{
 		data->current = data->current->next;
+		data->curr_cmd = data->curr_cmd->next;
+	}
 	if (data->current && data->current->next && data->current->type == REDIR
 		&& (data->current->next->type == REDIR
 			|| data->current->next->type == HEREDOC))
@@ -130,7 +133,7 @@ int	handle_redir(t_data *data)
 {
 	data->current = data->tokens;
 	data->curr_cmd = data->commands;
-	while (data->current)
+	while (data->curr_cmd && data->current)
 	{
 		if (handle_redir_2(data) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
@@ -138,9 +141,9 @@ int	handle_redir(t_data *data)
 			&& ((!data->current->next) || data->current->next->type == PIPE))
 			return (data->error = parse_error("newline"),
 				set_g_exit_status(258), EXIT_FAILURE);
-		else if (data->current && (data->current->type == REDIR
-				|| data->current->type == HEREDOC) && (data->current->next
-				&& data->current->next->type == WORD))
+		else if (data->curr_cmd && data->current
+			&& (data->current->type == REDIR || data->current->type == HEREDOC)
+			&& (data->current->next && data->current->next->type == WORD))
 		{
 			if (open_file_and_remove_token(data) && data->pipe_count < 1)
 				return (EXIT_FAILURE);
