@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:30:53 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/07 16:02:05 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/13 20:39:42 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,56 @@ char	*find_value(char *key_value)
 	value[j] = '\0';
 	return (value);
 }
+
+char	*find_value2(char *key_value)
+{
+	int		i;
+	int		j;
+	char	*value;
+
+	i = 0;
+	j = 0;
+	if (!key_value)
+		return (NULL);
+	while (key_value[i] && key_value[i] != '=')
+		i++;
+	if (!key_value[i])
+		return (NULL);
+	value = (char *)malloc(sizeof(char) * (strlen(key_value) - i));
+	if (!value)
+		return (NULL);
+	i++;
+	while (key_value[i])
+		value[j++] = key_value[i++];
+	value[j] = '\0';
+	return (value);
+}
+
+// char *find_value2(char *key_value)
+// {
+// 	int		i;
+// 	int		j;
+// 	char	*value;
+
+// 	if (!key_value)
+// 		return (NULL);
+// 	i = 0;
+// 	while (key_value[i] && key_value[i] != '=')
+// 		i++;
+// 	if(key_value || !key_value[i])
+// 		return (NULL);
+// 	value = (char *)malloc(sizeof(char) * ft_strlen(key_value) - i);
+// 	if(!value)
+// 		return (NULL);
+// 	i++;
+// 	j = 0;
+// 	while(key_value[i])
+// 	{
+// 		value[j++] = key_value[i++];
+// 	}
+// 	value[j] = '\0';
+// 	return (value);
+// }
 
 t_env_export	*init_env(char **env)
 {
