@@ -6,28 +6,11 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 20:32:07 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/13 20:50:36 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/13 20:56:30 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	print_export(t_env_export *export)
-{
-	t_env_export	*temp;
-
-	temp = export;
-	while (temp)
-	{
-		if (temp->key)
-			printf("declare -x %s", temp->key);
-		if (temp->value)
-			printf("=\"%s\"\n", temp->value);
-		else
-			printf("\n");
-		temp = temp->next;
-	}
-}
 
 t_env_export	*add_oldpwd(t_env_export *env)
 {
@@ -73,21 +56,21 @@ t_env_export	*add_node(t_env_export *export, char *key, char *value)
 	return (export);
 }
 
-int update_variable(t_env_export *export, char *key, char *value)
+int	update_variable(t_env_export *export, char *key, char *value)
 {
-	t_env_export *temp;
-	
+	t_env_export	*temp;
+
 	temp = export;
-	while(temp)
+	while (temp)
 	{
-		if(ft_strcmp(key, temp->key) == 0)
+		if (ft_strcmp(key, temp->key) == 0)
 		{
-			if(value)
+			if (value)
 			{
 				free(temp->value);
 				temp->value = value;
 			}
-			return (EXIT_SUCCESS);		
+			return (EXIT_SUCCESS);
 		}
 		temp = temp->next;
 	}
@@ -101,9 +84,9 @@ t_env_export	*set_variable(t_env_export *export, char *var)
 	char			*value;
 
 	key = find_key(var);
-	value = find_value2(var);
-	if(update_variable(export, key, value) == EXIT_SUCCESS)
-		return(free(key), export);
+	value = find_value(var);
+	if (update_variable(export, key, value) == EXIT_SUCCESS)
+		return (free(key), export);
 	if (ft_strchr(var, '=') == 0)
 	{
 		new = add_node(export, var, NULL);
@@ -130,7 +113,6 @@ int	export(t_data *data, char **args)
 	{
 		if (check_variable_name(args[i]) == EXIT_SUCCESS)
 		{
-			// data->export = set_variable(data->export, args[i]);
 			data->export = merge(set_variable(data->export, args[i]),
 					ft_strcmp);
 			data->env = set_variable(data->env, args[i]);
