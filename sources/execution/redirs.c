@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:18:20 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/13 20:57:26 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/14 18:57:48 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int	handle_redir_2(t_data *data)
 		&& (data->current->next->type == REDIR
 			|| data->current->next->type == HEREDOC))
 	{
-		data->error = parse_error(data->current->next->original_content);
+		set_parse_error(data, data->current->next->original_content);
 		if (!data->error)
 			return (set_g_exit_status(MALLOC_ERR), MALLOC_ERR);
 		return (set_g_exit_status(258), EXIT_FAILURE);
@@ -140,7 +140,7 @@ int	handle_redir(t_data *data)
 			return (EXIT_FAILURE);
 		if (data->current && data->current->type == REDIR
 			&& ((!data->current->next) || data->current->next->type == PIPE))
-			return (data->error = parse_error("newline"),
+			return (set_parse_error(data, "newline"),
 				set_g_exit_status(258), EXIT_FAILURE);
 		else if (data->curr_cmd && data->current
 			&& (data->current->type == REDIR || data->current->type == HEREDOC)

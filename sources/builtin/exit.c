@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 17:36:18 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/14 18:04:26 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/14 18:17:02 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,6 @@ void	exit_check(int flag, t_data *data)
 	if (!flag)
 	{
 		clean_data(data);
-		printf("status -> %d\n", get_g_exit_status());
-		write(2, "mechina\n", 8);
 		exit(get_g_exit_status());
 	}
 }
