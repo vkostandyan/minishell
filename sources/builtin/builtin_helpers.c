@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:20:11 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/14 23:55:35 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/14 23:58:50 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	list_to_array_2(t_env_export *temp, char **matrix, int i)
 	{
 		matrix[i] = ft_strdup(temp->key);
 		if (!matrix[i])
-			return (free_array(matrix), NULL);
+			return (free_array(matrix), EXIT_FAILURE);
 	}
 	else
 	{
@@ -57,8 +57,9 @@ int	list_to_array_2(t_env_export *temp, char **matrix, int i)
 		matrix[i] = ft_strjoin2(tmp, temp->value);
 		free(tmp);
 		if (!matrix[i])
-			return (free_array(matrix), NULL);
+			return (free_array(matrix), EXIT_FAILURE);
 	}
+	return (EXIT_SUCCESS);
 }
 
 char	**list_to_array(t_env_export *env)
@@ -66,7 +67,6 @@ char	**list_to_array(t_env_export *env)
 	char			**matrix;
 	t_env_export	*temp;
 	int				i;
-	char			*tmp;
 
 	matrix = (char **)malloc(sizeof(char *) * (count_env_len(env) + 1));
 	if (!matrix)
@@ -75,7 +75,7 @@ char	**list_to_array(t_env_export *env)
 	temp = env;
 	while (temp)
 	{
-		if (!list_to_array_2(temp, matrix, i))
+		if (list_to_array_2(temp, matrix, i) == EXIT_FAILURE)
 			return (NULL);
 		i++;
 		temp = temp->next;
