@@ -50,7 +50,8 @@ BUILTIN = cd.c \
          unset.c \
          export.c \
          builtin_helpers.c \
-         builtin_helpers_2.c
+         builtin_helpers_2.c \
+         builtin_helpers_3.c
 
 
 LIBFT = ft_lstadd_back.c \

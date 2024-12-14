@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 20:32:07 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/13 20:56:30 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/14 23:45:08 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ t_env_export	*add_node(t_env_export *export, char *key, char *value)
 	else
 		node->value = NULL;
 	node->next = export;
-	export = node;
-	return (export);
+	return (node);
 }
 
 int	update_variable(t_env_export *export, char *key, char *value)
