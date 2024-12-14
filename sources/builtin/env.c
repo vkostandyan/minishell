@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:30:53 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/13 20:53:06 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/14 20:15:10 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	update_env(t_env_export *env, char *key, char *value)
 	{
 		if (ft_strcmp(temp->key, key) == 0)
 		{
+			printf("%s = %s\n", key, value);
 			free(temp->value);
 			temp->value = ft_strdup(value);
 			if (!temp->value)
