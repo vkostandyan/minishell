@@ -6,7 +6,7 @@
 /*   By: vkostand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:20:11 by vkostand          #+#    #+#             */
-/*   Updated: 2024/12/14 23:58:50 by vkostand         ###   ########.fr       */
+/*   Updated: 2024/12/15 00:39:50 by vkostand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	list_to_array_2(t_env_export *temp, char **matrix, int i)
 {
 	char	*tmp;
 
-	if (temp->value)
+	if (!temp->value)
 	{
 		matrix[i] = ft_strdup(temp->key);
 		if (!matrix[i])
@@ -53,7 +53,7 @@ int	list_to_array_2(t_env_export *temp, char **matrix, int i)
 	}
 	else
 	{
-		tmp = ft_strjoin2(temp->key, "=");
+		tmp = ft_strjoin(temp->key, "=");
 		matrix[i] = ft_strjoin2(tmp, temp->value);
 		free(tmp);
 		if (!matrix[i])
